@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GATE CSE 2027 Tracker</title>
+  <meta name="description" content="GATE CSE 2027 study tracker — official syllabus map with depth guide, PYQ mapping, day-by-day plan, spaced revision, mocks and error log.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="logo">🎯</div>
+      <div>
+        <h1>GATE CSE 2027 Tracker</h1>
+        <p id="hello">Target: AIR &lt; 100 🎯</p>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Sections">
+      <button data-view="dash">Aaj</button>
+      <button data-view="plan">Plan</button>
+      <button data-view="syll">Syllabus</button>
+      <button data-view="mocks">Mocks</button>
+      <button data-view="errors">Error Log</button>
+      <button data-view="claude">Claude</button>
+      <button data-view="settings">⚙️</button>
+    </nav>
+  </header>
+  <main id="view"></main>
+  <footer class="foot">Data sirf aapke browser me save hota hai — Settings se weekly backup export karo.</footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="js/syllabus.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

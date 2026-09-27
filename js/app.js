@@ -1,0 +1,698 @@
+// GATE CSE 2027 Tracker — app logic. Data browser ke localStorage me save hota hai.
+(function () {
+  "use strict";
+
+  const STORE_KEY = "gateCseTracker.v1";
+  const DEFAULT_SETTINGS = {
+    name: "",
+    examDate: "2027-02-06",
+    syllabusDeadline: "2026-11-30",
+    hoursTarget: 10,
+    mockTarget: 75,
+  };
+
+  // ---------- date helpers (local time) ----------
+  const pad = (n) => String(n).padStart(2, "0");
+  const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const parse = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const addDays = (s, n) => { const d = parse(s); d.setDate(d.getDate() + n); return ymd(d); };
+  const diffDays = (a, b) => Math.round((parse(a) - parse(b)) / 86400000); // a - b
+  const today = () => ymd(new Date());
+  const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const fmt = (s) => { const d = parse(s); return `${DOW[d.getDay()]}, ${d.getDate()} ${d.toLocaleString("en", { month: "short" })}`; };
+
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const SUBJ = Object.fromEntries(SUBJECTS.map((s) => [s.id, s]));
+
+  // ---------- state ----------
+  function blankState() {
+    return { settings: { ...DEFAULT_SETTINGS }, topics: {}, subs: {}, pyq: {}, days: {}, mocks: [], errors: [] };
+  }
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return blankState();
+      const s = JSON.parse(raw);
+      const b = blankState();
+      return { ...b, ...s, settings: { ...b.settings, ...(s.settings || {}) } };
+    } catch (e) {
+      return blankState();
+    }
+  }
+  let state = load();
+  function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { toast("Save nahi hua — browser storage blocked hai. Export backup lo!"); }
+  }
+
+  const tKey = (sid, i) => `${sid}:${i}`;
+  function getT(subj, i) {
+    return state.topics[tKey(subj.id, i)] || { learned: subj.status === "revise", conf: 0 };
+  }
+  function setT(subj, i, patch) {
+    state.topics[tKey(subj.id, i)] = { ...getT(subj, i), ...patch };
+    save();
+  }
+  const getDay = (ds) => state.days[ds] || { tasks: {}, hours: "", qa: "", qc: "", note: "" };
+  function setDay(ds, patch) { state.days[ds] = { ...getDay(ds), ...patch }; save(); }
+
+  // ---------- plan engine ----------
+  function planForDate(ds) {
+    const S = state.settings;
+    if (SPECIAL_DAYS[ds]) {
+      const sp = SPECIAL_DAYS[ds];
+      return { phase: "Phase 1 · Syllabus + Revision", title: sp.title, tasks: sp.tasks.map(([k, l]) => ({ key: k, label: l })) };
+    }
+    for (const w of PHASE1_WEEKS) {
+      const idx = diffDays(ds, w.start);
+      if (idx >= 0 && idx < 7) {
+        const e = w.days[idx];
+        const phase = "Phase 1 · Syllabus + Revision";
+        if (!Array.isArray(e)) {
+          return {
+            phase, title: w.title, isTest: true, tasks: [
+              { key: "test", label: e.test },
+              { key: "analysis", label: "Test analysis: har galat/guess wala question Error Log me daalo" },
+              { key: "backlog", label: "Is hafte ka backlog clear + agle hafte ke notes ready" },
+              { key: "err", label: "Spaced revisions due (Dashboard list) complete karo" },
+            ],
+          };
+        }
+        return {
+          phase, title: w.title, tasks: [
+            { key: "apt", label: "GA: 10 aptitude PYQs + 1 formula page (45 min)" },
+            { key: "new", label: (w.newSubj ? "NEW · " : "") + e[0], tag: "3.5 h" },
+            { key: "rev", label: "REVISION · " + e[1], tag: "2.5 h" },
+            { key: "pyq", label: "PYQs: aaj ke NEW + REVISION topics — 25–35 Q with timer", tag: "2.5 h" },
+            { key: "err", label: "Galat PYQs dobara + Error Log + spaced revisions due", tag: "1.5 h" },
+          ],
+        };
+      }
+    }
+    if (ds >= "2026-12-01" && ds <= "2027-01-10") {
+      const b = PHASE2_BLOCKS.find((x) => ds >= x.from && ds <= x.to);
+      const phase = "Phase 2 · Revision Round 2 + Subject Tests";
+      if (parse(ds).getDay() === 0) {
+        return {
+          phase, title: "Sunday — Full-length Mock", isTest: true, tasks: [
+            { key: "mock", label: "FULL-LENGTH MOCK (3 h, exam time slot pe) → Mocks tab me score daalo" },
+            { key: "analysis", label: "Mock analysis (3 h): har question — galat, guess, time waste" },
+            { key: "rev", label: `Light revision: ${b ? b.label : "weak areas"} short notes` },
+          ],
+        };
+      }
+      const last = b && ds === b.to;
+      const tasks = [
+        { key: "apt", label: "GA: 10 PYQs (45 min)" },
+        { key: "rev", label: `REVISION 2 · ${b.label}: short notes + formula sheet + weak topics re-read`, tag: "4 h" },
+        { key: "pyq", label: `${b.label}: PYQ 2nd pass — pehle galat / marked questions pehle`, tag: "3 h" },
+      ];
+      if (last) tasks.push({ key: "test", label: `SUBJECT TEST: ${b.label} (GATE level, timed)`, tag: "1.5 h" });
+      tasks.push({ key: "err", label: "Error Log revise + spaced revisions due", tag: "1 h" });
+      return { phase, title: `Block: ${b.label} (${fmt(b.from)} → ${fmt(b.to)})`, tasks };
+    }
+    const exam = S.examDate;
+    if (ds >= PHASE3_START && ds <= exam) {
+      const phase = "Phase 3 · Mock Test Phase";
+      const left = diffDays(exam, ds);
+      if (left === 0) return { phase, title: "🎯 GATE EXAM DAY", tasks: [{ key: "exam", label: "Calm raho. Easy questions pehle, NAT me negative nahi, MCQ me sochke guess. All the best! 💪" }] };
+      if (left === 1) return { phase, title: "Exam se 1 din pehle", tasks: [
+        { key: "light", label: "Sirf formula sheets + error log halka sa dekho (max 3 h)" },
+        { key: "admit", label: "Admit card print, ID proof, centre route check" },
+        { key: "sleep", label: "Jaldi so jao — 8 hours" },
+      ] };
+      if (left <= 7) return { phase, title: `Final week — ${left} din baaki`, tasks: [
+        { key: "formula", label: "Saare subjects ki formula sheets revise" },
+        { key: "err", label: "Error Log poora ek baar" },
+        { key: left % 2 === 0 ? "mock" : "pyq", label: left % 2 === 0 ? "Light mock / previous year paper (exam time slot pe)" : "Mixed 30 PYQs (easy-medium) — confidence ke liye" },
+        { key: "sleep", label: "Sleep cycle exam slot ke hisab se set karo" },
+      ] };
+      const mockDay = diffDays(ds, PHASE3_START) % 2 === 0;
+      return mockDay
+        ? { phase, title: "Mock Day", isTest: true, tasks: [
+            { key: "mock", label: "FULL-LENGTH MOCK (3 h) exam time slot pe" },
+            { key: "analysis", label: "Deep analysis (3 h): galat → concept/silly/calc/time — Error Log me" },
+            { key: "apt", label: "GA 10 PYQs" },
+          ] }
+        : { phase, title: "Fix Day", tasks: [
+            { key: "fix", label: "Kal ke mock ke weak topics re-read + unke PYQs", tag: "4 h" },
+            { key: "rev", label: "2 subjects ki formula sheet + short notes", tag: "3 h" },
+            { key: "err", label: "Error Log revise", tag: "1 h" },
+            { key: "apt", label: "GA 10 PYQs" },
+          ] };
+    }
+    return null;
+  }
+
+  // ---------- computed stats ----------
+  function subjStats(s) {
+    let learned = 0, r1 = 0, r2 = 0, r3 = 0, pyq = 0, confSum = 0, confN = 0;
+    s.topics.forEach((_, i) => {
+      const t = getT(s, i);
+      if (t.learned) learned++;
+      if (t.r1) r1++;
+      if (t.r2) r2++;
+      if (t.r3) r3++;
+      if (t.pyq) pyq++;
+      if (t.conf) { confSum += t.conf; confN++; }
+    });
+    const n = s.topics.length;
+    let subN = 0, subDone = 0;
+    s.topics.forEach((tp, i) => tp.subs.forEach((_, j) => { subN++; if (state.subs[`${s.id}:${i}:${j}`]) subDone++; }));
+    const p = state.pyq[s.id] || { a: 0, c: 0 };
+    const score = Math.round(((learned + r1 + r2 + pyq) / (4 * n)) * 100);
+    return { n, learned, r1, r2, r3, pyq, subN, subDone, conf: confN ? confSum / confN : 0, pa: +p.a || 0, pc: +p.c || 0, score };
+  }
+  function overall() {
+    let n = 0, learned = 0, r1 = 0, r2 = 0, pyq = 0, pa = 0, pc = 0, target = 0;
+    SUBJECTS.forEach((s) => {
+      const st = subjStats(s);
+      n += st.n; learned += st.learned; r1 += st.r1; r2 += st.r2; pyq += st.pyq; pa += st.pa; pc += st.pc; target += s.pyqTarget;
+    });
+    return { n, learned, r1, r2, pyq, pa, pc, target };
+  }
+  function dueRevisions(ds) {
+    const out = [];
+    SUBJECTS.forEach((s) => s.topics.forEach((tp, i) => {
+      const name = tp.n;
+      const t = getT(s, i);
+      if (!t.learnedOn) return;
+      let stage = null, since = null, gap = 0;
+      if (!t.r1) { stage = "r1"; since = t.learnedOn; gap = 1; }
+      else if (!t.r2) { stage = "r2"; since = t.r1On || t.learnedOn; gap = 7; }
+      else if (!t.r3) { stage = "r3"; since = t.r2On || t.learnedOn; gap = 21; }
+      if (stage && diffDays(ds, since) >= gap) out.push({ s, i, name, stage, late: diffDays(ds, since) - gap });
+    }));
+    return out.sort((a, b) => b.late - a.late);
+  }
+  function dayActive(ds) {
+    const d = state.days[ds];
+    return d && (Object.values(d.tasks || {}).some(Boolean) || +d.hours > 0);
+  }
+  function streak() {
+    let ds = today(), n = 0;
+    if (!dayActive(ds)) ds = addDays(ds, -1);
+    while (dayActive(ds)) { n++; ds = addDays(ds, -1); }
+    return n;
+  }
+
+  // ---------- UI helpers ----------
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200);
+  }
+  const bar = (pct, cls = "") => `<div class="bar ${cls}"><span style="width:${Math.max(0, Math.min(100, pct))}%"></span></div>`;
+  const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+  const statusChip = (s) => ({ revise: '<span class="chip ok">Revise</span>', partial: '<span class="chip warn">Partial</span>', new: '<span class="chip new">New</span>' }[s]);
+
+  // ---------- views ----------
+  let view = "dash";
+  let viewDate = today();
+  let syllFilter = "all";
+  let errFilter = "all";
+  const open = new Set();
+  const openT = new Set();
+
+  function render() {
+    document.querySelectorAll(".tabs button").forEach((b) => b.classList.toggle("active", b.dataset.view === view));
+    const el = $("#view");
+    el.innerHTML = { dash: viewDash, plan: viewPlan, syll: viewSyll, mocks: viewMocks, errors: viewErrors, claude: viewClaude, settings: viewSettings }[view]();
+    if (view === "plan") { const cur = $(".day-row.today"); if (cur) cur.scrollIntoView({ block: "center" }); }
+  }
+
+  function viewDash() {
+    const S = state.settings, td = today();
+    const toDeadline = diffDays(S.syllabusDeadline, td), toExam = diffDays(S.examDate, td);
+    const o = overall();
+    const p = planForDate(viewDate);
+    const d = getDay(viewDate);
+    const due = dueRevisions(td);
+    const done = p ? p.tasks.filter((t) => d.tasks[t.key]).length : 0;
+
+    // last 14 days hours
+    let hoursBars = "", tot = 0;
+    for (let k = 13; k >= 0; k--) {
+      const ds = addDays(td, -k), h = +getDay(ds).hours || 0; tot += h;
+      const hh = Math.min(100, (h / Math.max(S.hoursTarget, 1)) * 100);
+      hoursBars += `<div class="hb" title="${fmt(ds)}: ${h} h"><div class="hb-fill ${h >= S.hoursTarget ? "hit" : ""}" style="height:${hh}%"></div><small>${parse(ds).getDate()}</small></div>`;
+    }
+
+    const subjRows = SUBJECTS.map((s) => {
+      const st = subjStats(s);
+      return `<tr><td>${esc(s.name)} ${statusChip(s.status)}</td>
+        <td class="num">${st.learned}/${st.n}</td><td class="num">${st.r1}/${st.n}</td><td class="num">${st.r2}/${st.n}</td>
+        <td class="num">${st.pa}/${s.pyqTarget}</td><td class="wide">${bar(st.score)}</td></tr>`;
+    }).join("");
+
+    const lastMock = state.mocks.length ? [...state.mocks].sort((a, b) => (a.date < b.date ? 1 : -1))[0] : null;
+
+    return `
+    <section class="grid kpis">
+      <div class="card kpi"><div class="kpi-n">${toDeadline >= 0 ? toDeadline : "✓"}</div><div class="kpi-l">din — syllabus khatam (${fmt(S.syllabusDeadline)})</div></div>
+      <div class="card kpi"><div class="kpi-n">${toExam >= 0 ? toExam : "—"}</div><div class="kpi-l">din — GATE exam (${fmt(S.examDate)})</div></div>
+      <div class="card kpi"><div class="kpi-n">${pct(o.learned, o.n)}%</div><div class="kpi-l">syllabus learned (${o.learned}/${o.n} topics)</div></div>
+      <div class="card kpi"><div class="kpi-n">🔥 ${streak()}</div><div class="kpi-l">day streak</div></div>
+      <div class="card kpi"><div class="kpi-n">${o.pa}</div><div class="kpi-l">PYQs solved · accuracy ${pct(o.pc, o.pa)}%</div></div>
+      <div class="card kpi"><div class="kpi-n">${lastMock ? esc(lastMock.marks) : "—"}</div><div class="kpi-l">last mock (target ${S.mockTarget}+)</div></div>
+    </section>
+
+    <section class="grid two">
+      <div class="card">
+        <div class="card-h">
+          <div><div class="eyebrow">${p ? esc(p.phase) : "Plan ke bahar"}</div><h2>${viewDate === td ? "Aaj ka target" : fmt(viewDate)}</h2></div>
+          <div class="nav-date">
+            <button class="btn ghost" data-act="day-prev" aria-label="Pichla din">◀</button>
+            <input type="date" id="dayPick" value="${viewDate}">
+            <button class="btn ghost" data-act="day-next" aria-label="Agla din">▶</button>
+            ${viewDate !== td ? '<button class="btn ghost" data-act="day-today">Aaj</button>' : ""}
+          </div>
+        </div>
+        ${p ? `<div class="plan-title">${esc(p.title)}</div>
+        <div class="tasks">${p.tasks.map((t) => `
+          <label class="task ${d.tasks[t.key] ? "done" : ""}">
+            <input type="checkbox" data-task="${t.key}" ${d.tasks[t.key] ? "checked" : ""}>
+            <span>${esc(t.label)}</span>${t.tag ? `<em>${t.tag}</em>` : ""}
+          </label>`).join("")}</div>
+        <div class="progress-line">${bar(pct(done, p.tasks.length), "big")}<span>${done}/${p.tasks.length} done</span></div>`
+        : `<p class="muted">Is date ke liye plan nahi hai.</p>`}
+        <div class="log-grid">
+          <label>Hours studied<input type="number" min="0" max="18" step="0.5" data-day="hours" value="${esc(d.hours)}"></label>
+          <label>Questions attempted<input type="number" min="0" data-day="qa" value="${esc(d.qa)}"></label>
+          <label>Questions correct<input type="number" min="0" data-day="qc" value="${esc(d.qc)}"></label>
+        </div>
+        <label class="full">Aaj ka note (kya weak laga, kya pending hai)<textarea rows="2" data-day="note">${esc(d.note)}</textarea></label>
+        <p class="hint">Tip: koi topic poora padh liya? <b>Syllabus</b> tab me “Learned” tick karo — revisions (1, 7, 21 din baad) apne aap schedule ho jayengi.</p>
+      </div>
+
+      <div class="stack">
+        <div class="card">
+          <h2>🔁 Spaced revisions due <span class="count">${due.length}</span></h2>
+          ${due.length ? `<ul class="due">${due.slice(0, 12).map((x) => `
+            <li><label><input type="checkbox" data-due="${x.s.id}|${x.i}|${x.stage}">
+              <span><b>${x.stage.toUpperCase()}</b> · ${esc(x.s.name)} — ${esc(x.name)}${x.late > 0 ? ` <em class="late">${x.late}d late</em>` : ""}</span></label></li>`).join("")}</ul>
+            ${due.length > 12 ? `<p class="muted">+${due.length - 12} aur…</p>` : ""}`
+          : `<p class="muted">Koi revision due nahi. 👌</p>`}
+        </div>
+        <div class="card">
+          <h2>⏱ Last 14 days — hours <span class="count">${tot} h</span></h2>
+          <div class="hbars">${hoursBars}</div>
+          <p class="muted">Target: ${S.hoursTarget} h/day (green = target hit)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>📊 Subject-wise progress</h2>
+      <div class="table-wrap"><table class="tbl">
+        <thead><tr><th>Subject</th><th>Learned</th><th>Rev 1</th><th>Rev 2</th><th>PYQs</th><th>Readiness</th></tr></thead>
+        <tbody>${subjRows}</tbody></table></div>
+    </section>`;
+  }
+
+  function viewPlan() {
+    const td = today();
+    const statusOf = (ds) => {
+      const p = planForDate(ds); if (!p) return "";
+      const d = getDay(ds); const n = p.tasks.filter((t) => d.tasks[t.key]).length;
+      if (n === p.tasks.length) return '<span class="chip ok">✓ done</span>';
+      if (n > 0) return `<span class="chip warn">${n}/${p.tasks.length}</span>`;
+      return ds < td ? '<span class="chip bad">missed</span>' : "";
+    };
+    const row = (ds, main, sub) => `<div class="day-row ${ds === td ? "today" : ""} ${ds < td ? "past" : ""}" data-goto="${ds}">
+      <div class="dr-date">${fmt(ds)}</div><div class="dr-body">${main}${sub ? `<div class="dr-sub">${sub}</div>` : ""}</div><div class="dr-st">${statusOf(ds)}</div></div>`;
+
+    let p1 = row("2026-09-27", `<b>Day 0</b> — Setup + diagnostic paper`);
+    PHASE1_WEEKS.forEach((w) => {
+      p1 += `<h3 class="wk">${esc(w.title)}</h3>`;
+      w.days.forEach((e, i) => {
+        const ds = addDays(w.start, i);
+        p1 += Array.isArray(e) ? row(ds, esc(e[0]), "🔁 " + esc(e[1])) : row(ds, `<b>📝 ${esc(e.test)}</b>`);
+      });
+    });
+    p1 += row("2026-11-30", `<b>🎯 SYLLABUS COMPLETE</b> — Grand Test 2 + check`);
+
+    const p2 = PHASE2_BLOCKS.map((b) => `<div class="day-row ${td >= b.from && td <= b.to ? "today" : ""}" data-goto="${b.from}">
+      <div class="dr-date">${fmt(b.from)} → ${fmt(b.to)}</div><div class="dr-body"><b>${esc(b.label)}</b><div class="dr-sub">Short notes + formula sheet → PYQ 2nd pass → subject test (last day)</div></div><div class="dr-st"></div></div>`).join("");
+
+    const tt = DAILY_TIMETABLE.map(([t, l]) => `<tr><td class="nowrap">${t}</td><td>${esc(l)}</td></tr>`).join("");
+
+    return `
+    <section class="card">
+      <h2>🗺 Master plan — GATE CSE 2027 (target: AIR &lt; 100)</h2>
+      <div class="phases">
+        <div class="phase"><b>Phase 1</b><span>27 Sep → 30 Nov</span><p>Naye subjects (OS, COA, Discrete baaki, Aptitude) + done subjects ka Revision Round 1 + saare PYQs.</p></div>
+        <div class="phase"><b>Phase 2</b><span>1 Dec → 10 Jan</span><p>Revision Round 2, PYQ 2nd pass, har subject ka test, har Sunday full mock.</p></div>
+        <div class="phase"><b>Phase 3</b><span>11 Jan → Exam</span><p>Alternate din full-length mock + analysis. Last 7 din sirf formula sheets + error log.</p></div>
+      </div>
+    </section>
+    <section class="card">
+      <h2>⏰ Daily timetable (~10–11 h)</h2>
+      <div class="table-wrap"><table class="tbl">${tt}</table></div>
+      <p class="muted">Sunday = test + analysis + backlog day. Agar kisi din target miss ho, to Sunday ke backlog slot me cover karo — agle hafte me mat ghusao.</p>
+    </section>
+    <section class="card">
+      <h2>Phase 1 — day by day</h2><p class="muted">Kisi bhi din pe click karo → us din ka checklist khulega.</p>
+      <div class="days">${p1}</div>
+    </section>
+    <section class="card">
+      <h2>Phase 2 — revision blocks</h2><p class="muted">Har Sunday (6, 13, 20, 27 Dec, 3, 10 Jan) = full-length mock.</p>
+      <div class="days">${p2}</div>
+    </section>
+    <section class="card">
+      <h2>Phase 3 — mock phase rules</h2>
+      <ul class="rules">
+        <li><b>Mock day:</b> 3 h mock exam ke time slot pe → 3 h analysis. Har galat question Error Log me with type (concept / silly / calculation / time).</li>
+        <li><b>Fix day:</b> mock ke weak topics re-read + unke PYQs + 2 subjects ki formula sheets.</li>
+        <li><b>Target:</b> mocks me consistently ${state.settings.mockTarget}+ marks (approx AIR &lt; 100 zone; paper difficulty se cutoff badalta hai).</li>
+        <li><b>Last 7 din:</b> koi naya source nahi. Sirf formula sheets, error log, halke PYQs, neend exam slot ke hisab se.</li>
+      </ul>
+    </section>`;
+  }
+
+  function buildPrompt(s, i) {
+    const tp = s.topics[i];
+    const lines = tp.subs.map((x, j) => `${j + 1}. ${x.n}  [DEPTH: ${DEPTH_LABEL[x.d]} · PYQ frequency: ${FREQ_LABEL[x.f]}]
+   Cover karo: ${x.pts.join("; ")}
+   PYQ pattern: ${x.pyq}${x.skip ? `\n   SKIP (itna deep mat jao): ${x.skip}` : ""}`).join("\n");
+    return `Tum GATE CSE AIR 1 mentor ho. Mujhe GATE CSE 2027 ke liye padhao.
+SUBJECT: ${s.name}
+TOPIC: ${tp.n}
+Official GATE 2027 syllabus line: ${s.official}
+
+DEPTH LEVELS ka matlab:
+- BASIC = definitions + direct formula, 1-mark conceptual level tak. Zyada deep mat jana.
+- STANDARD = saare standard GATE PYQ types solve kar saku, numericals with speed.
+- DEEP = high-frequency 2-mark area: har variation, edge case, trap aur shortcut.
+
+SUBTOPICS — ye COMPLETE list hai (isi depth tak padhana — na zyada, na kam):
+${lines}
+
+STRICT RULES:
+- Upar ka HAR point COMPULSORY hai — ek bhi miss nahi hona chahiye.
+- DEPTH se zyada mat jao, aur SKIP wali cheezein bilkul mat padhao (time kam hai).
+- GATE 2027 syllabus ke bahar kuch nahi.
+
+Kaise padhana hai (step by step, ek subtopic ek baar me):
+1) Subtopic Hinglish me simple language me samjhao — intuition + 1 solved GATE-level example.
+2) Har formula/result ke saath "kyun" (1-2 line) batao, taaki rata na lagana pade aur naya question bhi solve ho sake.
+3) Common traps + shortcut/trick jo exam me time bachaye.
+4) Har subtopic ke baad 2 quick check questions do; mera answer check karke hi aage badho.
+
+Topic khatam hone ke baad:
+5) COVERAGE CHECKLIST: upar ke har point ke saamne ✅ lagao aur confirm karo ki sab cover hua. Kuch reh gaya ho to pehle wo padhao.
+6) PYQ DRILL: is topic ke GATE PYQ patterns (upar "PYQ pattern" dekho) ke hisab se 10 GATE-style questions do — MCQ/MSQ/NAT mix, DEEP subtopics se zyada. Answers tab tak mat batana jab tak main na maangu. Uske baad main actual GATE PYQs (GATE Overflow) solve karunga; atak jaun to sirf hint dena.
+7) NEW-TYPE READINESS: 3 "unseen" type ke questions do jo GATE PYQs se alag hon (2 concepts mix, twisted wording, ya naya scenario) — syllabus ke andar hi. Ye isliye taaki exam me naya question aaye to bhi attempt kar saku.
+8) 10-line revision summary + formula box (short notes ke liye).
+
+Topic tab COMPLETE maana jayega jab: checklist me sab ✅, PYQ drill me 80%+ sahi, aur new-type questions me approach sahi ho.
+
+Mere notes (agar attach kiye hain) unhe base banao:
+[yahan notes paste/attach karo]`;
+  }
+
+  function viewSyll() {
+    const isWeak = (t) => t.conf > 0 && t.conf <= 2;
+    const list = SUBJECTS.filter((s) => syllFilter === "all" || s.status === syllFilter || (syllFilter === "weak" && s.topics.some((_, i) => isWeak(getT(s, i)))));
+    const conf = (v) => `<select data-conf aria-label="Confidence">${[0, 1, 2, 3, 4, 5].map((n) => `<option value="${n}" ${+v === n ? "selected" : ""}>${n ? "★".repeat(n) : "conf –"}</option>`).join("")}</select>`;
+    const freqChip = (f) => `<span class="chip f${f}">PYQ: ${FREQ_LABEL[f]}</span>`;
+    const blocks = list.map((s) => {
+      const st = subjStats(s);
+      const isOpen = open.has(s.id);
+      const topics = s.topics.map((tp, i) => {
+        const t = getT(s, i);
+        if (syllFilter === "weak" && !isWeak(t)) return "";
+        const key = `${s.id}:${i}`, tOpen = openT.has(key);
+        const doneSubs = tp.subs.filter((_, j) => state.subs[`${key}:${j}`]).length;
+        const cb = (k, lbl) => `<label class="tk"><input type="checkbox" data-tk="${k}" ${t[k] ? "checked" : ""}>${lbl}</label>`;
+        const subs = tOpen ? `<div class="subs">${tp.subs.map((x, j) => `
+          <div class="sub ${state.subs[`${key}:${j}`] ? "done" : ""}">
+            <label class="sub-h"><input type="checkbox" data-sub="${key}:${j}" ${state.subs[`${key}:${j}`] ? "checked" : ""}>
+              <span class="sub-n">${esc(x.n)}</span>
+              <span class="depth d${x.d}" title="${esc(DEPTH_HELP[x.d])}">${DEPTH_LABEL[x.d]}</span>${freqChip(x.f)}</label>
+            <ul class="pts">${x.pts.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
+            <div class="meta"><b>PYQ pattern:</b> ${esc(x.pyq)}</div>
+            ${x.skip ? `<div class="meta skip"><b>Skip:</b> ${esc(x.skip)}</div>` : ""}
+          </div>`).join("")}</div>` : "";
+        return `<div class="topic ${isWeak(t) ? "weak" : ""}" data-topic="${s.id}|${i}">
+          <div class="topic-h">
+            <button class="topic-name" data-ttoggle="${key}"><span class="chev">${tOpen ? "▾" : "▸"}</span> ${esc(tp.n)}
+              <small>${doneSubs}/${tp.subs.length} subtopics</small></button>
+            ${freqChip(tp.f)}
+          </div>
+          <div class="topic-ctrl">
+            ${cb("learned", "Learned")}${cb("r1", "R1 +1d")}${cb("r2", "R2 +7d")}${cb("r3", "R3 +21d")}${cb("pyq", "PYQs ✓")}
+            ${conf(t.conf)}
+            <button class="btn ghost sm" data-prompt="${s.id}|${i}">🤖 Claude prompt</button>
+            <a class="btn ghost sm" href="${goSearch(tp.n)}" target="_blank" rel="noopener">PYQs ↗</a>
+          </div>
+          ${t.learnedOn ? `<div class="tiny">learned ${fmt(t.learnedOn)}</div>` : ""}
+          ${subs}
+        </div>`;
+      }).join("");
+      const p = state.pyq[s.id] || { a: "", c: "" };
+      return `<div class="card subj ${isOpen ? "open" : ""}">
+        <button class="subj-h" data-toggle="${s.id}">
+          <span class="subj-name">${esc(s.name)} ${statusChip(s.status)}</span>
+          <span class="subj-meta">~${s.weight} marks · ${st.learned}/${st.n} topics · ${st.subDone}/${st.subN} subtopics · ${st.r1} R1 · ${st.r2} R2</span>
+          <span class="subj-bar">${bar(st.score)}</span><span class="chev">${isOpen ? "▾" : "▸"}</span>
+        </button>
+        ${isOpen ? `<div class="subj-b">
+          <p class="official"><b>Official GATE 2027 syllabus:</b> ${esc(s.official)}</p>
+          <div class="pyq-row" data-pyq="${s.id}">
+            <label>PYQs attempted<input type="number" min="0" data-pk="a" value="${esc(p.a)}"></label>
+            <label>PYQs correct<input type="number" min="0" data-pk="c" value="${esc(p.c)}"></label>
+            <div class="pyq-prog">Target ~${s.pyqTarget} · ${bar(pct(+p.a || 0, s.pyqTarget))}</div>
+          </div>
+          <div class="topics">${topics}</div></div>` : ""}
+      </div>`;
+    }).join("");
+    const f = (k, l) => `<button class="pill ${syllFilter === k ? "on" : ""}" data-sf="${k}">${l}</button>`;
+    return `<section class="card"><h2>📚 Full GATE CSE 2027 syllabus — depth guide + PYQ map</h2>
+      <p class="muted">Subject → Topic → Subtopic → points. Har subtopic pe <span class="depth d1">BASIC</span> <span class="depth d2">STANDARD</span> <span class="depth d3">DEEP</span> depth aur PYQ frequency. <b>🤖 Claude prompt</b> button topic ka poora depth-guide copy karta hai — notes ke saath Claude ko do, wo utni hi depth me padhayega.</p>
+      <p class="muted"><b>Topic complete kab?</b> Saare subtopics ✓ + Claude prompt ki checklist sab ✅ + PYQ drill 80%+ + actual PYQs (PYQs ↗) solved. Tab hi “Learned” aur “PYQs ✓” tick karo.</p>
+      <p class="muted">Tracking: <b>Learned</b> → R1 (1 din baad) → R2 (7 din) → R3 (21 din) → <b>PYQs ✓</b>. Confidence ★1–2 = weak.</p>
+      <div class="pills">${f("all", "All")}${f("new", "New")}${f("partial", "Partial")}${f("revise", "Revise")}${f("weak", "Weak ★≤2")}
+      <button class="pill" data-act="expand">Expand subjects</button><button class="pill" data-act="collapse">Collapse</button></div></section>
+      ${blocks || '<p class="muted card">Koi weak topic nahi mila.</p>'}`;
+  }
+
+  function mockChart() {
+    const ms = [...state.mocks].filter((m) => m.marks !== "" && !isNaN(+m.marks)).sort((a, b) => (a.date > b.date ? 1 : -1));
+    if (ms.length < 2) return '<p class="muted">Kam se kam 2 mocks daalo — trend graph yahan dikhega.</p>';
+    const W = 640, H = 200, P = 30, max = 100, tgt = state.settings.mockTarget;
+    const x = (i) => P + (i * (W - 2 * P)) / (ms.length - 1);
+    const y = (v) => H - P - (Math.max(0, Math.min(max, v)) / max) * (H - 2 * P);
+    const pts = ms.map((m, i) => `${x(i)},${y(+m.marks)}`).join(" ");
+    return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Mock score trend">
+      ${[0, 25, 50, 75, 100].map((v) => `<line x1="${P}" x2="${W - P}" y1="${y(v)}" y2="${y(v)}" class="grid-l"/><text x="4" y="${y(v) + 4}" class="ax">${v}</text>`).join("")}
+      <line x1="${P}" x2="${W - P}" y1="${y(tgt)}" y2="${y(tgt)}" class="target-l"/><text x="${W - P - 60}" y="${y(tgt) - 6}" class="ax tgt">target ${tgt}</text>
+      <polyline points="${pts}" class="line"/>
+      ${ms.map((m, i) => `<circle cx="${x(i)}" cy="${y(+m.marks)}" r="4" class="dot"><title>${esc(m.name)} — ${esc(m.marks)}</title></circle>`).join("")}
+    </svg>`;
+  }
+
+  function viewMocks() {
+    const ms = [...state.mocks].sort((a, b) => (a.date < b.date ? 1 : -1));
+    const rows = ms.map((m) => `<tr><td class="nowrap">${fmt(m.date)}</td><td>${esc(m.name)}</td><td class="num"><b>${esc(m.marks)}</b></td>
+      <td class="num">${esc(m.rank)}</td><td class="num">${esc(m.att)}</td><td class="num">${esc(m.acc)}</td><td>${esc(m.weak)}</td>
+      <td><button class="btn ghost sm" data-delmock="${m.id}" aria-label="Delete">✕</button></td></tr>`).join("");
+    return `<section class="card"><h2>📝 Mock tests</h2>
+      <form id="mockForm" class="form-grid">
+        <label>Date<input type="date" name="date" value="${today()}" required></label>
+        <label>Test name<input name="name" placeholder="e.g. Full Mock 3 / OS subject test" required></label>
+        <label>Marks (out of 100)<input type="number" step="0.01" name="marks" required></label>
+        <label>Rank (test series)<input name="rank" placeholder="e.g. 245 / 8000"></label>
+        <label>Attempted Qs<input type="number" name="att"></label>
+        <label>Accuracy %<input type="number" step="0.1" name="acc"></label>
+        <label class="full">Weak areas / learning<input name="weak" placeholder="e.g. cache numericals slow, TOC decidability galat"></label>
+        <button class="btn" type="submit">+ Add mock</button>
+      </form></section>
+      <section class="card"><h2>📈 Score trend</h2>${mockChart()}</section>
+      <section class="card"><div class="table-wrap"><table class="tbl">
+        <thead><tr><th>Date</th><th>Test</th><th>Marks</th><th>Rank</th><th>Att.</th><th>Acc %</th><th>Weak areas</th><th></th></tr></thead>
+        <tbody>${rows || '<tr><td colspan="8" class="muted">Abhi koi mock nahi. Day 0 ka diagnostic paper yahan daalo.</td></tr>'}</tbody></table></div></section>`;
+  }
+
+  function viewErrors() {
+    const list = state.errors.filter((e) => errFilter === "all" || e.subject === errFilter || (errFilter === "pending" && !e.revised)).sort((a, b) => (a.date < b.date ? 1 : -1));
+    const types = { concept: "Concept", silly: "Silly", calc: "Calculation", time: "Time", read: "Misread" };
+    const byType = Object.keys(types).map((k) => `${types[k]}: <b>${state.errors.filter((e) => e.type === k).length}</b>`).join(" · ");
+    const opts = SUBJECTS.map((s) => `<option value="${s.id}">${esc(s.name)}</option>`).join("");
+    const items = list.map((e) => `<div class="err ${e.revised ? "revised" : ""}">
+      <div class="err-h"><span class="chip">${esc(SUBJ[e.subject]?.name || e.subject)}</span><span class="chip warn">${types[e.type] || esc(e.type)}</span>
+        <span class="muted">${fmt(e.date)}</span>
+        <label class="rv"><input type="checkbox" data-errrev="${e.id}" ${e.revised ? "checked" : ""}> revised</label>
+        <button class="btn ghost sm" data-delerr="${e.id}" aria-label="Delete">✕</button></div>
+      <div><b>Q:</b> ${esc(e.q)}</div><div><b>Galti:</b> ${esc(e.mistake)}</div><div><b>Sahi concept:</b> ${esc(e.fix)}</div></div>`).join("");
+    const f = (k, l) => `<button class="pill ${errFilter === k ? "on" : ""}" data-ef="${k}">${l}</button>`;
+    return `<section class="card"><h2>❌ Error Log (sabse powerful tool)</h2>
+      <p class="muted">Har galat / guess wala question yahan. Phase 2 & 3 me ye list hi tumhara revision hai. ${byType}</p>
+      <form id="errForm" class="form-grid">
+        <label>Subject<select name="subject">${opts}</select></label>
+        <label>Mistake type<select name="type">${Object.entries(types).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}</select></label>
+        <label class="full">Question (source + short)<input name="q" placeholder="e.g. GATE 2021 Q34 — LRU page faults" required></label>
+        <label class="full">Maine kya galti ki<input name="mistake" required></label>
+        <label class="full">Sahi concept / trick<input name="fix"></label>
+        <button class="btn" type="submit">+ Add error</button>
+      </form></section>
+      <section class="card"><div class="pills">${f("all", "All")}${f("pending", "Not revised")}${SUBJECTS.map((s) => f(s.id, s.name.split(" ")[0])).join("")}</div>
+      <div class="errs">${items || '<p class="muted">Koi entry nahi.</p>'}</div></section>`;
+  }
+
+  function viewClaude() {
+    return `<section class="card"><h2>🤖 Claude se padhne ka tareeka</h2>
+      <ol class="rules">
+        <li><b>Best tareeka:</b> Syllabus tab → topic ke saamne <b>🤖 Claude prompt</b> dabao. Isme har subtopic ki depth (BASIC/STANDARD/DEEP), kya cover karna hai, PYQ pattern aur kya skip karna hai — sab hota hai. Ise notes ke saath Claude ko paste karo.</li>
+        <li>Ya neeche wala generic Prompt 1 use karo.</li>
+        <li>Samajh aane ke baad Prompt 5 se test lo → phir <b>asli GATE PYQs</b> solve karo (Claude ke questions PYQs ka replacement nahi hain).</li>
+        <li>Prompt 4 se 1-page short notes banwao — Phase 2 & 3 me yahi revise karoge.</li>
+        <li>Har Sunday Prompt 6 se weekly analysis.</li>
+      </ol></section>
+      ${CLAUDE_PROMPTS.map((p, i) => `<section class="card"><div class="card-h"><h2>${esc(p.title)}</h2><button class="btn ghost" data-copy="${i}">Copy</button></div><pre class="prompt">${esc(p.text)}</pre></section>`).join("")}`;
+  }
+
+  function viewSettings() {
+    const S = state.settings;
+    return `<section class="card"><h2>⚙️ Settings</h2>
+      <form id="setForm" class="form-grid">
+        <label>Naam<input name="name" value="${esc(S.name)}"></label>
+        <label>GATE exam date<input type="date" name="examDate" value="${esc(S.examDate)}"></label>
+        <label>Syllabus deadline<input type="date" name="syllabusDeadline" value="${esc(S.syllabusDeadline)}"></label>
+        <label>Daily hours target<input type="number" name="hoursTarget" value="${esc(S.hoursTarget)}"></label>
+        <label>Mock marks target<input type="number" name="mockTarget" value="${esc(S.mockTarget)}"></label>
+        <button class="btn" type="submit">Save</button>
+      </form>
+      <p class="muted">GATE 2027 ki official date aane pe exam date update kar dena (default: 6 Feb 2027).</p></section>
+      <section class="card"><h2>💾 Backup</h2>
+      <p class="muted">Data sirf isi browser me save hota hai. <b>Har Sunday Export karo</b> — phone/laptop badalne pe Import kar lena.</p>
+      <div class="pills"><button class="btn" data-act="export">⬇ Export backup (.json)</button>
+      <label class="btn ghost">⬆ Import backup<input type="file" id="importFile" accept="application/json" hidden></label>
+      <button class="btn danger" data-act="reset">Reset all data</button></div></section>`;
+  }
+
+  function copyText(txt) {
+    const fallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      ta.remove(); toast(ok ? "Copied ✓ — ab Claude me paste karo" : "Copy nahi hua");
+    };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(() => toast("Copied ✓ — ab Claude me paste karo"), fallback);
+    else fallback();
+  }
+
+  // ---------- events ----------
+  document.addEventListener("click", (ev) => {
+    const b = ev.target.closest("button, [data-goto], .tabs button");
+    if (!b) return;
+    if (b.dataset.view) { view = b.dataset.view; render(); window.scrollTo(0, 0); return; }
+    if (b.dataset.goto) { viewDate = b.dataset.goto; view = "dash"; render(); window.scrollTo(0, 0); return; }
+    if (b.dataset.ttoggle) { openT.has(b.dataset.ttoggle) ? openT.delete(b.dataset.ttoggle) : openT.add(b.dataset.ttoggle); render(); return; }
+    if (b.dataset.prompt) {
+      const [sid, i] = b.dataset.prompt.split("|");
+      copyText(buildPrompt(SUBJ[sid], +i));
+      return;
+    }
+    if (b.dataset.toggle) { open.has(b.dataset.toggle) ? open.delete(b.dataset.toggle) : open.add(b.dataset.toggle); render(); return; }
+    if (b.dataset.sf) { syllFilter = b.dataset.sf; if (syllFilter === "weak") SUBJECTS.forEach((s) => { open.add(s.id); s.topics.forEach((_, i) => { if ((getT(s, i).conf || 0) > 0 && getT(s, i).conf <= 2) openT.add(`${s.id}:${i}`); }); }); render(); return; }
+    if (b.dataset.ef) { errFilter = b.dataset.ef; render(); return; }
+    if (b.dataset.copy) {
+      copyText(CLAUDE_PROMPTS[+b.dataset.copy].text);
+      return;
+    }
+    if (b.dataset.delmock) { if (confirm("Ye mock delete karein?")) { state.mocks = state.mocks.filter((m) => m.id !== b.dataset.delmock); save(); render(); } return; }
+    if (b.dataset.delerr) { if (confirm("Ye entry delete karein?")) { state.errors = state.errors.filter((e) => e.id !== b.dataset.delerr); save(); render(); } return; }
+    switch (b.dataset.act) {
+      case "day-prev": viewDate = addDays(viewDate, -1); render(); break;
+      case "day-next": viewDate = addDays(viewDate, 1); render(); break;
+      case "day-today": viewDate = today(); render(); break;
+      case "expand": SUBJECTS.forEach((s) => open.add(s.id)); render(); break;
+      case "collapse": open.clear(); openT.clear(); render(); break;
+      case "export": {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob); a.download = `gate-tracker-backup-${today()}.json`; a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        break;
+      }
+      case "reset":
+        if (confirm("Saara data delete ho jayega. Pakka? (Pehle export kar lo)")) { state = blankState(); save(); render(); toast("Reset ho gaya"); }
+        break;
+    }
+  });
+
+  document.addEventListener("change", (ev) => {
+    const t = ev.target;
+    if (t.id === "dayPick" && t.value) { viewDate = t.value; render(); return; }
+    if (t.dataset.task) {
+      const d = getDay(viewDate);
+      setDay(viewDate, { tasks: { ...d.tasks, [t.dataset.task]: t.checked } });
+      render(); return;
+    }
+    if (t.dataset.due) {
+      const [sid, i, stage] = t.dataset.due.split("|");
+      setT(SUBJ[sid], +i, { [stage]: true, [stage + "On"]: today() });
+      toast(`${stage.toUpperCase()} done ✓`); render(); return;
+    }
+    if (t.dataset.tk) {
+      const [sid, i] = t.closest("[data-topic]").dataset.topic.split("|");
+      const k = t.dataset.tk, patch = { [k]: t.checked };
+      if (t.checked) patch[k + "On"] = today();
+      if (k === "learned" && !t.checked) patch.learnedOn = null;
+      setT(SUBJ[sid], +i, patch); render(); return;
+    }
+    if (t.dataset.sub) { state.subs[t.dataset.sub] = t.checked; save(); render(); return; }
+    if (t.matches("[data-conf]")) {
+      const [sid, i] = t.closest("[data-topic]").dataset.topic.split("|");
+      setT(SUBJ[sid], +i, { conf: +t.value }); render(); return;
+    }
+    if (t.dataset.pk) {
+      const sid = t.closest("[data-pyq]").dataset.pyq;
+      state.pyq[sid] = { ...(state.pyq[sid] || {}), [t.dataset.pk]: t.value }; save(); render(); return;
+    }
+    if (t.dataset.errrev) {
+      const e = state.errors.find((x) => x.id === t.dataset.errrev); if (e) { e.revised = t.checked; save(); render(); }
+      return;
+    }
+    if (t.id === "importFile" && t.files[0]) {
+      const r = new FileReader();
+      r.onload = () => {
+        try {
+          const s = JSON.parse(r.result);
+          if (!s || typeof s !== "object" || !s.topics) throw new Error("bad");
+          const b = blankState();
+          state = { ...b, ...s, subs: s.subs || {}, settings: { ...b.settings, ...(s.settings || {}) } }; save(); render(); toast("Backup import ho gaya ✓");
+        } catch (e) { toast("Galat file — ye tracker ka backup nahi hai"); }
+      };
+      r.readAsText(t.files[0]);
+    }
+  });
+
+  document.addEventListener("input", (ev) => {
+    const t = ev.target;
+    if (t.dataset.day) setDay(viewDate, { [t.dataset.day]: t.value });
+  });
+
+  document.addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const f = ev.target, data = Object.fromEntries(new FormData(f).entries());
+    const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    if (f.id === "mockForm") { state.mocks.push({ id, ...data }); save(); toast("Mock added ✓"); }
+    if (f.id === "errForm") { state.errors.push({ id, date: today(), revised: false, ...data }); save(); toast("Error logged ✓"); }
+    if (f.id === "setForm") {
+      state.settings = { ...state.settings, ...data, hoursTarget: +data.hoursTarget || 10, mockTarget: +data.mockTarget || 75 };
+      save(); toast("Settings saved ✓"); updateHeader();
+    }
+    render();
+  });
+
+  function updateHeader() {
+    const n = state.settings.name;
+    $("#hello").textContent = n ? `${n}, target: AIR < 100 🎯` : "Target: AIR < 100 🎯";
+  }
+
+  updateHeader();
+  render();
+})();
