@@ -44,3 +44,13 @@ Dono me tumhara Syllabus tab ka status saath jaata hai, isliye "padha hi nahi" a
 4. 1–2 minute baad site `https://anshu7372.github.io/GATE_CSE_TRACKER/` pe live ho jayegi.
 
 > Note: GATE 2027 syllabus me CS ke 3 sections badle hain: Digital Logic me Quine-McCluskey add hua; COA me control unit design aur memory interfacing explicit hue, secondary storage hata; CN me ARP/DHCP/ICMP/UDP/SMTP/FTP/email ab named nahi hain. Tracker me ye already reflect hai (low priority mark kiya hai).
+
+## Security
+
+- **Koi server / login nahi:** saara data sirf aapke browser (localStorage) me rehta hai.
+- **Content Security Policy:** script sirf isi site se chalti hai; network request sirf `api.anthropic.com` pe ja sakti hai (Auto analysis ke liye). Koi third-party script/CDN nahi.
+- **Claude SDK vendored:** `js/vendor/anthropic-sdk.js` (@anthropic-ai/sdk v0.128.0, MIT) repo me pinned hai.
+- **Untrusted data sanitised:** imported backup, pasted/API se aaya Claude JSON — sab validate + HTML-escape hota hai. PDF ke andar likhe instructions ko ignore karne ka rule prompt me hai.
+- **API key:** default sirf current tab (sessionStorage) me; "Remember" pe hi localStorage me. Backup file me kabhi nahi jaati. console.anthropic.com pe spend limit set karo.
+- **Clickjacking guard:** site kisi dusri site ke iframe me nahi chalti.
+- **Deploy:** workflow minimum permissions ke saath sirf site files publish karta hai.
