@@ -11,7 +11,7 @@ Ek static website (sirf HTML/CSS/JS) jo GitHub Pages pe chalti hai. Data aapke b
 | **Aaj** | Aaj ka checklist (auto, date ke hisab se), hours / questions log, spaced revisions due, 14-din ka graph, subject-wise progress |
 | **Plan** | 27 Sep 2026 → exam tak day-by-day plan (3 phases) + daily timetable |
 | **Syllabus** | Official GATE 2027 CS syllabus (IIT Madras) → Topic → Subtopic → points. Har subtopic pe **depth** (BASIC / STANDARD / DEEP), **PYQ frequency**, **PYQ pattern**, aur **kya skip karna hai**. Har topic pe **🤖 Claude prompt** + **PYQs ↗** (GATE Overflow) |
-| **Mocks** | Mock scores + trend graph (target line 75) |
+| **Mocks** | **🔬 Mock paper analysis:** question paper + result PDF upload → har question ka status, reason (padha nahi / concept galat / approach nahi bana / silly / calculation / time), topic-wise diagnosis, marks kahan gaye, 7-din ka action plan. 1 click me Mocks list, Error Log aur weak topics me add. Saath me manual mock entry + trend graph |
 | **Error Log** | Har galat question — type (concept/silly/calc/time) ke saath |
 | **Claude** | Claude se padhne ke prompts |
 | **⚙️** | Exam date, targets, backup export/import |
@@ -28,6 +28,13 @@ Ek static website (sirf HTML/CSS/JS) jo GitHub Pages pe chalti hai. Data aapke b
 2. Claude me paste karo + apne notes attach karo.
 3. Prompt me har subtopic ki exact depth, compulsory points, PYQ pattern aur skip list hai. Isliye Claude na zyada padhayega, na kam. End me coverage checklist, PYQ drill aur new-type questions bhi aayenge.
 4. Phir **PYQs ↗** se actual GATE PYQs solve karo → tabhi "Learned" + "PYQs ✓" tick karo.
+
+## Mock analysis kaise karein
+
+- **Tareeka 1 (Auto):** ⚙️ Settings me Claude API key daalo (console.anthropic.com se; ye API billing hai, claude.ai subscription/credit se alag, ~$0.5–1.5 per mock). Mocks tab → PDF choose → **⚡ Auto analysis**.
+- **Tareeka 2 (free, claude.ai se):** Mocks tab → **📋 Prompt copy** → claude.ai me PDF attach + prompt paste → Claude ka JSON wapas website me paste → **📊 Show analysis**.
+
+Dono me tumhara Syllabus tab ka status saath jaata hai, isliye "padha hi nahi" aur "padha par galat hua" alag-alag pehchana jaata hai.
 
 ## GitHub Pages enable karna (ek baar)
 
