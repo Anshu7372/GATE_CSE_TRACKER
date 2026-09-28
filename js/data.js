@@ -1,170 +1,86 @@
-// GATE CSE 2027 Tracker — master plan data (syllabus map js/syllabus.js me hai).
+// GATE CSE 2027 Tracker — plan configuration (syllabus map js/syllabus.js me hai).
+// Plan ab AUTO banta hai (js/core.js → planner): topic ka status (NEW / REVISE) + depth + PYQ count
+// se har din ka kaam nikalta hai. Kuch miss hua to baaki kaam apne aap aage ke dino me shift ho jata hai.
 
-// ---------- PHASE 1: 27 Sep – 30 Nov 2026 (syllabus completion + revision round 1) ----------
-// Har din: [NEW subject block, REVISION block]. Sunday = weekly test day.
-const PHASE1_WEEKS = [
-  {
-    start: "2026-09-28", newSubj: "os", revSubj: "c", title: "Week 1 — OS start + C revision",
-    days: [
-      ["OS: System calls, process states, PCB, fork() counting", "C: data types, operators, precedence, tricky printf outputs"],
-      ["OS: Threads (user/kernel), context switch, IPC", "C: control flow, loops, functions, storage classes"],
-      ["OS: CPU scheduling FCFS, SJF, SRTF — Gantt charts, avg WT/TAT", "C: pointers, pointer arithmetic, arrays vs pointers"],
-      ["OS: Priority, Round Robin, multilevel queue, MLFQ numericals", "C: strings, 2D arrays, pointer to array / array of pointers"],
-      ["OS: Critical section, Peterson, test-and-set, busy waiting", "C: recursion & recursion tracing"],
-      ["OS: Semaphores (binary/counting), mutex, producer-consumer", "C: structures, unions, malloc, parameter passing, static/dynamic scoping"],
-      { test: "WEEKLY TEST: OS (process + scheduling + sync) 25 Q + C 25 Q → analysis → backlog clear" },
-    ],
-  },
-  {
-    start: "2026-10-05", newSubj: "os", revSubj: "ds", title: "Week 2 — OS (sync, deadlock, memory) + DS revision",
-    days: [
-      ["OS: Readers-writers, dining philosophers, monitors + semaphore PYQs", "DS: arrays (row/column major), stacks"],
-      ["OS: Deadlock — conditions, RAG, prevention, avoidance", "DS: infix/postfix/prefix, queues, circular queue"],
-      ["OS: Banker's algorithm, detection & recovery, min-resource numericals", "DS: linked lists (single/double/circular) code questions"],
-      ["OS: Contiguous allocation, fragmentation, paging, page-table size", "DS: binary trees — properties, traversals, counting"],
-      ["OS: Multi-level paging, TLB, EAT, inverted page table, segmentation", "DS: BST, AVL rotations & height bounds"],
-      ["OS: Virtual memory, demand paging, EAT with page faults", "DS: binary heaps, hashing (chaining, probing)"],
-      { test: "WEEKLY TEST: OS (sync + deadlock + memory) + DS full → analysis → backlog clear" },
-    ],
-  },
-  {
-    start: "2026-10-12", newSubj: "os", revSubj: "algo", title: "Week 3 — OS finish + Algorithms revision",
-    days: [
-      ["OS: Page replacement FIFO, Optimal, LRU, Belady's anomaly", "Algo: asymptotic notation, comparing functions"],
-      ["OS: Thrashing, working set, frame allocation + paging PYQ marathon", "Algo: recurrences — master theorem, recursion tree"],
-      ["OS: File allocation (contiguous/linked/indexed), inode, max file size", "Algo: searching, sorting (stability, in-place, cases), hashing"],
-      ["OS: Directory structure, free-space mgmt, disk scheduling (SSTF/SCAN/C-SCAN/LOOK)", "Algo: divide & conquer — merge sort, quick sort, binary search"],
-      ["OS: Disk scheduling numericals + OS weak-topic fix", "Algo: greedy + MST (Prim, Kruskal), BFS/DFS, topological sort"],
-      ["OS: Full OS PYQ sweep (jo PYQ reh gaye)", "Algo: DP (LCS, knapsack, MCM) + shortest paths (Dijkstra, Bellman-Ford, Floyd)"],
-      { test: "SUBJECT TEST: OS full (GATE level, 65 min) + Algo full → analysis. OS ✅ DONE" },
-    ],
-  },
-  {
-    start: "2026-10-19", newSubj: "coa", revSubj: "toc", title: "Week 4 — COA start + TOC revision",
-    days: [
-      ["COA: Machine instructions, instruction formats, addressing modes", "TOC: DFA, NFA, NFA→DFA, minimization"],
-      ["COA: Expanding opcodes, CPU performance (CPI, MIPS)", "TOC: regular expressions, RE↔FA, Arden's theorem"],
-      ["COA: ALU, datapath, control unit design — hardwired vs microprogrammed (control word/memory size)", "TOC: closure properties, pumping lemma, regular or not"],
-      ["COA: Pipelining — stages, speedup, efficiency, throughput", "TOC: CFG, ambiguity, simplification, CNF/GNF"],
-      ["COA: Hazards — RAW/WAR/WAW, forwarding, stalls, branch penalty", "TOC: PDA, DPDA vs NPDA, CFL closure, CFL pumping lemma"],
-      ["COA: Pipeline numericals PYQ marathon", "TOC: Turing machines, REC/RE, decidability, Rice's theorem"],
-      { test: "WEEKLY TEST: COA (instructions + pipeline) + TOC full → analysis → backlog clear" },
-    ],
-  },
-  {
-    start: "2026-10-26", newSubj: "coa", revSubj: "cd", title: "Week 5 — COA finish + Compiler Design revision",
-    days: [
-      ["COA: Memory hierarchy, locality, avg access time (hierarchical vs simultaneous)", "CD: phases, lexical analysis, token counting, FIRST & FOLLOW"],
-      ["COA: Cache mapping — direct, associative, set-associative (tag/index/offset)", "CD: left recursion/factoring, LL(1) table, recursive descent"],
-      ["COA: Replacement, write-through/write-back, multi-level cache numericals", "CD: LR(0), SLR(1) items, tables, conflicts"],
-      ["COA: Cache PYQ marathon (miss counting on array loops)", "CD: CLR(1), LALR(1), parser comparison"],
-      ["COA: Memory interfacing — chips needed, address decoding, interleaving", "CD: SDT — S-attributed, L-attributed, evaluation questions"],
-      ["COA: I/O — programmed, interrupt, DMA (cycle stealing / burst)", "CD: runtime env, 3AC, SSA, DAG, basic blocks, CFG"],
-      { test: "CD: liveness, constant propagation, CSE (1.5 h) → SUBJECT TEST: COA full + CD full. COA ✅ DONE" },
-    ],
-  },
-  {
-    start: "2026-11-02", newSubj: "dm", revSubj: "dbms", title: "Week 6 — Discrete (logic, sets, algebra) + DBMS revision",
-    days: [
-      ["DM: Propositional logic — tautology, equivalences, normal forms", "DBMS: ER model, ER→relational, keys"],
-      ["DM: Inference rules, validity, first-order logic (translation, negation)", "DBMS: FDs, closure, candidate keys, minimal cover"],
-      ["DM: Sets, relations — properties, counting relations, equivalence, partitions", "DBMS: normal forms, lossless & dependency-preserving decomposition"],
-      ["DM: Functions counting, POSETs, Hasse diagrams", "DBMS: relational algebra, tuple relational calculus"],
-      ["DM: Lattices — distributive, complemented, boolean algebra", "DBMS: SQL — joins, nested/correlated, group by/having, NULLs"],
-      ["DM: Monoids, groups, subgroups, Lagrange, cyclic groups", "DBMS: transactions, serializability, recoverability"],
-      { test: "DBMS: concurrency control + B/B+ tree indexing (2 h) → WEEKLY TEST: DM (logic+sets+algebra) + DBMS full" },
-    ],
-  },
-  {
-    start: "2026-11-09", newSubj: "dm", revSubj: "cn", title: "Week 7 — Discrete (graphs, combinatorics) + CN revision",
-    days: [
-      ["DM: Graph basics — degree, handshake, isomorphism, connectivity, cut vertex/edge", "CN: OSI/TCP-IP, switching, delay calculations"],
-      ["DM: Euler & Hamiltonian, planar graphs (Euler formula), trees", "CN: framing, CRC/checksum/Hamming, stop-and-wait, GBN, SR"],
-      ["DM: Colouring, matching, vertex/edge cover, independent set", "CN: ALOHA, CSMA/CD min frame size, Ethernet, bridges"],
-      ["DM: Counting, P&C, pigeonhole, inclusion-exclusion", "CN: IPv4, subnetting, CIDR, longest prefix match"],
-      ["DM: Recurrence relations (solve + form recurrences)", "CN: IPv4 header, fragmentation offsets, NAT (ARP/DHCP/ICMP sirf one-liner)"],
-      ["DM: Generating functions + Discrete full PYQ sweep", "CN: routing (DV, LS, count-to-infinity), TCP header & handshake"],
-      { test: "CN: TCP congestion control, socket API, DNS & HTTP (2 h) → SUBJECT TEST: Discrete full + CN full. Discrete ✅ DONE" },
-    ],
-  },
-  {
-    start: "2026-11-16", newSubj: "ga", revSubj: "dl", title: "Week 8 — General Aptitude + Digital + Linear Algebra",
-    days: [
-      ["GA: number system, percentages, ratio, averages, mixtures", "DL: Boolean algebra, K-maps, prime implicants, Quine-McCluskey (new 2027)"],
-      ["GA: time & work, speed/distance, profit/loss, powers/logs", "DL: MUX (function implementation), decoder, adders"],
-      ["GA: P&C, probability, mensuration, geometry, DI", "DL: flip-flops, counters, registers, FSMs"],
-      ["GA: grammar, vocabulary, sentence completion, RC", "DL: number systems, complements, IEEE 754 floating point"],
-      ["GA: logical reasoning, arrangements, syllogisms, analogies", "EM: matrices, rank, determinants, system of equations"],
-      ["GA: spatial (paper folding, patterns) + 10 years GA PYQs", "EM: eigenvalues/vectors, LU decomposition"],
-      { test: "WEEKLY TEST: GA section of 3 PYQ papers + Digital full + Linear Algebra" },
-    ],
-  },
-  {
-    start: "2026-11-23", newSubj: null, revSubj: "em", title: "Week 9 — Backlog, weak areas + Calculus & Probability",
-    days: [
-      ["2nd pass: OS weak topics (error log se)", "EM: limits, continuity, differentiability"],
-      ["2nd pass: COA cache + pipeline", "EM: maxima/minima, MVT, integration"],
-      ["2nd pass: Discrete weak parts", "EM: probability basics, conditional, Bayes"],
-      ["Backlog clear + har subject ke short notes complete", "EM: random variables, expectation, variance, distributions"],
-      ["Formula sheet har subject ka (1-2 page)", "EM: statistics + probability PYQs"],
-      { test: "GRAND TEST 1: full-length GATE mock (3 h) + detailed analysis" },
-      { test: "Grand Test 1 ki galtiyan fix + weak topics re-read + error log revision" },
-    ],
-  },
-];
+// ---- Key dates ----
+const PLAN_START = "2026-09-28";   // plan yahan se shuru
+const MOCK_PHASE_FROM = "2027-01-01"; // 1 Jan se full-length mock phase
 
-const SPECIAL_DAYS = {
-  "2026-09-27": {
-    title: "Day 0 — Setup + Diagnostic",
-    tasks: [
-      ["setup", "Tracker setup: Syllabus tab me Discrete ke jo topics ho gaye unko 'Learned' tick karo"],
-      ["diag", "Diagnostic: GATE CSE 2025 (ya 2024) paper 3 hour me attempt karo — Mocks tab me score dalo"],
-      ["analysis", "Paper analysis: har galat question Error Log me daalo"],
-      ["notes", "OS ke notes ready rakho (kal se OS start)"],
-    ],
-  },
-  "2026-11-30": {
-    title: "🎯 SYLLABUS COMPLETE DAY",
-    tasks: [
-      ["mock", "GRAND TEST 2: full-length mock (3 h)"],
-      ["analysis", "Analysis + Syllabus tab me check: koi topic 'Learned' bina tick ke to nahi?"],
-      ["plan", "Phase 2 ka plan dekho — kal se Revision Round 2 + subject tests"],
-    ],
-  },
+// ---- Aapka current status (28 Sep 2026) ----
+// Subject ka default status syllabus.js me hai; yahan topic-level exceptions.
+// "new" = abhi padhna hai (Track A), "revise" = padh chuke ho, sirf revision + PYQ (Track B).
+// Syllabus tab me har topic pe "Padha hua / Naya" toggle se isse badal sakte ho — plan khud update ho jayega.
+const TOPIC_STATUS_OVERRIDES = {
+  "em:1": "new",    // Calculus — nahi hua
+  "dl:2": "new",    // Sequential circuits — nahi hua
+  "dbms:3": "new",  // File organisation & indexing — nahi hua
+};
+const SUBJECT_STATUS = { // subject-level default (syllabus.js ke status ko override karta hai)
+  ga: "new", dm: "new", em: "revise", dl: "revise", coa: "new", c: "revise", ds: "revise",
+  algo: "revise", toc: "revise", cd: "revise", os: "new", dbms: "revise", cn: "revise",
 };
 
-// ---------- PHASE 2: 1 Dec 2026 – 10 Jan 2027 (Revision round 2 + subject tests) ----------
-const PHASE2_BLOCKS = [
-  { from: "2026-12-01", to: "2026-12-04", subj: ["c", "ds"], label: "C + Data Structures" },
-  { from: "2026-12-05", to: "2026-12-08", subj: ["algo"], label: "Algorithms" },
-  { from: "2026-12-09", to: "2026-12-11", subj: ["toc"], label: "TOC" },
-  { from: "2026-12-12", to: "2026-12-13", subj: ["cd"], label: "Compiler Design" },
-  { from: "2026-12-14", to: "2026-12-17", subj: ["os"], label: "Operating Systems" },
-  { from: "2026-12-18", to: "2026-12-21", subj: ["coa"], label: "COA" },
-  { from: "2026-12-22", to: "2026-12-24", subj: ["dbms"], label: "DBMS" },
-  { from: "2026-12-25", to: "2026-12-27", subj: ["cn"], label: "Computer Networks" },
-  { from: "2026-12-28", to: "2026-12-29", subj: ["dl"], label: "Digital Logic" },
-  { from: "2026-12-30", to: "2027-01-02", subj: ["dm"], label: "Discrete Maths" },
-  { from: "2027-01-03", to: "2027-01-05", subj: ["em"], label: "Engineering Maths" },
-  { from: "2027-01-06", to: "2027-01-07", subj: ["ga"], label: "General Aptitude" },
-  { from: "2027-01-08", to: "2027-01-10", subj: [], label: "Weak areas + multi-subject tests" },
-];
+// ---- Track order ----
+// Track A = naya padhna (high-weight pehle). Track B = revision + PYQ. Track G = Aptitude roz.
+const TRACK_ORDER = {
+  A: ["os", "coa", "dm", "em", "dl", "dbms", "c", "ds", "algo", "toc", "cd", "cn"],
+  B: ["c", "ds", "algo", "toc", "cd", "cn", "dbms", "dl", "em", "dm", "os", "coa"],
+};
 
-const PHASE3_START = "2027-01-11";
+// Hours per subtopic by depth (1 BASIC, 2 STANDARD, 3 DEEP). PYQ = minutes per question incl. checking.
+const STUDY_HOURS = { 1: 2, 2: 4, 3: 6 };
+const REVISE_HOURS = { 1: 0.5, 2: 1, 3: 1.5 };
+const MIN_PER_PYQ = 5;
+// PYQ bank aane tak topic ke PYQ count ka andaza (frequency se).
+const EST_PYQ = { H: 30, M: 15, L: 6 };
 
+// ---- Daily routine ----
 const DAILY_TIMETABLE = [
-  ["06:00 – 06:45", "Aptitude (GA) — 10 PYQs daily + 1 formula page revision"],
-  ["07:00 – 10:30", "BLOCK 1: NEW subject — notes Claude ke saath samjho (Pomodoro 50/10)"],
-  ["10:30 – 11:00", "Break"],
-  ["11:00 – 13:30", "BLOCK 2: REVISION subject — short notes + standard questions"],
-  ["13:30 – 15:00", "Lunch + rest (20 min power nap)"],
-  ["15:00 – 17:30", "BLOCK 3: PYQs — aaj ke NEW + REVISION topics (25–35 Q, timer ke saath)"],
-  ["17:30 – 18:30", "Walk / exercise"],
-  ["18:30 – 20:00", "BLOCK 4: Galat PYQs dobara solve + Error Log + short notes update"],
-  ["20:00 – 21:00", "Dinner"],
-  ["21:00 – 22:00", "Spaced revisions due (Dashboard) + kal ka plan dekho"],
-  ["22:30", "Sleep — 7 hours minimum (non-negotiable)"],
+  ["05:45 – 06:00", "Utho, paani, fresh", "o"],
+  ["06:00 – 07:00", "🔁 Revision queue (due topics) + kal ke short notes (2 🍅)", "s"],
+  ["07:00 – 09:30", "📘 Track A — naya topic (Claude prompt + notes) (5 🍅)", "s"],
+  ["09:30 – 10:00", "Breakfast", "o"],
+  ["10:00 – 12:00", "📘 Track A — contd. + usi topic ke PYQs (4 🍅)", "s"],
+  ["12:00 – 12:30", "🧩 Aptitude (GA) — aaj ka GA task (1 🍅)", "s"],
+  ["12:30 – 13:30", "Lunch + 20 min power nap", "o"],
+  ["13:30 – 16:00", "🔁 Track B — revision topic (5 🍅)", "s"],
+  ["16:00 – 16:30", "Walk / exercise (phone nahi)", "o"],
+  ["16:30 – 18:30", "✍️ Track B — PYQ Quiz (aaj ka target) (4 🍅)", "s"],
+  ["18:30 – 19:30", "Snacks + break", "o"],
+  ["19:30 – 20:30", "❌ Error Log: galat PYQs dobara + short notes likho (2 🍅)", "s"],
+  ["20:30 – 21:30", "Dinner + family", "o"],
+  ["21:30 – 22:00", "📝 Tracker update + kal ka plan (Today page) dekho", "s"],
+  ["22:15", "Sleep — 7 h (non-negotiable)", "o"],
 ];
+
+const SUNDAY_PLAN = [
+  ["3 h", "Weekly test: is hafte ke topics ke 40 timed PYQs (Quiz → 'Is hafte ke topics' + timer), GATE marking"],
+  ["1.5 h", "Test analysis: har galat question dobara solve, Error Log me reason tag karo"],
+  ["2.5 h", "Backlog: Dashboard pe jo 'behind' dikhe wo khatam karo"],
+  ["2 h", "Weekly revision: is hafte ke saare short notes + Error Log"],
+  ["1 h", "GA mixed PYQ set (20 Qs)"],
+  ["20 min", "Agle hafte ka Schedule dekho, notes ready rakho"],
+];
+
+// GA topic rotation by weekday (0 = Sunday). Index = GA topic index in syllabus.js.
+const GA_ROTATION = { 1: 1, 2: 0, 3: 1, 4: 2, 5: 1, 6: 3, 0: 1 };
+
+// Revision deadline se pehle ka last week = buffer (grand revision + mocks). Key = days before deadline.
+const BUFFER_PLAN = [
+  ["Grand revision 1: C, DS, Algo, TOC ke short notes + Error Log", "Backlog clear"],
+  ["Grand revision 2: CD, CN, DBMS, Digital ke short notes + Error Log", "Backlog clear"],
+  ["Grand revision 3: OS, COA, Discrete, Maths, GA ke short notes + Error Log", "Weak topics (Revision queue) khatam"],
+  ["FULL MOCK 1 (3 h, exam time slot pe) → Mocks page pe analysis upload", "Analysis ke weak topics fix"],
+  ["Mock 1 ke galat questions + unke topics dobara", "Formula sheets final"],
+  ["Revision queue ke saare 'due' topics + galat PYQs retry (Quiz → Galat wale)", ""],
+  ["FULL MOCK 2 → analysis. 🎯 31 Dec: saara syllabus revised + PYQs solved", ""],
+];
+
+// January–February mock plan (exam ~6 Feb). Alternate days mock + analysis.
+const MOCK_PHASE_RULES = {
+  mockDay: ["FULL-LENGTH MOCK (3 h) exam ke time slot pe", "Deep analysis (3 h): Mocks page pe PDF upload → auto analysis", "GA 10 PYQs"],
+  fixDay: ["Kal ke mock ke weak topics re-read + unke PYQs (Quiz)", "2 subjects ki formula sheet + short notes", "Error Log + Revision queue due", "GA 10 PYQs"],
+};
 
 const CLAUDE_PROMPTS = [
   {

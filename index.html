@@ -6,34 +6,43 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://api.anthropic.com; form-action 'none'; base-uri 'none'; object-src 'none'">
   <meta name="referrer" content="no-referrer">
   <title>GATE CSE 2027 Tracker</title>
-  <meta name="description" content="GATE CSE 2027 study tracker — official syllabus map with depth guide, PYQ mapping, day-by-day plan, spaced revision, mocks and error log.">
+  <meta name="description" content="GATE CSE 2027 AIR-1 tracker — auto day-by-day plan, syllabus depth map, PYQ quiz with auto error log, revision queue, Pomodoro, mocks analysis and short notes.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="top">
-    <div class="brand">
-      <div class="logo">🎯</div>
-      <div>
-        <h1>GATE CSE 2027 Tracker</h1>
-        <p id="hello">Target: AIR &lt; 100 🎯</p>
+  <div class="app">
+    <aside class="side">
+      <div class="brand">
+        <div class="logo">🎯</div>
+        <div><div class="brand-title">GATE CSE 2027</div><div class="brand-sub" id="hello">Target: AIR 1 🎯</div></div>
       </div>
-    </div>
-    <nav class="tabs" aria-label="Sections">
-      <button data-view="dash">Aaj</button>
-      <button data-view="plan">Plan</button>
-      <button data-view="syll">Syllabus</button>
-      <button data-view="mocks">Mocks</button>
-      <button data-view="errors">Error Log</button>
-      <button data-view="claude">Claude</button>
-      <button data-view="settings">⚙️</button>
-    </nav>
-  </header>
-  <main id="view"></main>
-  <footer class="foot">Data sirf aapke browser me save hota hai — Settings se weekly backup export karo.</footer>
+      <nav class="nav" id="nav" aria-label="Pages">
+        <a href="#dashboard" data-v="dashboard">📊 Dashboard</a>
+        <a href="#today" data-v="today">📅 Aaj</a>
+        <a href="#syllabus" data-v="syllabus">📚 Syllabus</a>
+        <a href="#quiz" data-v="quiz">✍️ PYQ Quiz</a>
+        <a href="#pyqmap" data-v="pyqmap">🗺 PYQ Map</a>
+        <a href="#schedule" data-v="schedule">🗓 Schedule</a>
+        <a href="#pomodoro" data-v="pomodoro">🍅 Pomodoro</a>
+        <a href="#revision" data-v="revision">🔁 Revision <span class="nav-badge" id="revBadge"></span></a>
+        <a href="#mocks" data-v="mocks">📝 Mocks</a>
+        <a href="#notes" data-v="notes">🗒 Short Notes</a>
+        <a href="#errors" data-v="errors">❌ Error Log <span class="nav-badge" id="errBadge"></span></a>
+        <a href="#claude" data-v="claude">🤖 Claude</a>
+        <a href="#settings" data-v="settings">⚙️ Settings</a>
+      </nav>
+      <div class="mini-timer" id="miniTimer" hidden></div>
+    </aside>
+    <main class="main" id="main"></main>
+  </div>
   <div id="toast" role="status" aria-live="polite"></div>
   <script src="js/syllabus.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/pyq-bank.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/mocks.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
