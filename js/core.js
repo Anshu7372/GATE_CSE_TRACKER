@@ -152,8 +152,9 @@ function sanitizeState(raw) {
   if (isObj(raw.frozen) && dateOr(raw.frozen.date, null)) {
     const clean = (list) => arr(list, 60).filter((x) => isObj(x) && validTopicKey(x.key)).map((x) => ({
       key: x.key, kind: x.kind === "pyq" ? "pyq" : "sub", j: clampInt(x.j, 0, 99, 0), n: clampInt(x.n, 0, 999, 0), h: Math.max(0, Math.min(24, +x.h || 0)),
+      ...(x.kind === "pyq" && Array.isArray(x.ids) ? { ids: arr(x.ids, 300).filter((id) => typeof id === "string" && QBYID[id]), go: clampInt(x.go, 0, 999, 0) } : {}),
     }));
-    b.frozen = { date: raw.frozen.date, A: clean(raw.frozen.A), B: clean(raw.frozen.B), G: clean(raw.frozen.G) };
+    b.frozen = { v: raw.frozen.v === 2 ? 2 : 1, date: raw.frozen.date, A: clean(raw.frozen.A), B: clean(raw.frozen.B), G: clean(raw.frozen.G) };
   }
   return b;
 }
@@ -236,10 +237,18 @@ function orderedTopics(track) {
 // Work items of a topic. full=true → ignore progress (baseline).
 function workItems(key, full) {
   const t = TOPIC[key], isNew = tStatus(key) === "new", hrs = isNew ? STUDY_HOURS : REVISE_HOURS;
-  const items = [];
-  if (full || !conceptDone(key)) t.subs.forEach((x, j) => { if (full || !subDone(key, j)) items.push({ key, kind: "sub", j, h: hrs[x.d] }); });
-  const p = topicPyq(key), n = full ? p.total : p.remaining;
-  if (n > 0) items.push({ key, kind: "pyq", n, h: (n * MIN_PER_PYQ) / 60 });
+  const items = [], studyAll = full || !conceptDone(key);
+  // PYQs go right after their own subtopic: bank questions of that subtopic + its share of the
+  // estimate for years not in the bank yet (weighted by depth).
+  const est = topicPyq(key).estRest, estDone = !full && !!getT(key).pyq;
+  const W = sum(t.subs.map((x) => x.d)) || 1;
+  const qs = QBYTOPIC[key] || [];
+  t.subs.forEach((x, j) => {
+    if (studyAll && (full || !subDone(key, j))) items.push({ key, kind: "sub", j, h: hrs[x.d] });
+    const bank = qs.filter((q) => q.sj === j && (full || !state.quiz[q.id])).length;
+    const n = bank + (estDone ? 0 : Math.round((est * x.d) / W));
+    if (n > 0) items.push({ key, kind: "pyq", j, n, h: (n * MIN_PER_PYQ) / 60 });
+  });
   return items;
 }
 function trackItems(track, full) { return orderedTopics(track).flatMap((k) => workItems(k, full)); }
@@ -307,18 +316,56 @@ function progressSummary() {
 // Today's plan is frozen once per day so it doesn't reshuffle while you tick things off.
 function todayPlan(force) {
   const t = today();
-  if (!force && state.frozen && state.frozen.date === t) return state.frozen;
+  if (!force && state.frozen && state.frozen.date === t && state.frozen.v === 2) {
+    const F = state.frozen, all = [...F.A, ...F.B, ...F.G];
+    if (all.some((p) => p.kind === "pyq" && !Array.isArray(p.ids))) {
+      const used = new Set(all.flatMap((p) => p.ids || []));
+      ["A", "B", "G"].forEach((tr) => assignQuestions(F[tr].filter((p) => !Array.isArray(p.ids)), used));
+      save();
+    }
+    return F;
+  }
   const rp = rollingPlan(t);
   const d = rp.days[0] === t ? t : null;
   const pick = (tr) => (d ? mergePieces(rp.tracks[tr][d] || []) : []);
-  state.frozen = { date: t, A: pick("A"), B: pick("B"), G: pick("G") };
+  const used = new Set();
+  state.frozen = { v: 2, date: t, A: assignQuestions(pick("A"), used), B: assignQuestions(pick("B"), used), G: assignQuestions(pick("G"), used) };
   save();
   return state.frozen;
 }
+// Pick the exact PYQs for a day's PYQ blocks: unattempted bank questions of that topic,
+// subtopics already studied first, then subtopic order, newest year first. Rest (years not
+// in the bank yet) stays as a GATE Overflow count ("go").
+function assignQuestions(pieces, used) {
+  pieces.forEach((p) => {
+    if (p.kind !== "pyq") return;
+    const ready = (q) => (tStatus(p.key) === "revise" || subDone(p.key, q.sj) ? 0 : 1);
+    const qs = (QBYTOPIC[p.key] || []).filter((q) => q.sj === p.j && !state.quiz[q.id] && !used.has(q.id))
+      .sort((a, b) => ready(a) - ready(b) || a.sj - b.sj || b.y - a.y || a.n - b.n);
+    p.ids = qs.slice(0, p.n).map((q) => q.id);
+    p.ids.forEach((id) => used.add(id));
+    p.go = Math.max(0, p.n - p.ids.length);
+  });
+  return pieces;
+}
+// Projection for a future date: assign questions day by day after today's frozen plan.
+function projectedPlan(d) {
+  const t = today(), tp = todayPlan(), rp = rollingPlan(t);
+  const used = new Set([...tp.A, ...tp.B, ...tp.G].flatMap((p) => p.ids || []));
+  let res = null;
+  for (const day of rp.days) {
+    if (day <= t) continue;
+    if (day > d) break;
+    const pl = { A: mergePieces(rp.tracks.A[day] || []), B: mergePieces(rp.tracks.B[day] || []), G: mergePieces(rp.tracks.G[day] || []) };
+    ["A", "B", "G"].forEach((tr) => assignQuestions(pl[tr], used));
+    if (day === d) res = pl;
+  }
+  return res || { A: [], B: [], G: [] };
+}
 function pieceDone(p) {
   if (p.kind === "sub") return subDone(p.key, p.j) || conceptDone(p.key);
-  const s = topicPyq(p.key);
-  return s.remaining === 0;
+  if (Array.isArray(p.ids)) return p.ids.every((id) => state.quiz[id]) && (!p.go || !!getT(p.key).pyq);
+  return topicPyq(p.key).remaining === 0;
 }
 // Which phase is a date in?
 function phaseOf(d) {

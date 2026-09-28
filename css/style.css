@@ -341,3 +341,14 @@ details.card summary { cursor: pointer; }
   .card { box-shadow: none; break-inside: avoid; }
   details { display: block; }
 }
+
+/* detailed day plan */
+.depth-line { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: .78rem; color: var(--muted); margin: 4px 0; }
+.piece .pts { margin: 4px 0 4px 0; }
+.piece .meta { margin-left: 0; }
+.qchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.qchip { border: 1px solid var(--line); background: var(--bg); color: var(--text); border-radius: 8px; padding: 3px 8px; font: inherit; font-size: .78rem; cursor: pointer; }
+.qchip small { color: var(--muted); }
+.qchip.ok { border-color: var(--ok); background: var(--ok-soft); }
+.qchip.bad { border-color: var(--bad); background: var(--bad-soft); }
+.kpis .kpi { padding: 4px 0; }

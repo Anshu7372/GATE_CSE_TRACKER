@@ -153,24 +153,59 @@ function viewDashboard() {
 }
 
 // ======================= TODAY =======================
+function qChip(id) {
+  const q = QBYID[id]; if (!q) return "";
+  const a = state.quiz[id], sub = TOPIC[`${q.sid}:${q.ti}`].subs[q.sj];
+  return `<button class="qchip ${a ? (a.ok ? "ok" : "bad") : ""}" data-qretry="${esc(id)}" title="${esc(sub ? sub.n : "")}">${a ? (a.ok ? "✓ " : "✗ ") : ""}${esc(q.y)}${q.set ? "-" + esc(q.set) : ""} ${esc(qLabel(q))} <small>${+q.m}M ${esc(q.ty)}</small></button>`;
+}
 function pieceRow(p, live) {
   const tp = TOPIC[p.key]; if (!tp) return "";
   const done = pieceDone(p), k = esc(p.key);
   if (p.kind === "sub") {
     const x = tp.subs[p.j]; if (!x) return "";
+    const nq = (QBYTOPIC[p.key] || []).filter((q) => q.sj === p.j).length;
     return `<div class="piece ${done ? "done" : ""}">
       ${live ? `<input type="checkbox" data-subck="${k}:${+p.j}" ${subDone(p.key, p.j) ? "checked" : ""} aria-label="Done">` : ""}
-      <div class="piece-b"><div><b>${tStatus(p.key) === "new" ? "Padho" : "Revise"}:</b> ${esc(tp.s.name)} › ${esc(tp.n)} › <b>${esc(x.n)}</b> ${depthChip(x.d)}</div>
-        <div class="tiny">${esc(x.pts.join(" · "))}</div></div>
+      <div class="piece-b"><div><b>${tStatus(p.key) === "new" ? "📘 Padho" : "🔁 Revise"}:</b> ${esc(tp.s.name)} › ${esc(tp.n)} › <b>${esc(x.n)}</b></div>
+        <div class="depth-line">${depthChip(x.d)} <span>${esc(DEPTH_HELP[x.d])}</span> ${freqChip(x.f)}</div>
+        <ul class="pts">${x.pts.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>
+        <div class="meta"><b>PYQ me aise aata hai:</b> ${esc(x.pyq)}</div>
+        ${x.skip ? `<div class="meta skip"><b>Skip (itna deep nahi):</b> ${esc(x.skip)}</div>` : ""}
+        ${nq ? `<div class="meta">Is subtopic ke ${nq} PYQs quiz bank me hain — padhne ke baad wale ✍️ PYQ block me.</div>` : ""}</div>
       <em>${r1d(p.h)} h</em><button class="btn ghost sm" data-prompt="${k}" title="Claude prompt copy">🤖</button></div>`;
   }
-  const ps = topicPyq(p.key), fromBank = Math.min(+p.n, ps.bank - ps.batt);
+  const ids = Array.isArray(p.ids) ? p.ids : [], go = Array.isArray(p.ids) ? p.go : +p.n;
+  const ps = topicPyq(p.key);
   return `<div class="piece ${done ? "done" : ""}">
-    ${ps.estRest && live ? `<input type="checkbox" data-pyqflag="${k}" ${getT(p.key).pyq ? "checked" : ""} aria-label="Baaki saalon ke PYQs done" title="Baaki saalon ke PYQs (GATE Overflow) ho gaye">` : ""}
-    <div class="piece-b"><div><b>PYQs:</b> ${+p.n} questions — ${esc(tp.s.name)} › ${esc(tp.n)}</div>
-      <div class="tiny">${ps.bank ? `Quiz: ${ps.batt}/${ps.bank} solved · accuracy ${ps.acc}%` : ""}${ps.bank && ps.estRest ? " · " : ""}${ps.estRest ? `~${ps.estRest} baaki saalon ke (bank me abhi nahi) — GATE Overflow se karke ☑ tick karo` : ""}</div></div>
+    ${go && live ? `<input type="checkbox" data-pyqflag="${k}" ${getT(p.key).pyq ? "checked" : ""} aria-label="GO wale PYQs done" title="Baaki saalon ke PYQs (GATE Overflow) ho gaye">` : "<span></span>"}
+    <div class="piece-b"><div><b>✍️ PYQs: ${+p.n} questions</b> — ${esc(tp.s.name)} › ${esc(tp.n)}${tp.subs[p.j] ? ` › <b>${esc(tp.subs[p.j].n)}</b>` : ""}</div>
+      ${ids.length ? `<div class="qchips">${ids.map(qChip).join("")}</div>` : ""}
+      ${go ? `<div class="tiny">+ ~${go} questions un saalon se jo abhi bank me nahi — GATE Overflow (GO ↗) se karo, phir ☑ tick.</div>` : ""}
+      ${ps.batt ? `<div class="tiny">Is topic ki accuracy: ${ps.acc}% (${ps.cor}/${ps.batt})</div>` : ""}</div>
     <em>${r1d(p.h)} h</em>
-    <span class="btn-row">${fromBank > 0 ? `<button class="btn sm" data-qstart="${k}|${fromBank}">▶ Quiz (${fromBank})</button>` : ""}${ps.estRest ? `<a class="btn ghost sm" href="${esc(goSearch(tp.n))}" target="_blank" rel="noopener">GO ↗</a>` : ""}</span></div>`;
+    <span class="btn-row">${ids.length ? `<button class="btn sm" data-qids="${esc(ids.join(","))}">▶ Ye ${ids.length} karo</button>` : ""}${go ? `<a class="btn ghost sm" href="${esc(goSearch(tp.n))}" target="_blank" rel="noopener">GO ↗</a>` : ""}</span></div>`;
+}
+function daySummary(plan, live) {
+  const all = [...plan.A, ...plan.B, ...plan.G];
+  const subs = all.filter((p) => p.kind === "sub"), pyq = all.filter((p) => p.kind === "pyq");
+  const ids = pyq.flatMap((p) => p.ids || []), go = sum(pyq.map((p) => (Array.isArray(p.ids) ? p.go : p.n)));
+  const nQ = sum(pyq.map((p) => +p.n)), h = r1d(sum(all.map((p) => p.h)));
+  const doneQ = ids.filter((id) => state.quiz[id]).length;
+  const rows = all.map((p) => {
+    const t = TOPIC[p.key], x = t.subs[p.j];
+    if (p.kind === "sub") return x ? `<tr><td>${tStatus(p.key) === "new" ? "📘 Padho" : "🔁 Revise"}</td><td>${esc(t.s.name)} › ${esc(t.n)} › <b>${esc(x.n)}</b></td><td>${depthChip(x.d)}</td><td class="num">${r1d(p.h)} h</td></tr>` : "";
+    const g = Array.isArray(p.ids) ? p.go : p.n;
+    return `<tr><td>✍️ PYQ</td><td>${esc(t.s.name)} › ${esc(t.n)}${x ? " › " + esc(x.n) : ""}</td><td>${(p.ids || []).length} quiz${g ? ` + ${g} GO` : ""}</td><td class="num">${r1d(p.h)} h</td></tr>`;
+  }).join("");
+  return `<section class="card"><h2>🎯 ${live ? "Aaj ka poora target" : "Is din ka target"}</h2>
+    <div class="grid kpis">
+      <div class="kpi"><div class="kpi-n">${h} h</div><div class="kpi-l">plan ka kaam (+ revision ~1 h)</div></div>
+      <div class="kpi"><div class="kpi-n">${subs.length}</div><div class="kpi-l">subtopics padhne/revise karne</div></div>
+      <div class="kpi"><div class="kpi-n">${nQ}</div><div class="kpi-l">PYQs (${ids.length} quiz me${go ? ` + ${go} GO` : ""})${live && ids.length ? ` · ${doneQ} done` : ""}</div></div>
+    </div>
+    <div class="table-wrap"><table class="tbl"><thead><tr><th>Kaam</th><th>Topic › Subtopic</th><th>Depth / Qs</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table></div>
+    ${ids.length ? `<div class="pills"><button class="btn" data-qids="${esc(ids.join(","))}">▶ ${live ? "Aaj" : "Is din"} ke saare ${ids.length} PYQs</button></div>` : ""}
+    <p class="tiny">Order: pehle subtopic padho (depth tak, Claude prompt 🤖 se) → phir usi topic ke PYQs. Depth: BASIC = definition + direct formula, STANDARD = saare PYQ types, DEEP = har variation + traps.</p></section>`;
 }
 function trackCard(title, pieces, live, hint) {
   const h = r1d(sum(pieces.map((p) => p.h))), done = pieces.filter(pieceDone).length;
@@ -200,16 +235,16 @@ function viewToday() {
     const live = d === td;
     let plan = null;
     if (live) plan = todayPlan();
-    else if (d > td) { const rp = rollingPlan(td); plan = { A: mergePieces(rp.tracks.A[d] || []), B: mergePieces(rp.tracks.B[d] || []), G: mergePieces(rp.tracks.G[d] || []) }; }
+    else if (d > td) plan = projectedPlan(d);
     if (plan) {
-      const gaTopic = SUBJ.ga.topics[GA_ROTATION[parse(d).getDay()]];
       body = `${d > td ? '<p class="hint">Ye aage ka <b>projection</b> hai — roz ke kaam ke hisaab se apne aap badlega.</p>' : ""}
+        ${daySummary(plan, live)}
         <div class="grid two">
           ${trackCard("📘 Track A — naya padhna", plan.A, live, "Track A ke naye topics khatam 🎉 — Track B / revision pe zyada time do.")}
           ${trackCard("🔁 Track B — revision + PYQs", plan.B, live)}
         </div>
         <div class="grid two">
-          ${trackCard(`🧩 Aptitude — aaj focus: ${esc(gaTopic ? gaTopic.n : "GA")}`, plan.G, live, "GA: 10 mixed PYQs.")}
+          ${trackCard("🧩 Aptitude (GA)", plan.G, live, "GA: 10 mixed PYQs.")}
           ${live ? revisionDueCard() : ""}
         </div>
         ${live ? '<div class="pills"><button class="btn ghost" data-act="replan">↻ Re-plan today (status badla ho to)</button></div>' : ""}`;
@@ -464,8 +499,12 @@ function viewSchedule() {
   const td = today(), rp = rollingPlan(td), ps = progressSummary();
   const nameList = (pieces) => {
     const m = new Map();
-    pieces.forEach((p) => { const k = p.key; const e = m.get(k) || { subs: 0, q: 0 }; if (p.kind === "sub") e.subs++; else e.q += p.n; m.set(k, e); });
-    return [...m.entries()].map(([k, e]) => `${esc(TOPIC[k].n)}${e.q ? ` <span class="tiny">(${e.q} PYQs)</span>` : ""}`).join(" → ") || '<span class="muted">—</span>';
+    pieces.forEach((p) => { const e = m.get(p.key) || { subs: [], q: 0 }; if (p.kind === "sub") e.subs.push(p.j); else e.q += p.n; m.set(p.key, e); });
+    return [...m.entries()].map(([k, e]) => {
+      const t = TOPIC[k];
+      const subs = e.subs.map((j) => t.subs[j] ? `${esc(t.subs[j].n)} <span class="depth d${t.subs[j].d}">${esc(DEPTH_LABEL[t.subs[j].d][0])}</span>` : "").join(", ");
+      return `<b>${esc(t.n)}</b>${subs ? `: ${subs}` : ""}${e.q ? ` <span class="chip">${e.q} PYQs</span>` : ""}`;
+    }).join(" · ") || '<span class="muted">—</span>';
   };
   // Gantt: first/last day per subject
   const span = {}; // sid → track → {a, z}
@@ -503,7 +542,7 @@ function viewSchedule() {
     </section>
     <section class="card"><h2>📊 Subject timeline</h2><div class="gantt">${gantt || '<p class="muted">Sab khatam 🎉</p>'}</div>
       <p class="tiny"><span class="g-key trA"></span> Track A (naya) <span class="g-key trB"></span> Track B (revision) <span class="g-key trG"></span> GA</p></section>
-    <section class="card"><h2>Din-ba-din (click → us din ka plan)</h2><div class="days">${weeks}</div></section>
+    <section class="card"><h2>Din-ba-din (click → us din ka poora plan: exact subtopics, depth aur questions)</h2><p class="tiny">Depth: <span class="depth d1">B</span> BASIC · <span class="depth d2">S</span> STANDARD · <span class="depth d3">D</span> DEEP</p><div class="days">${weeks}</div></section>
     <section class="card"><h2>🏁 Buffer week</h2><ol class="rules">${BUFFER_PLAN.map((b, i) => `<li><b>${esc(fmt(addDays(bufferFrom(), i)))}:</b> ${esc(b.filter(Boolean).join(" · "))}</li>`).join("")}</ol></section>
     <section class="card"><h2>🗓 Sunday plan</h2><ul class="rules">${SUNDAY_PLAN.map(([t, l]) => `<li><b>${esc(t)}</b> — ${esc(l)}</li>`).join("")}</ul></section>`;
 }

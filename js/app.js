@@ -129,6 +129,7 @@ document.addEventListener("click", (ev) => {
   if (D.qtopicwrong) { startQuiz(topicQuestions(D.qtopicwrong, 0, true)); return; }
   if (D.qsub) { const [k, j] = D.qsub.split("|"); startQuiz((QBYTOPIC[k] || []).filter((q) => q.sj === +j).map((q) => q.id)); return; }
   if (D.qretry) { startQuiz([D.qretry]); return; }
+  if (D.qids) { startQuiz(D.qids.split(",").slice(0, 300)); return; }
   if (D.qreason) { const q = curQ(); if (q) { setErrType(q.id, D.qreason); render(); } return; }
   if (D.pmode) { if (!P.running) { P.mode = D.pmode; P.left = null; render(); } return; }
   if (D.delerr) { if (confirm("Ye entry delete karein?")) { state.errors = state.errors.filter((e) => e.id !== D.delerr); save(); render(); } return; }
@@ -148,7 +149,7 @@ document.addEventListener("click", (ev) => {
     case "q-start": startQuiz(quizList(ui.quiz.f)); break;
     case "q-today": {
       const tp = todayPlan();
-      startQuiz([...tp.A, ...tp.B, ...tp.G].filter((p) => p.kind === "pyq").flatMap((p) => topicQuestions(p.key, p.n)));
+      startQuiz([...tp.A, ...tp.B, ...tp.G].flatMap((p) => p.ids || []));
       break;
     }
     case "q-wrongall": startQuiz(BANK.filter((q) => state.quiz[q.id] && !state.quiz[q.id].ok).map((q) => q.id)); break;
