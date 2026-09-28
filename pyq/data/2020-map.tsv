@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:0	Prepositions of time: 'within' six months, 'for' the last three weeks.
+2	ga:0:1	Contrast signalled by 'but': excellent knowledge vs 'extremely poor' performance.
+3	ga:0:1	Analogy by word form: Cook : Cook (same noun/verb) :: Fly : Flyer.
+4	ga:0:2	Inference from passage: billions of people are affected by melting glaciers.
+5	ga:2:1	Cheapest path in a network including toll-booth costs at nodes.
+6	ga:0:2	Inference: GST is destination-based, i.e. imposed at the point of usage.
+7	ga:2:1	Pattern P=3, R=27, T=243 (powers of 3): Q = 9, S = 81.
+8	ga:1:4	Circles in an annulus: each circle has diameter (b − a); unpainted area = annulus − n circles.
+9	ga:1:4	Perpendicular lines make acute angles α, β with the x-axis: α + β = 90°.
+10	ga:1:3	Bar chart DI: total revenue vs total expenditure → profit percentage.
+11	em:1:1	Increasing function on an interval: check the sign of the derivative on [0, 1].
+12	algo:0:1	Recurrence T(n) = T(n^(1/a)) + 1: number of root-takings until n drops to b ⇒ log_a log_b n.
+13	coa:3:0	Interrupt facts: daisy chaining sets priority; polling checks status bits; vectored interrupts need no polling.
+14	coa:1:0	Order of micro-operations for R0 ← R1 + R2 on the single-bus datapath (fetch first).
+15	ds:3:1	BST from preorder (sorted order = inorder) → derive the postorder.
+16	ds:3:2	Inserting n² elements into an AVL tree: each insert O(log n) ⇒ Θ(n² log n).
+17	toc:0:1	Regular expression for strings with an odd number of 1s (official key: marks to all).
+18	toc:1:0	L1 ∪ L2 regular doesn't force L1, L2 regular; regular languages aren't closed under infinite union.
+19	cd:3:0	Compiler facts: symbol table used in all phases; recursion needs a stack (not heap); declare-before-use is semantic.
+20	toc:2:1	aⁿ ∪ aⁿbⁿ is a DCFL; it is not LL(k) for any k.
+21	os:4:0	Hole sizes after first/best/worst/next fit: best fit never leaves a bigger hole than first fit.
+22	os:0:0	Preemptive process state transitions: blocked → ready (never blocked → running directly).
+23	dbms:1:2	Correlated/aggregate subquery with GROUP BY: count rows returned.
+24	dbms:0:0	ER notation: identifying relationship of a weak entity uses a double-bordered diamond.
+25	cn:2:1	Router facts: routers modify packets (TTL), may use static routing, never reassemble fragments.
+26	ds:2:0	Building a sorted linked list by n insertions: worst case Θ(n²).
+27	dm:2:1	Probability a random relation on 3 elements is reflexive = 2^(n²−n)/2^(n²) = 1/8.
+28	dm:4:1	Lagrange: proper subgroup order divides 35 ⇒ largest is 7.
+29	dl:1:0	MUX selecting 1 of 32 registers needs log₂32 = 5 select lines.
+30	coa:2:0	Decoder for 1 KB byte-addressable RAM: 10 input lines, 1024 outputs.
+31	coa:2:1	Average memory access time with block fill: first word + subsequent words on a miss.
+32	c:1:1	Pointer arithmetic on a 2-D array: *(*(a + **a + 2) + 3).
+33	ds:5:0	Double hashing probe sequence: (h1 + i·h2) mod 23 for probe 1.
+34	cd:1:2	Count reductions of a shift-reduce parse for aaadbbb.
+35	cn:4:0	Non-persistent HTTP: one TCP connection per object (HTML + 5 images).
+36	toc:3:1	Rice's theorem: emptiness, 'not recursive', '≥ 21 members' undecidable; bounded-step question decidable.
+37	em:0:0	Rank/determinant facts: det(AB) = det A · det B, rank(A+B) ≤ rank A + rank B.
+38	dl:0:0	Derive the minterm list from the gate circuit z = a + b'c.
+39	dl:3:1	IEEE-754 division: decode R1, R2, divide, re-encode.
+40	coa:2:2	Set index from physical address bits for a 4-way set-associative cache.
+41	algo:3:1	Checking if an MST stays minimal after adding one edge: find max edge on the u–v tree path, Θ(V).
+42	toc:1:1	wxyx over (0+1)⁺ is regular; xy with |x| = |y|, x ≠ y is context-free.
+43	cd:2:0	L-attributed check: inherited attributes may depend only on the parent and left siblings.
+44	os:2:1	Semaphore barrier: no process enters section Q until all n finish section P.
+45	os:7:0	SSTF disk scheduling from cylinder 100: find the order of service.
+46	dbms:2:1	3NF but not BCNF: some FD X → A with X not a superkey and A prime.
+47	dbms:4:0	Conflict equivalence: keep the order of every conflicting pair.
+48	cn:2:0	CIDR allocation of a /21 block within 202.61.0.0/17 that keeps route aggregation.
+49	dm:1:1	FOL equivalences: ∀x(p(x) → W) is not equivalent to ∀x p(x) → W.
+50	algo:5:1	Reweighting w'(u,v) = w + f(u) − f(v) preserves shortest paths for every f (Johnson's idea).
+51	ds:3:1	Range query in a balanced BST: Θ(log n + k).
+52	dm:6:0	Derangements of LILAC with two identical L's.
+53	coa:4:1	Pipeline speedup with memory and branch stalls vs the non-pipelined processor.
+54	coa:0:0	Instruction format: opcode space left after I-type opcodes → max R-type opcodes.
+55	em:2:0	Parity of Σ aᵢxᵢ for a non-zero a and random x is odd with probability 1/2.
+56	c:0:2	Static variables across recursive calls: trace fun2(5) calling fun1.
+57	ds:4:0	Maximum of a min-heap is among the leaves: (n+1)/2 − 1 comparisons.
+58	c:1:1	Array of bits via tob(), then fast exponentiation in pp(3, 4).
+59	algo:3:1	MST on a complete graph with weights |i − j|: chain of weight-1 edges ⇒ 99.
+60	os:1:0	Average turnaround time for SJF vs RR (quantum 4): absolute difference.
+61	toc:0:0	Min DFA for #a divisible by 2 but not by 3: product mod 6 automaton.
+62	dm:5:3	Edge chromatic number of K₃,₄ plus a vertex adjacent to all: maximum degree 7.
+63	os:5:0	EMAT with TLB, page faults and dirty-page write-back.
+64	dbms:3:1	B+ tree order from block/key/pointer sizes; height for a million records + 1 data block access.
+65	cn:3:1	TCP slow start then congestion avoidance: cwnd after 60 ms (10 RTTs) with threshold and window limit.

@@ -327,7 +327,7 @@ function quizList(f) {
 }
 function quizExplainPrompt(q) {
   const key = `${q.sid}:${q.ti}`, sub = TOPIC[key].subs[q.sj], a = state.quiz[q.id];
-  return `Tum GATE CSE AIR 1 mentor ho. Ye GATE ${q.y}${q.set ? " (set " + q.set + ")" : ""} ka Q${q.n} hai (${q.m} mark, ${q.ty}).
+  return `Tum GATE CSE AIR 1 mentor ho. Ye GATE ${q.y}${q.set ? " (set " + q.set + ")" : ""} ka ${qLabel(q)} hai (${q.m} mark, ${q.ty}).
 Topic: ${TOPIC[key].s.name} › ${TOPIC[key].n}${sub ? " › " + sub.n : ""}
 (Question ka screenshot attach kar raha hoon — text sirf reference ke liye, maths/figure screenshot me dekho.)
 ${q.q ? "Question text:\n" + q.q : ""}
@@ -405,7 +405,7 @@ function viewQuizSession() {
   const diag = res && !res.ok ? res.diag : null;
   return `${pageHead(`✍️ Q ${Q.idx + 1} / ${Q.list.length}`)}
     <section class="card qcard">
-      <div class="q-meta"><span class="chip">GATE ${esc(q.y)}${q.set ? " · Set " + esc(q.set) : ""}</span><span class="chip">Q${esc(q.n)}</span><span class="chip">${+q.m} mark</span><span class="chip">${esc(q.ty)}</span>
+      <div class="q-meta"><span class="chip">GATE ${esc(q.y)}${q.set ? " · Set " + esc(q.set) : ""}</span><span class="chip">${esc(qLabel(q))}</span><span class="chip">${+q.m} mark</span><span class="chip">${esc(q.ty)}</span>
         ${res ? `<span class="chip ok">${esc(TOPIC[key].n)}${sub ? " › " + esc(sub.n) : ""}</span>` : ""}
         ${prev && !res ? `<span class="chip ${prev.ok ? "ok" : "bad"}">pehle: ${prev.ok ? "sahi" : "galat"}</span>` : ""}
         <span class="q-timer" id="qTimer">0:00</span>

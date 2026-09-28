@@ -388,6 +388,7 @@ function ansText(q) {
   if (q.mta) return "Marks to all (official key — question me issue tha, sabko marks mile)";
   return allAnswers(q).map((a) => ansOne(q, a)).join("  ya  ");
 }
+const qLabel = (q) => (typeof q.lbl === "string" && /^(GA|CS) Q\.\d{1,2}$/.test(q.lbl) ? q.lbl : "Q" + q.n);
 const expectedSecs = (q) => (q.m === 2 ? 180 : 90);
 
 // Likely reason for a wrong answer (heuristic; you confirm it with one click).
@@ -437,15 +438,15 @@ function recordAttempt(q, g, secs, guess) {
     const eid = "q-" + q.id;
     const entry = sanitizeState({ errors: [{
       id: eid, date: today(), revised: false, subject: q.sid, type: diag.type, qid: q.id, tkey: key,
-      q: `PYQ ${q.y}${q.set ? " set " + q.set : ""} Q${q.n} — ${TOPIC[key].n}${sub ? " › " + sub.n : ""}`,
+      q: `PYQ ${q.y}${q.set ? " set " + q.set : ""} ${qLabel(q)} — ${TOPIC[key].n}${sub ? " › " + sub.n : ""}`,
       mistake: `Mera answer: ${normGiven(q, g) || "—"} · Sahi: ${ansText(q)}. ${diag.lines[0]}`,
       fix: q.concept ? "Concept: " + q.concept : `Revise: ${TOPIC[key].n}${sub ? " › " + sub.n : ""}`,
     }] }).errors[0];
     const i = state.errors.findIndex((e) => e.id === eid);
     if (i >= 0) state.errors[i] = entry; else state.errors.push(entry);
-    addRev(key, `PYQ galat: ${q.y} Q${q.n}`);
+    addRev(key, `PYQ galat: ${q.y} ${qLabel(q)}`);
   } else {
-    if (guess) addRev(key, `Guess se sahi: ${q.y} Q${q.n}`, false);
+    if (guess) addRev(key, `Guess se sahi: ${q.y} ${qLabel(q)}`, false);
     const e = state.errors.find((x) => x.id === "q-" + q.id);
     if (e) e.revised = true; // solved on retry
   }

@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:0	Homophones: They're (they are) / their (possessive) / there (place).
+2	ga:0:1	Vocabulary in context: 'meandering' (aimless) contrasts with 'organized'.
+3	ga:1:4	Square of area d has diagonal² = 2d; circle area = π(diagonal/2)² = πd/2.
+4	ga:1:1	LCM(20, 42, 76) + 7, then pick the smallest option that fits.
+5	ga:2:1	Number series: successive multipliers 6, 5, 4, 3, 2, 1, 0.
+6	ga:1:0	Set up equations for male/female counts from the eligibility fractions and total amount.
+7	ga:1:1	Chain the exponent equations: p^(xyz) = p ⇒ xyz = 1.
+8	ga:1:0	Percentages → attendees: male 20% of total vs female 40% ⇒ ratio 1:1.
+9	ga:1:4	Angle chasing with exterior angles of triangles in the figure.
+10	ga:1:2	Binomial: most likely count of green faces = around 7 × (2/3).
+11	dm:6:2	Generating function of aₙ = 2n + 3: combine Σn xⁿ and Σ xⁿ.
+12	c:1:2	Struct members are consecutive chars; casting to char* and offsetting reads members.
+13	ds:1:1	Queue via singly linked list with enqueue at head: dequeue at tail needs O(n).
+14	dl:0:0	XOR/XNOR identities: check each option (complements, P ⊕ P').
+15	coa:0:0	RISC features: register-to-register ops, fixed-length instructions, hardwired control.
+16	toc:0:0	Subset construction: minimal DFA for an n-state NFA has at most 2ⁿ states.
+17	toc:3:0	RE languages are closed under intersection (not complement); there are countably many.
+18	cd:0:0	Compiler phase facts: type checking is done after parsing (semantic analysis).
+19	coa:3:0	Order of interrupt handling steps: finish instruction, save state, run ISR, restore.
+20	os:5:0	Effective memory access time with page-fault rate: solve for the fault rate from the average.
+21	dbms:0:0	Many-to-one with total participation on both sides: every E2 entity relates to ≥1 E1 entity.
+22	dbms:1:2	INNER vs LEFT/RIGHT/FULL OUTER JOIN: which result is always a superset.
+23	cn:0:0	Header field sizes: UDP port 16, MAC 48, IPv6 next header 8, TCP sequence number 32.
+24	cn:3:1	TCP slow start: cwnd grows by 1 MSS per ACK, i.e. doubles every RTT.
+25	em:2:0	Probability with repeated trials until no tie: condition on the non-tie outcomes.
+26	em:1:2	Substitute u = x² to evaluate ∫ x cos(x²) dx.
+27	em:0:2	Rank-1 matrix uvᵀ: the only non-zero eigenvalue is vᵀu.
+28	dm:5:3	Chromatic number of the given graph (look for odd cycles / triangles).
+29	dm:4:1	Lagrange's theorem: a proper subgroup of order-84 group has at most 42 elements.
+30	ds:3:0	Rebuild the binary tree from postorder + inorder, then find its height.
+31	c:2:0	Recursion tracing: count calls of calc(4, 81) as b goes 81 → 27 → 9 → 3.
+32	dl:2:2	FSM from the D flip-flop circuit: count states with a self-loop.
+33	coa:2:0	DRAM refresh: rows × refresh time vs refresh period → percentage of time spent refreshing.
+34	os:3:1	Deadlock avoidance with n processes, m instances: n(K − 1) < m.
+35	cn:3:0	Sequence number wrap-around time = 2³² bytes ÷ bandwidth (in bytes/s).
+36	em:0:2	Only one eigenvector direction ⇒ repeated eigenvalue and not diagonalizable.
+37	dm:2:0	Countability: rationals, finite subsets and functions {0,1}→N are countable; N→{0,1} is not.
+38	dm:1:1	FOL models: an ∃∃∃∀… sentence with a model of size 7 has models of size 3 up to 7.
+39	c:1:0	Pointer swap: passing char* by value doesn't swap; passing char** does.
+40	algo:5:0	DFS tree has no cross edges in an undirected graph; BFS tree edges differ in depth by ≤ 1.
+41	algo:4:0	Matrix chain multiplication: which parenthesization minimises scalar multiplications.
+42	algo:0:2	Loop analysis: first loop computes log₂n, second loop computes log₂ of that.
+43	dl:3:0	Fixed-point binary: which decimal fractions can be represented exactly (powers of 1/2).
+44	coa:2:2	Tag bits = physical address bits − index − offset for a K-way set-associative cache.
+45	toc:2:2	Which languages over aᵐbⁿcᵖdq are context-free (one counter-matching condition only).
+46	toc:3:1	Decidability: membership for unrestricted grammars and Rice-type questions are undecidable.
+47	cd:0:0	Longest-match tokenisation with the given regular patterns.
+48	cd:1:0	Read precedence and associativity of operators from the parse tree shape.
+49	os:3:1	Banker's algorithm: find a safe sequence with Available, Allocation and Max.
+50	os:2:1	Producer-consumer with semaphores: correct order of wait/signal on empty, full, mutex.
+51	dbms:1:0	Relational algebra equivalence of a join with selection vs left outer join.
+52	dbms:2:1	Identify the schema in 3NF but not BCNF from its functional dependencies.
+53	dm:5:0	Graph on permutations with adjacent swaps: degree of a vertex = 99 adjacent pairs; number of components = 1 (connected).
+54	em:2:0	Total probability + Bayes over the temperature classes of two cities.
+55	algo:0:2	Count print calls of the recursive Count function: 10 prints per inner level × 1023 levels.
+56	ds:4:0	Count min-heaps on 7 distinct values: choose the left-subtree elements × arrangements.
+57	algo:3:1	Number of minimum spanning trees: choose x so that equal-weight edges create choices.
+58	algo:3:0	0/1 knapsack optimum vs greedy by value/weight ratio.
+59	dl:0:1	K-map with don't cares: count essential prime implicants.
+60	coa:4:0	Pipeline with unequal stage times: cycles for 100 instructions when PO stage varies.
+61	coa:0:0	Expanding opcodes: count instructions of the remaining type within 16 bits.
+62	toc:1:1	Order of a language: smallest k with Lᵏ = Lᵏ⁺¹ for the unary automaton's language.
+63	os:7:0	Disk scheduling on cylinder requests with the given policy: compute total head movement and the resulting power.
+64	cn:2:1	IPv4 fragmentation: payload per fragment multiple of 8; offset of the third fragment.
+65	cn:1:2	Carrier-sense MAC: find the maximum distance between nodes so the protocol avoids collisions, using the given sensing time and propagation speed.

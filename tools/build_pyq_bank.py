@@ -64,8 +64,13 @@ def add_year(year, key_path, meta_path):
             raise SystemExit(f"missing image {img}")
         text = re.sub(r"^Q\.?\s?\d+\s*", "", meta[n]["text"]).strip()
         text = re.sub(r"\s*Q\.\s?\d+\s*$", "", text).strip()
-        q = {"id": f"{year}-{n}", "y": int(year), "n": n, "m": k["m"], "ty": k["ty"], "sid": sid, "ti": ti, "sj": sj,
+        yr, _, st = str(year).partition("-")
+        q = {"id": f"{year}-{n}", "y": int(yr), "n": n, "m": k["m"], "ty": k["ty"], "sid": sid, "ti": ti, "sj": sj,
              "img": f"pyq/img/{year}-{n}.webp", "q": text[:1500], "ans": ans, "concept": concept}
+        if st:
+            q["set"] = int(st)
+        if k.get("lbl") and k.get("ln", n) != n:
+            q["lbl"] = k["lbl"]  # paper numbers GA and CS separately
         if alt:
             q["alt"] = alt
         if mta:
@@ -78,7 +83,7 @@ def add_year(year, key_path, meta_path):
 def build():
     subjects = set(re.findall(r'id: "([a-z]+)"', (ROOT / "js" / "syllabus.js").read_text()))
     qs, papers = [], {}
-    for f in sorted(DATA.glob("[0-9][0-9][0-9][0-9].json")):
+    for f in sorted(DATA.glob("[0-9][0-9][0-9][0-9]*.json")):
         year_qs = json.loads(f.read_text())
         for q in year_qs:
             assert q["sid"] in subjects, q["id"]

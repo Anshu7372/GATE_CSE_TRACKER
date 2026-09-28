@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:0	Subject–verb agreement: 'The expenditure … breaks down as follows'.
+2	ga:0:1	Idiom: a business model 'revolves around' something.
+3	ga:1:0	Relative speed: 10 km/h gap grows 20 km in 2 hours.
+4	ga:1:0	Cost sharing: 8 friends pay 150 more each ⇒ cost/8 − cost/10 = 150.
+5	ga:0:1	Analogy by workplace: court : judge :: school : teacher.
+6	ga:2:0	Truth-teller puzzle: exactly one statement true and one culprit.
+7	ga:1:3	Read counts from the Venn-style diagram and compute the administrators' percentage.
+8	ga:0:2	Inference: begging is a symptom of missing social welfare schemes.
+9	ga:1:0	Inclusion–exclusion on three clubs, then scale by the 25% who are members.
+10	ga:2:1	Room allocation satisfying all three requests on the floor plan.
+11	coa:2:2	Fully associative cache: no index bits; tag = address − offset bits.
+12	coa:2:0	Chip-select decoding: fixed high-order address bits give the enabled address range.
+13	cd:1:2	LR parsers produce a rightmost derivation in reverse.
+14	dl:3:0	16-bit 2's complement of −28.
+15	dm:6:0	Counting pairs (x, X) with x ∈ X ⊆ U: n·2ⁿ⁻¹ = Σ k·C(n,k).
+16	dl:0:0	XOR identities: check which one is not valid.
+17	toc:1:0	Closure: prefix/suffix/L·Lᴿ keep regularity; {wwᴿ | w ∈ L} is not regular.
+18	dl:3:0	Sign-magnitude subtraction can need one extra bit: n + 1 bits.
+19	em:0:0	A square matrix is invertible iff its determinant is non-zero.
+20	dm:4:1	Conjugacy (a = g⁻¹bg) is an equivalence relation; a = b⁻¹ is not reflexive in general.
+21	dbms:4:1	Strict 2PL gives conflict-serializable recoverable schedules; Thomas write rule allows view- but not conflict-serializable ones.
+22	dm:5:1	Hamiltonian cycles in Kₙ: (n − 1)!/2 (official key accepts C or D).
+23	em:1:0	Limit of a 0/0 form: factor or apply L'Hospital at x = 3.
+24	dbms:3:1	B+ tree: only leaf nodes point to records; internal nodes hold keys for navigation.
+25	toc:1:1	Pumping length must work for both families of strings (period of the unary patterns).
+26	cn:4:0	Email: SMTP to send, POP3/IMAP to retrieve.
+27	os:0:1	fork() inside a loop runs only for even i: 5 forks ⇒ 2⁵ − 1 children.
+28	c:0:1	Trace jumble(): arguments are passed by value.
+29	cd:1:0	FOLLOW(B) for the given grammar, reported as indices.
+30	algo:1:0	Quicksort: pivot lands at an extreme position with probability 2/25.
+31	dm:6:0	Modular exponentiation: cycle of 3ᵏ mod 5.
+32	em:2:0	Same MSB for two numbers from {1..13}: split by MSB and add squared probabilities.
+33	os:2:0	Race condition on a shared variable: range of final values without synchronization.
+34	c:1:0	Pointer indexing: ip = arr + 4, ip[1] = arr[5].
+35	algo:2:0	Maximum subarray sum (divide and conquer / Kadane).
+36	c:2:0	Base case only for n < 0: convert(0) keeps calling convert(0), so nothing is printed and it never terminates.
+37	c:0:2	static variable with post-decrement in a for-loop header: trace printed values.
+38	cn:2:0	Subnet mask /30: which addresses share a subnet.
+39	cn:2:3	ARP: request broadcast on the local subnet to learn Y's MAC address.
+40	dl:0:0	Compose f1·f2 then XOR with f3 on minterm sets.
+41	toc:2:2	Which language is not context-free: aⁿbⁱ with i ∈ {n, 3n, 5n} is CFL; w aⁿ wᴿ bⁿ is not.
+42	dbms:2:1	Decomposition into (PR) and (QRS): check BCNF of parts, dependency preservation and losslessness.
+43	os:5:0	TLB reach = entries × page size (in words).
+44	toc:3:0	Countability: set of all languages and non-regular languages are uncountable.
+45	dm:1:0	Interpret the FOL formula (every number has a larger prime) on finite vs infinite domains.
+46	cd:2:0	Inherited type attribute: choose the placeholders so type flows from T to L.
+47	algo:1:1	Median of medians of n arrays each of size n: O(n) per median ⇒ O(n²).
+48	algo:3:1	Distinct weights ⇒ unique MST; unique light edge in every cut ⇒ unique MST.
+49	os:3:1	Only p and q can finish; the resources they release (Xp + Xq) must be less than every other process's request Yk.
+50	ds:4:0	Heap facts: smallest in a max-heap is a leaf; second largest is a child of root; BST↔heap build times.
+51	os:1:0	Preemptive SRTF: find Z so that average waiting time is 1 ms.
+52	os:6:0	inode max file size with 12 direct, single and double indirect pointers.
+53	cd:1:2	LR(0) items: count items in GOTO(I₀, '(').
+54	em:0:2	Product of eigenvalues = determinant (Vandermonde matrix).
+55	coa:2:1	Memory bandwidth from cycles needed to transfer one cache block.
+56	em:2:1	Expected distance between two random leaves of a full binary tree with 8 leaves.
+57	em:2:2	Uniform Y: discriminant ≥ 0 condition gives the probability of real roots.
+58	toc:0:0	DFA for strings of permutations composing to identity: states = elements of S₅ (120).
+59	cn:1:2	Connecting 15 machines with 8-port switches (switch-to-switch links use ports).
+60	dl:0:1	Minimise the function then count 2-input NOR gates.
+61	dbms:1:2	GROUP BY after WHERE Marks > 84: count student names returned.
+62	c:0:1	Floating-point loop: count iterations while i/j > 0.0625.
+63	c:1:0	Pointer arithmetic on an array: *b − i vs *(b − i).
+64	dm:6:0	RSA factors from n and φ(n): p + q = n − φ(n) + 1, then solve.
+65	dbms:1:0	Relational algebra: selection on cartesian products then set difference of projections.
