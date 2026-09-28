@@ -84,11 +84,11 @@ Mere notes (agar attach kiye hain) unhe base banao:
 // ---------- subject stats ----------
 function subjStats(sid) {
   const keys = SUBJ[sid].topics.map((_, i) => `${sid}:${i}`);
-  let pt = 0, pa = 0, pc = 0, est = false;
-  keys.forEach((k) => { const p = topicPyq(k); pt += p.total; pa += p.att; pc += p.cor; if (p.est) est = true; });
+  let pt = 0, pa = 0, pc = 0, pb = 0, est = false;
+  keys.forEach((k) => { const p = topicPyq(k); pt += p.total; pa += p.att; pc += p.cor; pb += p.batt; if (p.est) est = true; });
   const fullH = sum(keys.flatMap((k) => workItems(k, true)).map((x) => x.h));
   const remH = sum(keys.flatMap((k) => workItems(k, false)).map((x) => x.h));
-  return { n: keys.length, done: keys.filter(conceptDone).length, pt, pa, pc, est, readiness: pct(fullH - remH, fullH), remH, status: subjStatus(sid) };
+  return { n: keys.length, done: keys.filter(conceptDone).length, pt, pa, pc, pb, est, readiness: pct(fullH - remH, fullH), remH, status: subjStatus(sid) };
 }
 
 // ======================= DASHBOARD =======================
@@ -97,7 +97,8 @@ function viewDashboard() {
   const ps = progressSummary();
   const allT = ALL_TOPICS.length, doneT = ALL_TOPICS.filter((t) => conceptDone(t.key)).length;
   let pa = 0, pt = 0, pc = 0;
-  ALL_TOPICS.forEach((t) => { const p = topicPyq(t.key); pa += p.att; pt += p.total; pc += p.cor; });
+  let pb = 0;
+  ALL_TOPICS.forEach((t) => { const p = topicPyq(t.key); pa += p.att; pt += p.total; pc += p.cor; pb += p.batt; });
   const hc = hoursChart();
   const behind = r1d(ps.behind);
   const onTrack = behind <= 2;
@@ -105,7 +106,7 @@ function viewDashboard() {
   const rows = SUBJECTS.map((s) => {
     const st = subjStats(s.id);
     return `<tr><td><a href="#syllabus" data-opensubj="${esc(s.id)}">${esc(s.name)}</a> ${statusChip(st.status)}</td>
-      <td class="num">${st.done}/${st.n}</td><td class="num">${st.pa}/${st.pt}${st.est ? "*" : ""}</td><td class="num">${st.pa ? pct(st.pc, st.pa) + "%" : "—"}</td>
+      <td class="num">${st.done}/${st.n}</td><td class="num">${st.pa}/${st.pt}${st.est ? "*" : ""}</td><td class="num">${st.pb ? pct(st.pc, st.pb) + "%" : "—"}</td>
       <td class="num">${r1d(st.remH)} h</td><td class="wide">${bar(st.readiness)}</td></tr>`;
   }).join("");
   const due = dueRev().length + spacedDue(td).length;
@@ -118,7 +119,7 @@ function viewDashboard() {
     <div class="card kpi"><div class="kpi-n">${Math.max(0, diffDays(deadline(), td))}</div><div class="kpi-l">din — sab revise + PYQs (${esc(fmt(deadline()))})</div></div>
     <div class="card kpi"><div class="kpi-n">${Math.max(0, diffDays(S.examDate, td))}</div><div class="kpi-l">din — GATE exam (${esc(fmt(S.examDate))})</div></div>
     <div class="card kpi"><div class="kpi-n">${pct(doneT, allT)}%</div><div class="kpi-l">topics complete (${doneT}/${allT})</div></div>
-    <div class="card kpi"><div class="kpi-n">${pa}</div><div class="kpi-l">PYQs solved / ${pt}${HAS_BANK ? "" : " (est.)"} · acc ${pct(pc, pa)}%</div></div>
+    <div class="card kpi"><div class="kpi-n">${pa}</div><div class="kpi-l">PYQs solved / ${pt}${BANK_YEARS.length < PYQ_TARGET_YEARS ? " (kuch est.)" : ""} · quiz acc ${pct(pc, pb)}%</div></div>
     <div class="card kpi"><div class="kpi-n">🔥 ${streak()}</div><div class="kpi-l">day streak</div></div>
     <div class="card kpi"><div class="kpi-n">${lastMock ? esc(lastMock.marks) : "—"}</div><div class="kpi-l">last mock (target ${esc(S.mockTarget)}+)</div></div>
   </section>
@@ -163,13 +164,13 @@ function pieceRow(p, live) {
         <div class="tiny">${esc(x.pts.join(" · "))}</div></div>
       <em>${r1d(p.h)} h</em><button class="btn ghost sm" data-prompt="${k}" title="Claude prompt copy">🤖</button></div>`;
   }
-  const ps = topicPyq(p.key);
+  const ps = topicPyq(p.key), fromBank = Math.min(+p.n, ps.bank - ps.batt);
   return `<div class="piece ${done ? "done" : ""}">
-    ${ps.est && live ? `<input type="checkbox" data-pyqflag="${k}" ${getT(p.key).pyq ? "checked" : ""} aria-label="Topic ke PYQs done">` : ""}
-    <div class="piece-b"><div><b>PYQs:</b> ${+p.n} questions — ${esc(tp.s.name)} › ${esc(tp.n)} ${ps.est ? '<span class="chip">est.</span>' : ""}</div>
-      <div class="tiny">${ps.est ? "PYQ bank aane tak GATE Overflow se solve karo; topic ke saare PYQs ho jaaye to tick karo." : `${ps.att}/${ps.total} solved · accuracy ${pct(ps.cor, ps.att)}%`}</div></div>
+    ${ps.estRest && live ? `<input type="checkbox" data-pyqflag="${k}" ${getT(p.key).pyq ? "checked" : ""} aria-label="Baaki saalon ke PYQs done" title="Baaki saalon ke PYQs (GATE Overflow) ho gaye">` : ""}
+    <div class="piece-b"><div><b>PYQs:</b> ${+p.n} questions — ${esc(tp.s.name)} › ${esc(tp.n)}</div>
+      <div class="tiny">${ps.bank ? `Quiz: ${ps.batt}/${ps.bank} solved · accuracy ${ps.acc}%` : ""}${ps.bank && ps.estRest ? " · " : ""}${ps.estRest ? `~${ps.estRest} baaki saalon ke (bank me abhi nahi) — GATE Overflow se karke ☑ tick karo` : ""}</div></div>
     <em>${r1d(p.h)} h</em>
-    ${ps.est ? `<a class="btn ghost sm" href="${esc(goSearch(tp.n))}" target="_blank" rel="noopener">GO ↗</a>` : `<button class="btn sm" data-qstart="${k}|${+p.n}">▶ Quiz</button>`}</div>`;
+    <span class="btn-row">${fromBank > 0 ? `<button class="btn sm" data-qstart="${k}|${fromBank}">▶ Quiz (${fromBank})</button>` : ""}${ps.estRest ? `<a class="btn ghost sm" href="${esc(goSearch(tp.n))}" target="_blank" rel="noopener">GO ↗</a>` : ""}</span></div>`;
 }
 function trackCard(title, pieces, live, hint) {
   const h = r1d(sum(pieces.map((p) => p.h))), done = pieces.filter(pieceDone).length;
@@ -282,7 +283,8 @@ function viewSyllabus() {
         <div class="topic-ctrl">
           ${isNew ? cb("learned", "Studied ✓") : cb("revDone", "Revised ✓")}
           ${cd ? cb("r1", "R1 +1d") + cb("r2", "R2 +7d") + cb("r3", "R3 +21d") : ""}
-          ${ps.est ? cb("pyq", `PYQs ✓ (~${ps.total})`) : `<span class="chip">${ps.att}/${ps.total} PYQs · ${pct(ps.cor, ps.att)}%</span><button class="btn sm" data-qtopic="${esc(key)}">▶ Practice</button>`}
+          ${ps.bank ? `<span class="chip">Quiz ${ps.batt}/${ps.bank} · ${ps.acc}%</span><button class="btn sm" data-qtopic="${esc(key)}">▶ Practice</button>` : ""}
+          ${ps.estRest ? cb("pyq", `Baaki saal ✓ (~${ps.estRest}, GO)`) : ""}
           ${conf(t.conf)}
           <button class="btn ghost sm ${state.rev[key] ? "on" : ""}" data-tough="${esc(key)}">🔥 ${state.rev[key] ? "Tough (queue me)" : "Tough?"}</button>
           <button class="btn ghost sm" data-prompt="${esc(key)}">🤖 Claude prompt</button>
@@ -327,7 +329,8 @@ function quizExplainPrompt(q) {
   const key = `${q.sid}:${q.ti}`, sub = TOPIC[key].subs[q.sj], a = state.quiz[q.id];
   return `Tum GATE CSE AIR 1 mentor ho. Ye GATE ${q.y}${q.set ? " (set " + q.set + ")" : ""} ka Q${q.n} hai (${q.m} mark, ${q.ty}).
 Topic: ${TOPIC[key].s.name} › ${TOPIC[key].n}${sub ? " › " + sub.n : ""}
-${q.q ? "Question:\n" + q.q : "(Question ka screenshot attach kar raha hoon.)"}
+(Question ka screenshot attach kar raha hoon — text sirf reference ke liye, maths/figure screenshot me dekho.)
+${q.q ? "Question text:\n" + q.q : ""}
 ${q.opts && q.opts.length ? "Options:\n" + q.opts.map((o, i) => `${LETTERS[i]}. ${o}`).join("\n") : ""}
 Mera answer: ${a ? a.g || "—" : "—"} · Sahi answer: ${ansText(q)}
 
@@ -395,7 +398,8 @@ function viewQuizSession() {
   if (q.ty === "NAT") input = `<label>Answer (number)<input id="natIn" inputmode="decimal" autocomplete="off" value="${esc(Q.given)}" ${res ? "disabled" : ""}></label>`;
   else input = `<div class="opts">${LETTERS.map((l, i) => {
     const chosen = q.ty === "MSQ" ? Q.given.includes(l) : Q.given === l;
-    const correct = res && normGiven(q, q.ans).includes(l);
+    const key = res && !q.mta ? (allAnswers(q).find((x) => x !== null && prev && matchOne(q, prev.g, x)) ?? q.ans) : null;
+    const correct = res && key !== null && normGiven(q, key).includes(l);
     return `<label class="opt ${res && correct ? "opt-ok" : ""} ${res && chosen && !correct ? "opt-bad" : ""}"><input type="${q.ty === "MSQ" ? "checkbox" : "radio"}" name="qopt" data-qopt="${l}" ${chosen ? "checked" : ""} ${res ? "disabled" : ""}><b>${l}.</b> <span>${esc(opts[i] || "")}</span></label>`;
   }).join("")}</div>${q.ty === "MSQ" ? '<p class="tiny">MSQ: ek ya zyada options sahi ho sakte hain. Negative marking nahi.</p>' : ""}`;
   const diag = res && !res.ok ? res.diag : null;
@@ -407,7 +411,7 @@ function viewQuizSession() {
         <span class="q-timer" id="qTimer">0:00</span>
         <button class="btn ghost sm" data-act="q-bm">${state.bm[q.id] ? "★ Bookmarked" : "☆ Bookmark"}</button></div>
       ${img ? `<img class="qimg" src="${esc(img)}" alt="GATE ${esc(q.y)} question ${esc(q.n)}">` : ""}
-      ${q.q ? `<div class="qtext">${esc(q.q)}</div>` : ""}
+      ${q.q && !img ? `<div class="qtext">${esc(q.q)}</div>` : ""}
       ${input}
       ${!res ? `<label class="tk"><input type="checkbox" id="qGuess" ${Q.guess ? "checked" : ""}> Guess kiya hai (sure nahi)</label>
         <div class="pills"><button class="btn" data-act="q-submit">Submit</button><button class="btn ghost" data-act="q-skip">Skip →</button><button class="btn ghost" data-act="q-exit">✕ Exit</button></div>` : ""}

@@ -60,7 +60,7 @@ function trackerStatusText() {
   return SUBJECTS.map((s) => s.topics.map((tp, i) => {
     const k = `${s.id}:${i}`, t = getT(k), ps = topicPyq(k);
     const studied = tStatus(k) === "revise" || conceptDone(k);
-    return `${s.id} | ${tp.n} | learned:${studied ? "yes" : "NO"} | confidence:${t.conf || "-"}/5 | PYQ practice:${ps.est ? (t.pyq ? "done" : "not done") : `${ps.att}/${ps.total} attempted, ${pct(ps.cor, ps.att)}% correct`}`;
+    return `${s.id} | ${tp.n} | learned:${studied ? "yes" : "NO"} | confidence:${t.conf || "-"}/5 | PYQ practice:${ps.batt}/${ps.bank} quiz attempted, ${ps.acc}% correct${ps.estRest ? `, other years ${t.pyq ? "done" : "not done"}` : ""}`;
   }).join("\n")).join("\n");
 }
 function topicListText() {

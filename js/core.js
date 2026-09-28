@@ -202,12 +202,19 @@ function quizStats(list) {
   list.forEach((q) => { const a = state.quiz[q.id]; if (a) { att++; if (a.ok) cor++; else wrong++; } });
   return { total: list.length, att, cor, wrong };
 }
-// Per topic: bank-based if the topic has bank questions, else estimated count + manual flag.
+// Per topic: real bank questions (quiz) + an estimate for the years not in the bank yet
+// (target 2000–2023 = 24 papers). The estimate part is marked done with the manual "PYQs ✓" flag
+// (solved from GATE Overflow). As more years are added, the estimate shrinks automatically.
+const PYQ_TARGET_YEARS = 24;
+const BANK_YEARS = [...new Set(BANK.map((q) => q.y))].sort();
 function topicPyq(key) {
-  const list = QBYTOPIC[key];
-  if (list && list.length) { const s = quizStats(list); return { ...s, est: false, remaining: s.total - s.att }; }
-  const total = EST_PYQ[TOPIC[key].f] || 10, done = !!getT(key).pyq;
-  return { total, att: done ? total : 0, cor: 0, wrong: 0, est: true, remaining: done ? 0 : total };
+  const s = quizStats(QBYTOPIC[key] || []);
+  const estRest = Math.round(((EST_PYQ[TOPIC[key].f] || 10) * Math.max(0, PYQ_TARGET_YEARS - BANK_YEARS.length)) / PYQ_TARGET_YEARS);
+  const restDone = getT(key).pyq ? estRest : 0;
+  return {
+    total: s.total + estRest, att: s.att + restDone, remaining: s.total - s.att + estRest - restDone,
+    bank: s.total, batt: s.att, cor: s.cor, wrong: s.wrong, acc: pct(s.cor, s.att), estRest, est: estRest > 0,
+  };
 }
 
 // ---------- auto planner ----------
@@ -360,16 +367,26 @@ function normGiven(q, g) {
   if (q.ty === "NAT") return String(g).trim();
   return String(g).trim().toUpperCase().slice(0, 1);
 }
-function natRange(q) { const a = Array.isArray(q.ans) ? q.ans : [q.ans, q.ans]; return [+a[0], +(a[1] ?? a[0])]; }
+function natRange(q, a = q.ans) { a = Array.isArray(a) ? a : [a, a]; return [+a[0], +(a[1] ?? a[0])]; }
+// Official keys can accept more than one answer (q.alt) or give marks to all (q.mta).
+const allAnswers = (q) => [q.ans, ...(Array.isArray(q.alt) ? q.alt : [])];
+function matchOne(q, g, a) {
+  if (q.ty === "NAT") { const v = parseFloat(g); const [lo, hi] = natRange(q, a); return Number.isFinite(v) && v >= Math.min(lo, hi) - 1e-9 && v <= Math.max(lo, hi) + 1e-9; }
+  if (q.ty === "MSQ") return normGiven(q, g) === normGiven(q, a);
+  return normGiven(q, g) === String(a).toUpperCase();
+}
 function isCorrect(q, g) {
-  if (q.ty === "NAT") { const v = parseFloat(g); const [lo, hi] = natRange(q); return Number.isFinite(v) && v >= Math.min(lo, hi) - 1e-9 && v <= Math.max(lo, hi) + 1e-9; }
-  if (q.ty === "MSQ") return normGiven(q, g) === normGiven(q, q.ans);
-  return normGiven(q, g) === String(q.ans).toUpperCase();
+  if (q.mta) return true;
+  return allAnswers(q).some((a) => a !== null && a !== undefined && matchOne(q, g, a));
+}
+function ansOne(q, a) {
+  if (q.ty === "NAT") { const [lo, hi] = natRange(q, a); return lo === hi ? String(lo) : `${lo} to ${hi}`; }
+  if (q.ty === "MSQ") return normGiven(q, a).split("").join(", ");
+  return String(a).toUpperCase();
 }
 function ansText(q) {
-  if (q.ty === "NAT") { const [lo, hi] = natRange(q); return lo === hi ? String(lo) : `${lo} to ${hi}`; }
-  if (q.ty === "MSQ") return normGiven(q, q.ans).split("").join(", ");
-  return String(q.ans).toUpperCase();
+  if (q.mta) return "Marks to all (official key — question me issue tha, sabko marks mile)";
+  return allAnswers(q).map((a) => ansOne(q, a)).join("  ya  ");
 }
 const expectedSecs = (q) => (q.m === 2 ? 180 : 90);
 

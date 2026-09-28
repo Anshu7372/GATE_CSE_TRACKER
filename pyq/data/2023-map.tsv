@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:0	Adverb 'nearly' modifies the verb 'missed' (nearly = almost).
+2	ga:0:1	Word analogy by meaning: Often:Frequently are synonyms, so Kind:Type (official key: marks to all).
+3	ga:2:1	Run the Fibonacci-type recurrence backwards: F(n-1) = F(n+1) - F(n).
+4	ga:2:0	Inference with certainty: 60% of 90% = 54% (> half) got care from doctors.
+5	ga:3:1	A smooth closed surface can be convex in some places and concave in others (no edges/corners needed).
+6	ga:2:0	Identify which option is an assumption/inference that must hold for the policy argument.
+7	ga:1:1	Polynomial vs exponential growth: 4^t eventually dominates 0.01 t^2, and both statements hold.
+8	ga:0:2	Narrative sequencing: cause (bags heavy) → climbing stairs → terrace → notices man.
+9	ga:2:0	If f(x) = g(y) for all independent x, y, both must equal the same constant.
+10	ga:3:0	Compose rotation and reflection to map P → Q → R.
+11	cd:0:0	Compiler front-end = target-independent; back-end = target-specific (not source-language specific).
+12	ds:4:0	Max-heap check: every A[i] ≥ A[2i] and A[2i+1] (1-indexed).
+13	ds:2:0	Deleting a given node: DLL is O(1) (has prev pointer), SLL needs O(n) to find the predecessor.
+14	toc:0:1	Convert the DFA to a regular expression (trace which strings reach the final state p).
+15	dm:6:1	Solve a linear recurrence with characteristic roots (1±√5)/2 and fit L1 = 1, L2 = 3.
+16	dbms:1:0	Degree/arity of a relation = number of attributes (cardinality = number of tuples).
+17	cn:1:1	Stop-and-wait utilisation = 1/(1+2a), a = Tp/Tt; lowest when link is long and rate is high.
+18	em:0:0	Determinant properties: row swaps change the sign; B is A with rows rearranged.
+19	cd:0:0	ε-NFA for letter(letter|digit)*: a loop on letter/digit after the first letter.
+20	ds:5:0	Against an adversary use universal hashing (randomly chosen hash function).
+21	dl:2:0	MUX output fed back to an input holds its value when not selected → level-triggered D latch.
+22	os:0:2	Threads of the same process share the address space: save SP, PC and registers, not the page-table base.
+23	os:0:0	Mode switch to kernel happens on traps/exceptions: system call and page fault (not function call/malloc).
+24	toc:3:0	Closure under intersection: regular, recursive and RE yes; CFL no.
+25	cn:2:2	OSPF is link-state (Dijkstra), intra-domain and hierarchical — not Bellman-Ford, not inter-domain.
+26	dm:1:1	Which formulas logically imply ∀x(P(x) → ∃y Q(x,y)); check each option for validity.
+27	os:1:0	Starvation-prone schedulers: priority and SJF (FIFO accepted by the official key as well).
+28	em:1:1	Cubic with two real critical points has one local max and one local min (f'' sign test).
+29	algo:0:0	n vs n²: n ∈ O(n²) and o(n²), not Ω or Θ.
+30	em:0:2	Sum of eigenvalues = trace of the adjacency matrix = number of self-loops.
+31	em:1:2	Triple integral over a symmetric box: odd function z³ integrates to 0, and the x²y term vanishes over symmetric y.
+32	dl:3:0	Base conversion: (132)₄ = 30 → (110)₅.
+33	coa:4:0	Pipeline cycle = slowest stage (20 ns); time = (k + n − 1) × cycle = (3 + 99) × 20.
+34	coa:3:0	Programmed I/O polling overhead: fraction of time spent polling + processing per second.
+35	c:0:2	static local variable keeps its value across calls: x = 2, then funcp() returns 3, y = 5, x + y = 7.
+36	cd:3:0	Activation tree: each call is a child in call order; trace recursive f2(2) → f3, f2(1) → f3, f1.
+37	cd:5:1	Live-variable analysis: backward data flow, live-out = union of live-in of successors.
+38	os:2:1	Binary semaphore gives mutual exclusion (final X = 12); counting semaphore > 1 allows races.
+39	toc:2:0	Find the language of the CFG: a^n X b^n with X giving a*(a+b)b* → a*(a+b)b*.
+40	toc:2:1	Trace the PDA transitions to find the accepted language.
+41	coa:0:1	Map C array code to assembly: fill operands using addressing modes and 4-byte int offsets.
+42	coa:2:0	Memory interfacing: which address lines drive the decoder decides the address range of each chip.
+43	dl:2:1	Trace the flip-flop state sequence from (0,1,1) and find the unreachable state.
+44	dl:1:0	Implement a Boolean function with MUXes: evaluate the function for each select combination.
+45	dl:3:1	IEEE-754 multiply: add exponents (subtract bias), multiply significands, sign = XOR.
+46	ds:4:0	Binary heap: Insert and Extract-Max are both O(log n) worst case.
+47	c:2:0	Recursion prints in post-order: sum of subtree values printed after both children.
+48	dm:6:0	Count permutations where all of A come before all of B or vice versa (choose positions, arrange).
+49	dm:2:3	Function induced on equivalence classes is well-defined and a bijection (one-to-one and onto).
+50	cn:3:0	Sequence number space must not wrap within MSL: 2^bits ≥ bandwidth × MSL (in bytes).
+51	dm:4:1	Symmetric difference on the power set forms a group; identity ∅, every set is its own inverse.
+52	cn:4:0	Iterative DNS over root, TLD and authoritative servers + HTTP: count RTTs.
+53	em:2:0	Independence check: P(A∩B) = P(A)P(B); B and C (two coin tosses) are independent.
+54	algo:0:2	Loop analysis: n + n/2 + n/4 + … = Θ(n), same as 100n.
+55	dm:5:3	Greedy colouring is proper and uses at most Δ(G) + 1 colours.
+56	algo:5:0	Count BFS orderings on the subset graph of 2^U starting from ∅ (level by level permutations).
+57	os:5:1	Page faults for row- vs column-wise array access under LRU with limited frames.
+58	os:4:1	Levels of paging: 57 − 12 offset bits = 45 bits, 9 bits per level (512 entries of 8 B in a 4 KB page).
+59	ds:1:0	Simulate stack (LIFO) and queue (FIFO) operations and combine the popped/dequeued values.
+60	cd:2:0	Evaluate the S-attributed SDT for a binary number with a fractional part.
+61	dbms:1:2	SQL WHERE with AND: count rows satisfying both conditions (F and marks > 65).
+62	dbms:3:0	Primary index: number of index blocks = data blocks / index entries per block; count block accesses.
+63	toc:0:0	Min DFA for "no three consecutive 1s": states track the count of trailing 1s (0,1,2) + dead state.
+64	coa:2:2	Cache address split: offset from block size, index from number of sets, tag = 32 − index − offset.
+65	cn:2:0	Longest prefix match: pick the most specific subnet that contains the destination address.
