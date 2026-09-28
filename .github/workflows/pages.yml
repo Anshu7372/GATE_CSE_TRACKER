@@ -31,6 +31,8 @@ jobs:
           mkdir _site
           cp -r index.html .nojekyll css js _site/
           if [ -d pyq ]; then cp -r pyq _site/; fi
+          # Cache-bust: every deploy gets new asset URLs, so browsers never mix old JS/CSS with new HTML.
+          sed -i "s/?v=dev/?v=${GITHUB_SHA::8}/g" _site/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
