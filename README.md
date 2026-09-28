@@ -29,7 +29,13 @@ Static website (HTML/CSS/JS, koi server nahi) jo GitHub Pages pe chalti hai. Dat
 
 ## PYQ bank
 
-`js/pyq-bank.js` me questions (format file ke upar comment me) + `pyq/img/` me question images. Official GATE CSE papers + answer keys se banaya jata hai.
+Abhi bank me: **GATE CSE 2022 + 2023 (130 questions)**. `js/pyq-bank.js` me questions + `pyq/img/` me question images (official paper se crop).
+
+Naya saal jodne ke steps (`pip install pymupdf pillow`):
+1. `python3 tools/parse_key.py key.pdf /tmp/Y/key.json`
+2. `python3 tools/crop_paper.py paper.pdf YEAR /tmp/Y` → images `pyq/img/` me copy karo
+3. `pyq/data/YEAR-map.tsv` me har question ka `subject:topic:subtopic` + concept likho
+4. `python3 tools/build_pyq_bank.py add-year YEAR /tmp/Y/key.json /tmp/Y/meta.json && python3 tools/build_pyq_bank.py build`
 
 ## Security
 

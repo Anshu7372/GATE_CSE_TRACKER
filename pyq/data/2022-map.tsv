@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:0	Homophones: 'fare' (price) is too high to be considered 'fair' (just).
+2	ga:1:4	Area under a step function = sum of (height × interval width).
+3	ga:1:1	Use r² = −2r − 6 to simplify the product (pair the factors as (r+2)(r+5) and (r+3)(r+4)).
+4	ga:2:0	Contradictory statements: 'All are' and 'None is' cannot both be true (given at least one student).
+5	ga:2:1	Build a 5-letter palindrome: letters must pair up with exactly one letter in the middle.
+6	ga:0:2	Reading comprehension: identify the inference supported by the passage.
+7	ga:2:0	Percentage inference: boys 65% of candidates but only 40% of qualified → girls' pass rate is higher.
+8	ga:1:2	Total probability over the first draw (green not replaced, orange replaced).
+9	ga:2:1	Place corners/mid-points of a triangle under the given constraints.
+10	ga:3:1	Spatial division: minimum extra ropes to split the plot into similar shapes.
+11	algo:0:0	Compare f(n)² with f(n): for polynomials f² = Θ(f²)… check each asymptotic claim.
+12	toc:0:1	Convert the given finite automaton to a regular expression.
+13	cd:1:2	Parser facts: LALR vs CLR conflicts, symbol-table use, data-flow analysis, LR(1) power.
+14	dbms:2:1	A relation with only two attributes is always in BCNF.
+15	ds:2:0	Reversing a singly linked list in O(1) space takes Θ(n) time (must visit every node).
+16	algo:6:0	Simple uniform hashing: expected keys per slot = n/m regardless of which function is used.
+17	coa:3:1	DMA gives the highest throughput for bulk disk-to-memory transfer.
+18	dl:3:0	2's-complement overflow: adding two numbers of the same sign gives a result of the other sign.
+19	os:2:1	Binary semaphores enforce the print order; trace which output sequence is possible.
+20	em:0:0	tr(AB) = tr(BA) holds even for non-square A (m×n) and B (n×m).
+21	c:1:0	Pointer writes through *p and address arithmetic change x and z[1].
+22	cn:2:0	Count subnets: every router interface/link segment is a separate subnet.
+23	toc:3:0	Language class facts: L and complement both RE ⇒ recursive; CFL complement is recursive.
+24	coa:2:3	Write-back vs write-through caches: dirty bits and memory writes on hits/evictions.
+25	dbms:1:0	'Owns all brands' = relational division (or its equivalent with difference).
+26	os:3:0	Circular wait is necessary; with multiple instances a cycle doesn't guarantee deadlock; unsafe ≠ deadlock.
+27	dm:4:1	Group properties that force commutativity: (xy)² = x²y², x² = 1, order 2.
+28	ds:3:1	BST stored as a complete binary tree in an array: find where the 3rd largest (in-order) element sits.
+29	cd:1:2	LR(0) items: compute goto(closure(I0), '(') and count items.
+30	dm:5:0	Max edges in a disconnected graph on n vertices = C(n−1, 2).
+31	dbms:2:0	Count superkeys: find the candidate key and count supersets of it.
+32	dm:6:0	Identical balls into identical bins = integer partitions of 6 into at most 3 parts.
+33	coa:2:1	AMAT = hit time + miss rate × miss penalty; solve for the new hit rate.
+34	em:1:0	Limit using L'Hospital / series expansion of eˣ.
+35	cn:4:0	Iterative DNS resolution: one query-response pair per level of the name hierarchy.
+36	dm:6:2	Generating function of a sequence defined by parity of n.
+37	dm:5:0	Number of triangles = trace(A³)/6.
+38	os:4:1	TLB / cache / page-table facts: find the FALSE statement.
+39	dbms:4:0	Precedence graph from conflicting operations → topological order = conflict-equivalent serial schedule.
+40	coa:0:0	Instruction/code-word format: bits needed for mode, memory address and register fields.
+41	dl:3:1	Decode IEEE-754 hex values, then check each arithmetic statement.
+42	os:1:0	Round-robin Gantt chart reconstructed from the given context-switch counts.
+43	c:1:1	3-D array indexing: a[i][j][k] with j fixed at 0 prints the first row of each 2-D block.
+44	c:0:0	Bitwise &, |, ^ on characters then add/subtract ASCII values.
+45	em:0:3	LU decomposition (Doolittle): compute the required L and U entries.
+46	toc:3:1	Rice's theorem: non-trivial properties of L(M) are undecidable; step-bounded questions are decidable.
+47	toc:1:1	Identify regular languages: a w a-type patterns collapse to simple regular forms.
+48	toc:2:2	CFL/DCFL properties of ww, aⁿbⁿcᵐ, aᵐbⁿcⁿ and their intersection.
+49	algo:3:1	MST facts with distinct weights: the two smallest edges are always in the MST, etc.
+50	dm:5:3	Petersen graph: chromatic number 3, has a Hamiltonian path, independence number 4.
+51	dm:6:1	Solve the given recurrence on even/odd arguments and check closed forms.
+52	dm:5:0	Adjacency matrix facts: diagonal of A² gives degrees.
+53	em:0:2	Eigenvector check: Av must be a scalar multiple of v.
+54	coa:2:3	Direct-mapped cache: map each word's block to a line and count misses over the loop.
+55	cn:2:0	CIDR route aggregation: find prefixes that cover exactly the listed subnets.
+56	dbms:1:2	NOT EXISTS (… EXCEPT …) = students registered for all courses of department D01.
+57	cn:2:2	Distance-vector count-to-infinity: probability that the stale update creates a loop.
+58	dm:5:1	Count directed spanning trees (arborescences) of the given DAG.
+59	cn:0:1	Total time = transmission time + propagation delay.
+60	cn:3:0	Sequence number bits: 2^bits ≥ bandwidth × MSL (in bytes).
+61	coa:4:1	Branch stalls add to CPI; speedup with a branch predictor.
+62	ds:1:1	Reversing a queue using only another queue (no extra storage) — minimum enqueue count.
+63	os:6:0	Contiguous vs linked allocation: disk operations to insert a block in the middle.
+64	os:5:1	LRU page faults on the reference string ÷ number of references.
+65	cd:2:0	Evaluate the SDT: note the operator precedence/associativity implied by the grammar.
