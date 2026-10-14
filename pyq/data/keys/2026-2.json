@@ -1,0 +1,587 @@
+[
+{
+"n": 1,
+"ln": 1,
+"ty": "MCQ",
+"sec": "GA",
+"key": "A",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 2,
+"ln": 2,
+"ty": "MCQ",
+"sec": "GA",
+"key": "C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 3,
+"ln": 3,
+"ty": "MCQ",
+"sec": "GA",
+"key": "A",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 4,
+"ln": 4,
+"ty": "MCQ",
+"sec": "GA",
+"key": "A",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 5,
+"ln": 5,
+"ty": "MCQ",
+"sec": "GA",
+"key": "C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 6,
+"ln": 6,
+"ty": "MCQ",
+"sec": "GA",
+"key": "A",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 7,
+"ln": 7,
+"ty": "MCQ",
+"sec": "GA",
+"key": "A",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 8,
+"ln": 8,
+"ty": "MCQ",
+"sec": "GA",
+"key": "A",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 9,
+"ln": 9,
+"ty": "MCQ",
+"sec": "GA",
+"key": "B",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 10,
+"ln": 10,
+"ty": "MCQ",
+"sec": "GA",
+"key": "C",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 11,
+"ln": 11,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 12,
+"ln": 12,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 13,
+"ln": 13,
+"ty": "MCQ",
+"sec": "CS",
+"key": "D",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 14,
+"ln": 14,
+"ty": "MCQ",
+"sec": "CS",
+"key": "B",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 15,
+"ln": 15,
+"ty": "MCQ",
+"sec": "CS",
+"key": "C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 16,
+"ln": 16,
+"ty": "MCQ",
+"sec": "CS",
+"key": "B",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 17,
+"ln": 17,
+"ty": "MCQ",
+"sec": "CS",
+"key": "C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 18,
+"ln": 18,
+"ty": "MCQ",
+"sec": "CS",
+"key": "C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 19,
+"ln": 19,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 20,
+"ln": 20,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 21,
+"ln": 21,
+"ty": "MCQ",
+"sec": "CS",
+"key": "B",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 22,
+"ln": 22,
+"ty": "MCQ",
+"sec": "CS",
+"key": "C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 23,
+"ln": 23,
+"ty": "MCQ",
+"sec": "CS",
+"key": "B",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 24,
+"ln": 24,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 25,
+"ln": 25,
+"ty": "MSQ",
+"sec": "CS",
+"key": "A, B",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 26,
+"ln": 26,
+"ty": "MSQ",
+"sec": "CS",
+"key": "A, B, C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 27,
+"ln": 27,
+"ty": "MSQ",
+"sec": "CS",
+"key": "A, C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 28,
+"ln": 28,
+"ty": "MSQ",
+"sec": "CS",
+"key": "B, D",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 29,
+"ln": 29,
+"ty": "MSQ",
+"sec": "CS",
+"key": "B, C",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 30,
+"ln": 30,
+"ty": "NAT",
+"sec": "CS",
+"key": "3 to 3",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 31,
+"ln": 31,
+"ty": "NAT",
+"sec": "CS",
+"key": "24 to 24",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 32,
+"ln": 32,
+"ty": "NAT",
+"sec": "CS",
+"key": "3 to 3",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 33,
+"ln": 33,
+"ty": "NAT",
+"sec": "CS",
+"key": "4094 to 4094",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 34,
+"ln": 34,
+"ty": "NAT",
+"sec": "CS",
+"key": "-60.25 to -60.25",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 35,
+"ln": 35,
+"ty": "NAT",
+"sec": "CS",
+"key": "13 to 13",
+"m": 1,
+"src": "solved"
+},
+{
+"n": 36,
+"ln": 36,
+"ty": "MCQ",
+"sec": "CS",
+"key": "C",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 37,
+"ln": 37,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 38,
+"ln": 38,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 39,
+"ln": 39,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 40,
+"ln": 40,
+"ty": "MCQ",
+"sec": "CS",
+"key": "B",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 41,
+"ln": 41,
+"ty": "MCQ",
+"sec": "CS",
+"key": "D",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 42,
+"ln": 42,
+"ty": "MCQ",
+"sec": "CS",
+"key": "D",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 43,
+"ln": 43,
+"ty": "MCQ",
+"sec": "CS",
+"key": "D",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 44,
+"ln": 44,
+"ty": "MCQ",
+"sec": "CS",
+"key": "B",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 45,
+"ln": 45,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 46,
+"ln": 46,
+"ty": "MCQ",
+"sec": "CS",
+"key": "A",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 47,
+"ln": 47,
+"ty": "MSQ",
+"sec": "CS",
+"key": "C, D",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 48,
+"ln": 48,
+"ty": "MSQ",
+"sec": "CS",
+"key": "A, C, D",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 49,
+"ln": 49,
+"ty": "MSQ",
+"sec": "CS",
+"key": "A, C",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 50,
+"ln": 50,
+"ty": "MSQ",
+"sec": "CS",
+"key": "A, B",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 51,
+"ln": 51,
+"ty": "MSQ",
+"sec": "CS",
+"key": "A, B, C",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 52,
+"ln": 52,
+"ty": "MSQ",
+"sec": "CS",
+"key": "A, B",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 53,
+"ln": 53,
+"ty": "NAT",
+"sec": "CS",
+"key": "16417 to 16417 OR 16384 to 16384",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 54,
+"ln": 54,
+"ty": "NAT",
+"sec": "CS",
+"key": "1536 to 1536",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 55,
+"ln": 55,
+"ty": "NAT",
+"sec": "CS",
+"key": "3 to 3",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 56,
+"ln": 56,
+"ty": "NAT",
+"sec": "CS",
+"key": "128 to 128",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 57,
+"ln": 57,
+"ty": "NAT",
+"sec": "CS",
+"key": "2.33 to 2.35",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 58,
+"ln": 58,
+"ty": "NAT",
+"sec": "CS",
+"key": "3 to 3 OR 4 to 4",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 59,
+"ln": 59,
+"ty": "NAT",
+"sec": "CS",
+"key": "6 to 6",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 60,
+"ln": 60,
+"ty": "NAT",
+"sec": "CS",
+"key": "9 to 9",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 61,
+"ln": 61,
+"ty": "NAT",
+"sec": "CS",
+"key": "1 to 1",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 62,
+"ln": 62,
+"ty": "NAT",
+"sec": "CS",
+"key": "48 to 48",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 63,
+"ln": 63,
+"ty": "NAT",
+"sec": "CS",
+"key": "0.5 to 0.5",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 64,
+"ln": 64,
+"ty": "NAT",
+"sec": "CS",
+"key": "40 to 40",
+"m": 2,
+"src": "solved"
+},
+{
+"n": 65,
+"ln": 65,
+"ty": "NAT",
+"sec": "CS",
+"key": "30 to 30",
+"m": 2,
+"src": "solved"
+}
+]

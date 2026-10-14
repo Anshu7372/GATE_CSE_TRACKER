@@ -452,7 +452,7 @@ function viewQuizSession() {
         <div class="pills"><button class="btn" data-act="q-submit">Submit</button><button class="btn ghost" data-act="q-skip">Skip →</button><button class="btn ghost" data-act="q-exit">✕ Exit</button></div>` : ""}
       ${res ? `<div class="q-res ${res.ok ? "ok-card" : "bad-card"}">
         <h2>${res.ok ? "✅ Sahi!" : "❌ Galat"}</h2>
-        <p>Sahi answer: <b>${esc(ansText(q))}</b>${!res.ok ? ` · Tumhara: <b>${esc(state.quiz[q.id].g || "—")}</b>` : ""}</p>
+        <p>Sahi answer: <b>${esc(ansText(q))}</b>${q.ks === "solved" ? ' <span class="tiny" title="Official key abhi bank me nahi hai — answer Claude ne solve kiya hai">* (self-solved key)</span>' : ""}${!res.ok ? ` · Tumhara: <b>${esc(state.quiz[q.id].g || "—")}</b>` : ""}</p>
         ${q.concept ? `<p><b>Concept:</b> ${esc(q.concept)}</p>` : ""}
         ${diag ? `<p><b>Possible galti:</b></p><ul class="rules">${diag.lines.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>
           <p><b>Ye revise karo:</b> <a href="#syllabus" data-gotopic="${esc(key)}">${esc(TOPIC[key].s.name)} › ${esc(TOPIC[key].n)}${sub ? " › " + esc(sub.n) : ""}</a></p>

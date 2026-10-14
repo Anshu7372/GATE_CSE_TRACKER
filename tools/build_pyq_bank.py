@@ -8,6 +8,7 @@ Per year (e.g. 2023) the inputs are:
 
 Usage:
   python3 tools/build_pyq_bank.py add-year 2023 key.json meta.json   # key/meta from the PDF extraction step
+                                                                     # (key rows with "src": "solved" = self-solved key, shown with a * in the quiz)
   python3 tools/build_pyq_bank.py build                              # regenerate js/pyq-bank.js
 """
 import json
@@ -75,6 +76,8 @@ def add_year(year, key_path, meta_path):
             q["alt"] = alt
         if mta:
             q["mta"] = True
+        if k.get("src") == "solved":
+            q["ks"] = "solved"  # no official key was available: answer worked out by hand
         out.append(q)
     (DATA / f"{year}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1))
     print(f"{year}: {len(out)} questions")

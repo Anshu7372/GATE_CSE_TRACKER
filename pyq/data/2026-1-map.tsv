@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:1	Antonym: protagonist (lead character) ↔ antagonist (opponent).
+2	ga:3:1	Both tiles have 4 cells, so any tiled shape needs a multiple of 4 cells; the 3×5 grid (15) cannot be tiled.
+3	ga:2:0	Knock-out: every game eliminates exactly one player, so 64 players need 63 games.
+4	ga:1:0	Max electives = 70 − (15 core + 20 project + 10 minimum specialization) = 25.
+5	ga:2:0	'Teacher in room → all stand silently': the converse (all standing → teacher in room) is not implied.
+6	ga:0:2	Passage says 'sometimes'/'often' used, not always → P false, Q true.
+7	ga:3:1	Match the front and top views (step heights + missing front-right cell) to the 3D block structure.
+8	ga:1:0	Ramp from 10 to 20 and flat after: H10(S) − H20(S) (call-spread payoff).
+9	ga:2:1	Jakub's round-4 throw beat Vesely's round-4 throw yet Vesely was 2nd after 4 rounds → Vesely's best was in round 3.
+10	ga:1:2	Count (a, b) with b a multiple of a: 6+3+2+1+1+1 = 14 of 36 = 7/18.
+11	em:2:0	Pólya urn: after n draws the number of added reds is uniform on 0..n → P(2R, 2B) = 1/3.
+12	dm:6:0	Even parity in every row and column: the top-left 3×3 block is free, the rest is forced → 2^9 = 512.
+13	em:0:2	An n×n matrix has n eigenvalues counted with multiplicity, so the max multiplicity is n (e.g. identity).
+14	coa:0:1	Immediate–constant, indirect–pointer, base+index–array element, base+displacement–record field.
+15	coa:0:0	Load-store ISA: only LOAD/STORE touch memory; ALU ops are register-register.
+16	coa:4:1	A true data hazard is RAW (read-after-write); RAR never causes a hazard.
+17	algo:0:1	T2 = Θ(n^log4 5) by the Master theorem; T1 = 4T1(n/2) + n^1.16 → n² dominates → Θ(n²).
+18	cn:3:0	TCP: 3-way handshake, full duplex, either side may close, and a simultaneous close is allowed.
+19	cn:4:0	HTTP 1.1 persistent connection + pipelining: many objects/pages from the same server over one TCP connection.
+20	em:0:0	A non-zero null-space vector → singular (det 0) and the null space has infinitely many non-zero vectors.
+21	dl:0:0	Truth table of (P'+Q) ⊕ P'Q is XNOR = (P⊕Q)' = P'⊕Q.
+22	dl:3:0	Sign-magnitude 8-bit range ±127: X = −52, Y = 76; X−Y = −128 and −X+Y = 128 overflow.
+23	ds:4:0	Heap leaves are at indices ⌊n/2⌋+1 … n; for odd n, (n−1)/2 and (n−3)/2 are internal nodes.
+24	ds:5:0	Linear probing with h(x) = (x+7) mod 11 fills 8, 9, 7, 0, 10, 1 → slot 2 stays empty.
+25	toc:2:0	'abb' has two parse trees (a·ε·b·b vs a·b·b·ε) → ambiguous; 'abab' has a unique parse.
+26	toc:0:0	Subset construction bounds the minimal DFA by 2^6 = 64 states → 65 and 128 are impossible.
+27	cd:0:0	An unterminated string literal is a lexical error; assigning char* to int* is a type (semantic) error.
+28	cd:1:1	LL(1) needs no left recursion and no common prefixes (left-factored); it never backtracks and is weaker than SLR.
+29	os:3:0	Banker's algorithm is avoidance (not prevention); an assignment edge goes resource → process.
+30	dbms:2:0	FD rules: augmentation (P→R ⇒ PQ→R) and union/augmentation (P→R, Q→S ⇒ PQ→RS).
+31	dbms:2:1	A dependency-preserving 3NF (hence 1NF/2NF) decomposition always exists; BCNF may not preserve dependencies.
+32	em:1:0	As x→0+, c1 eˣ + c2 ln x must tend to 3 → c2 = 0, c1 = 3.
+33	ds:3:0	A full binary tree with 23 nodes has 11 internal nodes; a 'caterpillar' shape gives height 11.
+34	c:0:2	The inner block's i shadows the parameter; printf prints the parameter i = 9.
+35	os:3:1	Deadlock-free if k ≥ n(max−1) + 1 = 5·1 + 1 = 6.
+36	dl:3:1	Align exponents: 1.1×2⁻²⁰ + 1.01×2⁻²² = 1.1101×2⁻²⁰ → 0x35E80000.
+37	dl:2:1	From the next-state table: D1 = P'Q1 + P'Q0 + Q1Q0, D0 = P'Q0' + P'Q1 + Q1Q0'.
+38	coa:2:2	Each doubling of associativity halves the sets: tag grows by L bits → N = M + L.
+39	ds:2:0	Recursive size of a non-empty list: base case head->next == NULL, else 1 + size(next).
+40	ds:3:1	A complete BST on 1..15 has root 8, then 4/12; the 3rd insert must come from {4, 12, 2, 6, 10, 14} — never 5.
+41	algo:5:1	d_k is non-increasing in k (S1); S2 fails when u is unreachable within k edges but v is reachable.
+42	cd:5:0	g*k is available on both paths into B4; b is redefined in B3 and c+m is computed only on one path.
+43	dbms:1:1	∃v,w: ⟨u,v⟩ ∈ R ∧ ⟨v,w⟩ ∈ S joins R.Q = S.X and projects P.
+44	cn:3:1	Slow start with RTT 1 ms: at t = k segments 2^k … 2^(k+1)−1 go out → segment 2000 at t = 10.
+45	cn:1:1	W ≥ (Tt + 2Tp)/Tt = (10 + 200)/10 = 21 frames.
+46	em:1:1	f = −x²/4 (x ≥ 0), −9x²/4 (x < 0): local max at 0, f′ continuous but not differentiable at 0.
+47	dm:5:3	A vertex left out of a minimum cover forces all its neighbours in → degree ≥ k+1 means it must be in S.
+48	dl:0:1	K-map: P'S + QR' + two terms covering 2, 10, 14 (P'Q'R + PRS' or PQS' + Q'RS').
+49	algo:3:1	Cycle property (the heaviest edge in a cycle is in no MST) and cut property (the lightest edge at a vertex is in every MST).
+50	algo:5:0	In a DAG there are no back edges (d[v] < d[u] < f[u] < f[v]) and intervals never partially overlap.
+51	toc:1:0	Only L2 is known (regular ⇒ context-free); L1 can be anything (take L2 = ∅).
+52	toc:2:0	Each A-expansion adds one extra a, and B is balanced → n_a > n_b always, but n_a ≤ 2n_b.
+53	cd:2:0	G1 and G2 both generate T id+; SDD2 is S-attributed; SDD1 has inherited V.type and synthesized T.type.
+54	coa:2:1	A TLB hit never consults the page table; a page fault means the page's cache blocks are invalid.
+55	dm:5:3	Bipartite ⇔ no odd cycle; BFS/DFS 2-colouring takes Θ(V+E).
+56	cn:2:0	6000 addresses need a /19 (8192), so the third octet must be a multiple of 32 inside 202.16.0.0/15.
+57	dm:5:2	Matchings in a path Pn follow Fibonacci: P8 has 34.
+58	em:2:1	E[X] = (1+2+5+7)/6 + (3+4+6+8)/12 = 2.5 + 1.75 = 4.25.
+59	coa:2:4	Seek 5+7+5 = 17 ms; per sector avg latency 2 ms + transfer 0.01 ms → 30 × 2.01 = 60.3 → 77.3 ms.
+60	coa:4:1	EX takes ⌈tEX⌉ cycles; stalls = Σ(⌈t⌉−1)·M = 15+10+10+10+5+30+15 = 95.
+61	c:2:0	bar(n) = ⌊log₂ n⌋; foo(n) = 5 needs bar(n) = 16 → smallest n = 2¹⁶ = 65536.
+62	ds:3:1	Rebuild the BST from the preorder; postorder 13,30,47,40,25,70,60,… → 60 is 7th.
+63	os:0:1	Each parent breaks after one fork and the child continues: 3 forks → 4 processes print.
+64	os:1:0	FCFS Gantt chart A10, C11, A20, C22, …: total waiting time 95 → average 9.5 s.
+65	dbms:2:0	Superkeys ⊇ AB or ⊇ AC: 4 + 4 − 2 (⊇ ABC) = 6.

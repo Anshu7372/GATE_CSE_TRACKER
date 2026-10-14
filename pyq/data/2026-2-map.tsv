@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:1	Synonyms of 'hurry': accelerate.
+2	ga:3:0	Complete the 6×6 square: the missing white region exactly matches piece (iii).
+3	ga:1:2	Binomial: C(4,3)·(1/2)⁴ = 4/16 = 1/4.
+4	ga:1:0	2 shares of A (₹100 → ₹110) + 1 share of B (₹80 → ₹70) → no profit.
+5	ga:2:0	'Raining → dance' implies the contrapositive 'not dancing → not raining' only.
+6	ga:0:1	Analogy: water satisfies thirst as food satisfies hunger.
+7	ga:3:1	Black-dot counts form the 3×3 magic square 8 1 6 / 3 5 7 / 4 9 2 → missing 7 and 2.
+8	ga:3:1	4×4 grid has a Hamiltonian cycle; in (ii) the degree-2 vertices force a cycle that skips a city.
+9	ga:2:1	Check the row sums (3,1,2,2) and column sums (2,2,2,2) of each shaded grid.
+10	ga:1:2	Prime sums 2,3,5,7,11 occur 1+2+4+6+2 = 15 times out of 36.
+11	dm:1:0	∃y ∀x (x ≠ y → x knows y ∧ y does not know x).
+12	ds:3:0	Inorder L-N-R, preorder N-L-R, postorder L-R-N.
+13	toc:3:0	M decides L: halts on every input, accepting exactly L and rejecting everything else.
+14	em:2:2	exp(−x²/18)/(3√2π) is the N(0, 9) density.
+15	dbms:0:0	Logical schema → relations, physical schema → files/indexes, external schema → views.
+16	dl:0:0	Complement law: a·a′ = 0 (not 1).
+17	c:1:2	malloc() memory lives on the heap; locals and return addresses go on the stack; static goes in the data segment.
+18	coa:3:0	Non-vectored ISRs need a source search (slower); a daisy chain is hardware priority, not CPU polling.
+19	c:0:2	A local can shadow a global (P1 is fine); redeclaring a name in the same block is an error (P2, P3).
+20	dbms:4:0	Two operations conflict only if at least one of them is a write.
+21	cn:0:1	With no store-and-forward overhead, the bottleneck link sets the rate: 32×10⁶ bits / 500 kbps = 64 s.
+22	cn:2:3	DHCP DISCOVER is broadcast (the client has no IP yet).
+23	os:1:0	FCFS is inherently non-preemptive.
+24	algo:0:0	log n < n^(1/3) < 2^(log n) = n < log n! = Θ(n log n).
+25	algo:0:1	T(n−1)+1 and 2T(n/2)+1 are Θ(n); 2T(n/2)+n is n log n; T(n−1)+n is n².
+26	dm:2:1	'xy is a perfect square' is reflexive, symmetric and transitive (an equivalence), not antisymmetric.
+27	em:1:2	∫₋₁¹ (3x² − ax + 1) dx = 2 + 2 = 4: the odd term vanishes → independent of a and positive.
+28	dl:3:0	4-bit two's complement range −8…7: −3 + −6 = −9 and −5 + −7 = −12 overflow.
+29	toc:2:0	E→E+E|E*E|id and S→aS|Sa|ε (aa has two parses) are ambiguous.
+30	ds:5:0	k mod 9: 28, 19, 10 all hash to slot 1 → longest chain 3.
+31	em:0:1	Infinitely many solutions: a² = 16 and consistency → (a, b) = (4, 6) or (−4, −6) → ab = 24.
+32	algo:1:0	Merges (8|19), (25|31) and the final [7,8,10,19]|[25,31,35,41] are already in order → 3 void.
+33	cn:2:0	A /20 mask leaves 12 host bits → 2¹² − 2 = 4094 usable addresses.
+34	dl:3:1	0xC2710000: sign 1, exponent 132 − 127 = 5, mantissa 1.1110001 → −60.25.
+35	cd:0:0	Longest-match tokenizing: x1 | 23 mm | 78 | y | 7 z | zz5 | 14 A | 8 H | AaYcD = 13 tokens.
+36	dm:5:1	For n > 4, K_n has edge-disjoint spanning trees → Jaccard coefficient 0.
+37	algo:5:1	DAG shortest paths: topological order + one relaxation per edge = Θ(m + n).
+38	algo:0:2	The condition just says consecutive differences strictly increase → one linear scan.
+39	algo:4:0	Row-major and anti-diagonal orders both compute T[i−1][j] and T[i][j−1] before T[i][j].
+40	dl:0:1	Minterms 0–3 and 8–11 are exactly B = 0 → B′.
+41	cd:1:2	LR(0) shift-reduce conflicts in the states with ε/'b.' items: I0, after a, after A, after c, after b → 5.
+42	dbms:2:0	Union: augment X→Y to X→XY, augment X→Z to XY→YZ, then transitivity → X→YZ.
+43	cn:1:0	CRC: 110001011000 mod 1001 → remainder 100.
+44	coa:0:0	Expanding opcodes: 2 M-types use 2 of 4 prefixes; R gets 8 codes (uses 7); 1 left × 2² → 4 C-types.
+45	cd:5:1	Backward liveness with the B3 → B1 loop: B1 out {a,b,c,e,f}, B2 {d,e}, B3 {b,c,e,f}, B4 ∅.
+46	dbms:3:0	A hash index has no order, so it must be dense; a clustered B+ tree index can be sparse.
+47	toc:0:0	L(D1) = {000,001,010,101}*, L(D2) = {011,100,110,111}*: disjoint blocks; the union covers all 3-bit blocks.
+48	toc:2:2	i+k = j+ℓ and i+j = k+ℓ (one counter) and i = ℓ, j = k (nested) are CFL; i = k, j = ℓ (crossing) is not.
+49	ds:3:1	Each k_i becomes the right child of leaf L_i: keys are distinct and height grows by at most 1; K can be empty.
+50	ds:1:0	The output is reverse(stack) followed by the queue: split 4 3 1 | 2 5 or 4 3 | 1 2 5.
+51	os:2:1	$ is printed inside the 2nd process's critical section right after its *, so *** before $ is impossible.
+52	coa:2:2	256 lines × 16 B: P and R share one block, S conflicts with it → P misses every time, R always hits.
+53	os:6:1	2²³ free blocks; each list block holds 511 numbers + 1 next pointer → ⌈2²³ / 511⌉ = 16417 (self-solved).
+54	os:5:0	256 entries × (4 + 24 + 18 + 2 = 48 bits) = 1536 bytes.
+55	os:4:0	Best fit: P1 → 18 KB (2 KB left), P2 → 9 KB (exact) → holes < 8 KB: 4, 7, 2 → 3.
+56	coa:2:2	(addr / B) mod N = 176: the largest N·B that fits is 64 B × 2048 lines = 128 KB.
+57	coa:4:0	Non-pipelined 5/1.6 = 3.125 ns vs pipelined (1 + 0.3×2)/1.2 = 1.333 ns → speed-up 2.34.
+58	cn:3:1	Slow start 1 → 2 → 4 → 8 MSS: cwnd reaches ssthresh (8 MSS) after 3 rounds (4 accepted, self-solved).
+59	dl:1:0	MUX inputs D0, 0, 1, D3: Y = 1 for 1 + 0 + 4 + 1 = 6 combinations.
+60	c:1:0	a = 20 via the pointer, then a = b = 11, c = 20 − 11 = 9.
+61	c:2:0	Trace the length mod 3 cases: at most one '1+' is ever added → max return value 1.
+62	em:0:0	det(kA) = kⁿ det A = 2⁴ · 3 = 48.
+63	em:2:0	E2 fixes toss 2 as H/T with prob 1/2 each; then P(E1|E2) = 1/2·3/4 + 1/2·1/4 = 0.5.
+64	em:1:0	f jumps at 0.d2 boundaries where digit 1↔2, 3↔4, 5↔6, 7↔8 → 4 per tenth × 10 = 40.
+65	cn:1:1	No wrap in 60 s: 60 × 10⁸ / 8 = 7.5×10⁸ bytes → 30 bits (also ≥ the 375 KB window needed).
