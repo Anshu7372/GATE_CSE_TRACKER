@@ -5,7 +5,7 @@
 4	ga:1:0	Max electives = 70 − (15 core + 20 project + 10 minimum specialization) = 25.
 5	ga:2:0	'Teacher in room → all stand silently': the converse (all standing → teacher in room) is not implied.
 6	ga:0:2	Passage says 'sometimes'/'often' used, not always → P false, Q true.
-7	ga:3:1	Match the front and top views (step heights + missing front-right cell) to the 3D block structure.
+7	ga:3:1	Match the front view (stepped heights) and top view (L-shaped footprint) against each 3D block → only (iv) gives both.
 8	ga:1:0	Ramp from 10 to 20 and flat after: H10(S) − H20(S) (call-spread payoff).
 9	ga:2:1	Jakub's round-4 throw beat Vesely's round-4 throw yet Vesely was 2nd after 4 rounds → Vesely's best was in round 3.
 10	ga:1:2	Count (a, b) with b a multiple of a: 6+3+2+1+1+1 = 14 of 36 = 7/18.

@@ -12,8 +12,7 @@
   "q": "Expedite, Hasten, Hurry, __________\nFill the blank by choosing a word with a meaning similar to that of the words\ngiven above.\n(A)\nAccelerate\n(B)\nRetard\n(C)\nProvide\n(D)\nDisable",
   "ans": "A",
   "concept": "Synonyms of 'hurry': accelerate.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-2",
@@ -28,8 +27,7 @@
   "q": "A black square PQRS has been cut into two parts. One part of it is shown in\nPanel I. Which one of the shapes in Panel II is the other part?\n(A)\n(i)\n(B)\n(ii)\n(C)\n(iii)\n(D)\n(iv)",
   "ans": "C",
   "concept": "Complete the 6×6 square: the missing white region exactly matches piece (iii).",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-3",
@@ -44,8 +42,7 @@
   "q": "A day can only be cloudy or sunny. The probability of a day being cloudy is 0.5,\nindependent of the condition on other days. What is the probability that in any\ngiven four days, there will be three cloudy days and one sunny day?\n(A)\n1/4\n(B)\n3/4\n(C)\n2/3\n(D)\n3/8",
   "ans": "A",
   "concept": "Binomial: C(4,3)·(1/2)⁴ = 4/16 = 1/4.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-4",
@@ -60,8 +57,7 @@
   "q": "The values of Stock A and Stock B on a particular day are Rs. 50 and Rs. 80,\nrespectively. An investor invests Rs. 100 in Stock A and Rs. 80 in Stock B. He\nsells all the stocks the next day when the value of Stock A is Rs. 55 and Stock B\nis Rs. 70. The profit made by the investor is Rs. ________\n(A)\n0\n(B)\n5\n(C)\n10\n(D)\n20",
   "ans": "A",
   "concept": "2 shares of A (₹100 → ₹110) + 1 share of B (₹80 → ₹70) → no profit.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-5",
@@ -76,8 +72,7 @@
   "q": "‘When it is raining, peacocks dance.’\nBased only on this sentence, which one of the following options is necessarily\ntrue?\n(A)\nPeacocks dance only when it is raining.\n(B)\nWhen peacocks dance, it is raining.\n(C)\nWhen peacocks are not dancing, it is not raining.\n(D)\nWhen it is not raining, peacocks do not dance.",
   "ans": "C",
   "concept": "'Raining → dance' implies the contrapositive 'not dancing → not raining' only.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-6",
@@ -92,8 +87,7 @@
   "q": "Water : P :: Food : Q\nChoose the P and Q combination from the options below to form a meaningful\nanalogy.\n(A)\nP = Thirst; Q = Hunger\n(B)\nP = Drink; Q = Hunger\n(C)\nP = Thirst; Q = Satiated\n(D)\nP = Wet; Q = Critic",
   "ans": "A",
   "concept": "Analogy: water satisfies thirst as food satisfies hunger.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-7",
@@ -108,8 +102,7 @@
   "q": "Two tiles are missing in Panel I. Which one of the options in Panel II is the\nappropriate choice for the missing tiles?\n(A)\n(i)\n(B)\n(ii)\n(C)\n(iii)\n(D)\n(iv)",
   "ans": "A",
   "concept": "Black-dot counts form the 3×3 magic square 8 1 6 / 3 5 7 / 4 9 2 → missing 7 and 2.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-8",
@@ -124,8 +117,7 @@
   "q": "Figures (i) and (ii) represent intercity highway systems. The black dots represent\ncities and the line segments between them represent intercity highways.\nA salesperson needs to make a trip. She needs to start from a city, visit each of the\nremaining cities exactly once, and finally return to the same city from which she\nstarted.\nWhich one of the following options is then true?\n(A)\nSuch a trip is possible for (i), but not for (ii).\n(B)\nSuch a trip is possible for (ii), but not for (i).\n(C)\nSuch a trip is possible for both (i) and (ii).\n(D)\nSuch a trip is possible neither for (i) nor for (ii).",
   "ans": "A",
   "concept": "4×4 grid has a Hamiltonian cycle; in (ii) the degree-2 vertices force a cycle that skips a city.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-9",
@@ -140,8 +132,7 @@
   "q": "The figure in Panel I below is a grid of cells with four rows and four columns.\nThe numbers on the top and on the left represent the number of cells that are to\nbe shaded in that column and row, respectively. Which one of the options shown\nin Panel II below represents the grid shaded correctly?\n(A)\n(i)\n(B)\n(ii)\n(C)\n(iii)\n(D)\n(iv)",
   "ans": "B",
   "concept": "Check the row sums (3,1,2,2) and column sums (2,2,2,2) of each shaded grid.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-10",
@@ -156,8 +147,7 @@
   "q": "An unbiased six-faced dice whose faces are marked with numbers 1, 2, 3, 4, 5,\nand 6 is rolled twice in succession and the number on the top face is recorded\neach time. The probability that the sum of the two recorded numbers is a prime\nnumber is ________\n(A)\n3\n36\n(B)\n13\n36\n(C)\n15\n36\n(D)\n19\n36",
   "ans": "C",
   "concept": "Prime sums 2,3,5,7,11 occur 1+2+4+6+2 = 15 times out of 36.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-11",
@@ -172,8 +162,7 @@
   "q": "For two different persons 𝑥 and 𝑦, the predicate 𝑀(𝑥, 𝑦) denotes that x knows y.\nConsider the following statement.\nThere is a person who does not know anyone else, but that person is known by\neveryone else.\nWhich one of the following expressions represents the above statement?\n(A)\n(∃𝑦)(∀𝑥) ((𝑥≠𝑦) →(𝑀(𝑥, 𝑦) ∧¬𝑀(𝑦, 𝑥)))\n(B)\n(∀𝑦)(∃𝑥) ((𝑥≠𝑦) →(𝑀(𝑥, 𝑦) ∧¬𝑀(𝑦, 𝑥)))\n(C)\n(∃𝑦)(∃𝑥) ((𝑥≠𝑦) →(𝑀(𝑥, 𝑦) ∧¬𝑀(𝑦, 𝑥)))\n(D)\n(∀𝑦)(∀𝑥) ((𝑥≠𝑦) →(𝑀(𝑥, 𝑦) ∧¬𝑀(𝑦, 𝑥)))",
   "ans": "A",
   "concept": "∃y ∀x (x ≠ y → x knows y ∧ y does not know x).",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-12",
@@ -188,8 +177,7 @@
   "q": "The set T represents various traversals over binary tree. The set S represents the\norder of visiting nodes during a traversal.\nT\nS\nI: Inorder\nL: left subtree, node, right subtree\nII: Preorder\nM: node, left subtree, right subtree\nIII: Postorder N: left subtree, right subtree, node\nWhich one of the following is the correct match from T to S ?\n(A)\nI – L, II – M, III – N\n(B)\nI – M, II – L, III – N\n(C)\nI – N, II – M, III – L\n(D)\nI – L, II – N, III – M",
   "ans": "A",
   "concept": "Inorder L-N-R, preorder N-L-R, postorder L-R-N.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-13",
@@ -204,8 +192,7 @@
   "q": "Which one of the following statements is equivalent to the following assertion?\nTuring machine 𝑀 decides the language 𝐿⊆{0,1}∗\n(A)\nTuring machine 𝑀 halts on all input strings in {0,1}∗\n(B)\nTuring machine 𝑀 accepts all input strings in 𝐿\n(C)\nTuring machine 𝑀 rejects all input strings in {0,1}∗−𝐿\n(D)\nTuring machine 𝑀 accepts all input strings in 𝐿 and rejects all input strings in\n{0,1}∗−𝐿",
   "ans": "D",
   "concept": "M decides L: halts on every input, accepting exactly L and rejecting everything else.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-14",
@@ -220,8 +207,7 @@
   "q": "The probability density function 𝑓(𝑥) of a random variable 𝑋 which takes real\nvalues is\n𝑓(𝑥) =\n1\n3√2𝜋 exp (−\n𝑥2\n18), 𝑥∈(−∞, +∞)\nWhich one of the following statements is correct about the random variable 𝑋 ?\n(A)\n𝑋 is an exponential random variable\n(B)\n𝑋 is a normal random variable\n(C)\n𝑋 is a Poisson random variable\n(D)\n𝑋 is a uniform random variable",
   "ans": "B",
   "concept": "exp(−x²/18)/(3√2π) is the N(0, 9) density.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-15",
@@ -236,8 +222,7 @@
   "q": "In the context of DBMS, consider the two sets T and S given below.\nT\nS\nI: Logical schema\nL: Views\nII: Physical schema\nM: File organization and indexes\nIII: External schema N: Relations\nWhich one of the following is the correct match from T to S ?\n(A)\nI – L, II – M, III – N\n(B)\nI – M, II – L, III – N\n(C)\nI – N, II – M, III – L\n(D)\nI – N, II – L, III – M",
   "ans": "C",
   "concept": "Logical schema → relations, physical schema → files/indexes, external schema → views.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-16",
@@ -252,8 +237,7 @@
   "q": "Which one of the following options is not a property of Boolean Algebra?\nNote: + is OR operation, . is AND operation, and ′ is NOT operation\n(A)\n𝑎+ 𝑏= 𝑏+ 𝑎\n(B)\n𝑎 . 𝑎′ = 1\n(C)\n𝑎+ 𝑎′ = 1\n(D)\n𝑎 . 𝑏= 𝑏 . 𝑎",
   "ans": "B",
   "concept": "Complement law: a·a′ = 0 (not 1).",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-17",
@@ -268,8 +252,7 @@
   "q": "In C runtime environment, which one of the following is stored in heap?\n(A)\nA static variable declared inside a function\n(B)\nAn array of integers declared inside a function\n(C)\nA dynamically allocated array of integers created using malloc() function call\n(D)\nReturn address of a function",
   "ans": "C",
   "concept": "malloc() memory lives on the heap; locals and return addresses go on the stack; static goes in the data segment.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-18",
@@ -284,8 +267,7 @@
   "q": "Consider the following two statements about interrupt handling mechanisms in a\nCPU.\nS1: In non-vectored interrupt mechanism, it usually takes more time to start the\nInterrupt Service Routine (ISR) when compared to that in a vectored interrupt\nmechanism.\nS2: In daisy-chain interrupt mechanism, the CPU polls all the input devices\nindividually to determine the source of the interrupt.\nWhich one of the following options is correct with respect to S1 and S2 ?\n(A)\nBoth S1 and S2 are true\n(B)\nBoth S1 and S2 are false\n(C)\nS1 is true and S2 is false\n(D)\nS1 is false and S2 is true",
   "ans": "C",
   "concept": "Non-vectored ISRs need a source search (slower); a daisy chain is hardware priority, not CPU polling.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-19",
@@ -300,8 +282,7 @@
   "q": "Consider the following three ANSI-C programs, P1, P2, and P3.\nP1\nP2\nP3\n#include <stdio.h>\nint a=5;\nint main(){\nint a=7;\nreturn(0);\n}\n#include <stdio.h>\nint main(){\nint a=5;\nint a=7;\nreturn(0);\n}\n#include <stdio.h>\nint main(){\nint a=5;\nfloat a=7;\nreturn(0);\n}\nWhich one of the following statements is true?\n(A)\nOnly P1 will compile without any error\n(B)\nOnly P2 will compile without any error\n(C)\nOnly P3 will compile without any error\n(D)\nAll three programs P1, P2, and P3 will compile without any error",
   "ans": "A",
   "concept": "A local can shadow a global (P1 is fine); redeclaring a name in the same block is an error (P2, P3).",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-20",
@@ -316,8 +297,7 @@
   "q": "Consider concurrent execution of two transactions 𝑇1 and 𝑇2 in a DBMS, both of\nwhich access a data object 𝐴. For these two transactions to not conflict on 𝐴, which\none of the following statements must be true?\n(A)\nBoth 𝑇1 and 𝑇2 only read 𝐴\n(B)\n𝑇1 reads 𝐴 and 𝑇2 writes 𝐴\n(C)\n𝑇1 writes 𝐴 and 𝑇2 reads 𝐴\n(D)\nBoth 𝑇1 and 𝑇2 write 𝐴",
   "ans": "A",
   "concept": "Two operations conflict only if at least one of them is a write.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-21",
@@ -332,8 +312,7 @@
   "q": "Consider a file of size 4 million bytes being transferred between two hosts\nconnected via a path consisting of three consecutive links of bandwidth 2 Mbps,\n500 kbps, and 1 Mbps, respectively. All processing delays and propagation delays\nare negligible. Assume that there is no other background traffic over the path and\nno other additional overhead to transfer the file.\nWhich one of the following is the total time (in seconds) to transfer the file?\nNote: 1M=106, 1k=103\n(A)\n731\n(B)\n64\n(C)\n8\n(D)\n16",
   "ans": "B",
   "concept": "With no store-and-forward overhead, the bottleneck link sets the rate: 32×10⁶ bits / 500 kbps = 64 s.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-22",
@@ -348,8 +327,7 @@
   "q": "Which one of the following protocols may need to broadcast some of its messages?\n(A)\nSMTP\n(B)\nFTP\n(C)\nDHCP\n(D)\nHTTP",
   "ans": "C",
   "concept": "DHCP DISCOVER is broadcast (the client has no IP yet).",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-23",
@@ -364,8 +342,7 @@
   "q": "Which one of the following CPU scheduling algorithms cannot be preemptive?\n(A)\nShortest Remaining Time First (SRTF) Scheduling\n(B)\nFirst Come First Serve (FCFS) Scheduling\n(C)\nRound Robin Scheduling\n(D)\nPriority Scheduling",
   "ans": "B",
   "concept": "FCFS is inherently non-preemptive.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-24",
@@ -380,8 +357,7 @@
   "q": "Consider the following functions, where 𝑛 is a positive integer.\n𝑛1/3 , log(𝑛) , log(𝑛!), 2log(𝑛)\nWhich one of the following options lists the functions in increasing order of\nasymptotic growth rate?\nNote: Assume the base of log to be 2.\n(A)\nlog(𝑛) , 𝑛1/3, 2log(𝑛) , log(𝑛!)\n(B)\n𝑛1/3, log(𝑛) , log(𝑛!) , 2log(𝑛)\n(C)\nlog(𝑛) , 𝑛1/3, log(𝑛!) , 2log(𝑛)\n(D)\n2log(𝑛) , 𝑛1/3, log(𝑛) , log(𝑛!)",
   "ans": "A",
   "concept": "log n < n^(1/3) < 2^(log n) = n < log n! = Θ(n log n).",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-25",
@@ -396,8 +372,7 @@
   "q": "Which of the following can be recurrence relation(s) corresponding to an algorithm\nwith time complexity Θ(𝑛)?\n(A)\n𝑇(𝑛) = 𝑇(𝑛−1) + 1,\n𝑇(1) = 1\n(B)\n𝑇(𝑛) = 2𝑇(𝑛\n2) + 1,\n𝑇(1) = 1\n(C)\n𝑇(𝑛) = 2𝑇(𝑛\n2) + 𝑛,\n𝑇(1) = 1\n(D)\n𝑇(𝑛) = 𝑇(𝑛−1) + 𝑛,\n𝑇(1) = 1",
   "ans": "AB",
   "concept": "T(n−1)+1 and 2T(n/2)+1 are Θ(n); 2T(n/2)+n is n log n; T(n−1)+n is n².",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-26",
@@ -412,8 +387,7 @@
   "q": "Let 𝑅 be a binary relation on the set {1, 2, … , 10}, where (𝑥, 𝑦) ∈𝑅 if the product\nof 𝑥 and 𝑦 is square of an integer. Which of the following properties is/are satisfied\nby 𝑅?\n(A)\nReflexive\n(B)\nSymmetric\n(C)\nTransitive\n(D)\nAntisymmetric",
   "ans": "ABC",
   "concept": "'xy is a perfect square' is reflexive, symmetric and transitive (an equivalence), not antisymmetric.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-27",
@@ -428,8 +402,7 @@
   "q": "For a real number 𝑎, let 𝐼(𝑎) = ∫(3𝑥2 −𝑎𝑥+ 1) 𝑑𝑥\n1\n−1\n. Which of the following\nstatements is/are true?\n(A)\nThe value of 𝐼(𝑎) is independent of the value of 𝑎\n(B)\nThe value of 𝐼(𝑎) can vary with the value of 𝑎\n(C)\nThere exists 𝑎∈(−∞, +∞) such that 𝐼(𝑎) is a positive real number\n(D)\nThere exists 𝑎∈(−∞, +∞) such that 𝐼(𝑎) is a negative real number",
   "ans": "AC",
   "concept": "∫₋₁¹ (3x² − ax + 1) dx = 2 + 2 = 4: the odd term vanishes → independent of a and positive.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-28",
@@ -444,8 +417,7 @@
   "q": "In a system, numbers are represented using 4-bit two’s complement form. Consider\nfour numbers 𝑁1 =1011, 𝑁2 =1101, 𝑁3 =1010 and 𝑁4 =1001 in the system.\nWhich of the following operations will result in arithmetic overflow?\n(A)\n𝑁1 + 𝑁2\n(B)\n𝑁2 + 𝑁3\n(C)\n𝑁3 −𝑁4\n(D)\n𝑁1 + 𝑁4",
   "ans": "BD",
   "concept": "4-bit two's complement range −8…7: −3 + −6 = −9 and −5 + −7 = −12 overflow.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-29",
@@ -460,8 +432,7 @@
   "q": "Which of the following grammars is/are ambiguous?\n(A)\n𝑆→𝑎𝑆𝑏 | 𝜖\n(B)\n𝐸→𝐸+ 𝐸 | 𝐸∗𝐸 | 𝑖𝑑\n(C)\n𝑆→𝑎𝑆 | 𝑆𝑎 | 𝜖\n(D)\n𝑆→𝑎𝑆 | 𝜖",
   "ans": "BC",
   "concept": "E→E+E|E*E|id and S→aS|Sa|ε (aa has two parses) are ambiguous.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-30",
@@ -479,8 +450,7 @@
    3.0
   ],
   "concept": "k mod 9: 28, 19, 10 all hash to slot 1 → longest chain 3.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-31",
@@ -498,8 +468,7 @@
    24.0
   ],
   "concept": "Infinitely many solutions: a² = 16 and consistency → (a, b) = (4, 6) or (−4, −6) → ab = 24.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-32",
@@ -517,8 +486,7 @@
    3.0
   ],
   "concept": "Merges (8|19), (25|31) and the final [7,8,10,19]|[25,31,35,41] are already in order → 3 void.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-33",
@@ -536,8 +504,7 @@
    4094.0
   ],
   "concept": "A /20 mask leaves 12 host bits → 2¹² − 2 = 4094 usable addresses.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-34",
@@ -555,8 +522,7 @@
    -60.25
   ],
   "concept": "0xC2710000: sign 1, exponent 132 − 127 = 5, mantissa 1.1110001 → −60.25.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-35",
@@ -574,8 +540,7 @@
    13.0
   ],
   "concept": "Longest-match tokenizing: x1 | 23 mm | 78 | y | 7 z | zz5 | 14 A | 8 H | AaYcD = 13 tokens.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-36",
@@ -590,8 +555,7 @@
   "q": "Consider a complete graph 𝐾𝑛 with 𝑛 vertices (𝑛> 4). Note that multiple spanning\ntrees can be constructed over 𝐾𝑛. Each of these spanning trees is represented as a\nset of edges. The Jaccard coefficient between any two sets is defined as the ratio of\nthe size of the intersection of the two sets to the size of the union of the two sets.\nWhich one of the following options gives the lowest possible value for the Jaccard\ncoefficient between any two spanning trees of 𝐾𝑛 ?\n(A)\n1\n𝑛\n(B)\n1\n2𝑛−3\n(C)\n0\n(D)\n1\n𝑛−1",
   "ans": "C",
   "concept": "For n > 4, K_n has edge-disjoint spanning trees → Jaccard coefficient 0.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-37",
@@ -606,8 +570,7 @@
   "q": "Let 𝐺 be a weighted directed acyclic graph with 𝑚 edges and 𝑛 vertices. Given 𝐺\nand a source vertex 𝑠 in 𝐺, which one of the following options gives the worst case\ntime complexity of the fastest algorithm to find the lengths of shortest paths from 𝑠\nto all vertices that are reachable from 𝑠 in 𝐺?\n(A)\nΘ(𝑚+ 𝑛)\n(B)\nΘ(𝑚+ 𝑛log(𝑛))\n(C)\nΘ(𝑛𝑚)\n(D)\nΘ(𝑛3)",
   "ans": "A",
   "concept": "DAG shortest paths: topological order + one relaxation per edge = Θ(m + n).",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-38",
@@ -622,8 +585,7 @@
   "q": "Consider an array 𝐴 of integers of size 𝑛. The indices of 𝐴 run from 1 to 𝑛. An\nalgorithm is to be designed to check whether 𝐴 satisfies the condition given below.\n∀𝑖, 𝑗∈{1, … , 𝑛−1} such that 𝑖> 𝑗, (𝐴[𝑖+ 1] −𝐴[𝑖]) > (𝐴[𝑗+ 1] −𝐴[𝑗])\nWhich one of the following gives the worst case time complexity of the fastest\nalgorithm that can be designed for the problem?\n(A)\nΘ(𝑛)\n(B)\nΘ(log(𝑛))\n(C)\nΘ(𝑛 log(𝑛))\n(D)\nΘ(𝑛2)",
   "ans": "A",
   "concept": "The condition just says consecutive differences strictly increase → one linear scan.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-39",
@@ -638,8 +600,7 @@
   "q": "Consider a table 𝑇, where the elements 𝑇[𝑖][𝑗], 0 ≤𝑖, 𝑗≤𝑛, represent the cost of\nthe optimal solutions of different subproblems of a problem that is being solved\nusing a dynamic programming algorithm. The recursive formulation to compute the\ntable entries is as follows:\n𝑇[0][𝑘] = 𝑇[𝑘][0] = 1 for 𝑘= 0,1,2, … , 𝑛\n𝑇[𝑖][𝑗] = 2𝑇[𝑖−1][𝑗] + 3𝑇[𝑖][𝑗−1] for 1 ≤𝑖, 𝑗≤𝑛\nConsider the following two algorithms to compute entries of 𝑇. Assume that for\nboth the algorithms, for all 0 ≤𝑖, 𝑗≤𝑛, 𝑇[𝑖][𝑗] has been initialized to 1.\nAlgorithm 𝐵𝑘, 𝑘∈{1,2} is said to be correct if and only if it calculates the correct\nvalues of 𝑇[𝑖][𝑗], for all 0 ≤𝑖, 𝑗≤𝑛, (as per the recursive formulation) at the end\nof the execution of the algorithm 𝐵𝑘.\nWhich one of the following statements is true?\n(A)\nBoth algorithms 𝐵1 and 𝐵2 are correct\n(B)\nAlgorithm 𝐵1 is correct, but algorithm 𝐵2 is incorrect\n(C)\nAlgorithm 𝐵2 is correct, but algorithm 𝐵1 is incorrect\n(D)\nBoth algorithms 𝐵1 and 𝐵2 are incorrect\nAlgorithm 𝐵2: For 𝑠= 2, 3, … , 2𝑛\nFor 𝑖= 1, 2, … , 𝑛\nFor 𝑗= 1, 2, … , 𝑛\nIf (𝑖+ 𝑗== 𝑠)\n𝑇[𝑖][𝑗] = 2𝑇[𝑖−1][𝑗] + 3𝑇[𝑖][𝑗−1]\nAlgorithm 𝐵1: For 𝑖= 1, 2, … , 𝑛\nFor 𝑗= 1, 2, … , 𝑛\n𝑇[𝑖][𝑗] = 2𝑇[𝑖−1][𝑗] + 3𝑇[𝑖][𝑗−1]",
   "ans": "A",
   "concept": "Row-major and anti-diagonal orders both compute T[i−1][j] and T[i][j−1] before T[i][j].",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-40",
@@ -654,8 +615,7 @@
   "q": "Consider the following 4-variable Boolean function\n𝐹(𝐴, 𝐵, 𝐶, 𝐷) = Σ𝑚(0, 1, 2, 3, 8, 9, 10, 11)\nConsider 𝐴 as MSB, 𝐷 as LSB. Which one of the following options represents the\nminimal sum of products form for the above function?\nNote: + is OR operation, . is AND operation, ′ is NOT operation\n(A)\n𝐴′ + 𝐵′ + 𝐶′ + 𝐷′\n(B)\n𝐵′\n(C)\n𝐴′. 𝐵′ + 𝐴 . 𝐵\n(D)\n𝐴′",
   "ans": "B",
   "concept": "Minterms 0–3 and 8–11 are exactly B = 0 → B′.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-41",
@@ -670,8 +630,7 @@
   "q": "Consider the canonical 𝐿𝑅(0) parsing of the grammar below using terminals\n{𝑎, 𝑏, 𝑐} and non-terminals {𝐴, 𝐵, 𝐶, 𝑆} with 𝑆 as the start symbol.\n𝑆→𝐴𝐶𝐵\n𝐴→𝑎𝐴 | 𝜖\n𝐶→𝑐𝐶 | 𝜖\n𝐵→𝑏𝐵 | 𝑏\nWhich one of the following options gives the number of shift-reduce conflicts that\nwill occur in the 𝐿𝑅(0) ACTION table?\n(A)\n2\n(B)\n3\n(C)\n4\n(D)\n5",
   "ans": "D",
   "concept": "LR(0) shift-reduce conflicts in the states with ε/'b.' items: I0, after a, after A, after c, after b → 5.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-42",
@@ -686,8 +645,7 @@
   "q": "In the context of schema normalization in relational DBMS, consider a set F of\nfunctional dependencies. The set of all functional dependencies implied by F is\ncalled the closure of F. To compute the closure of F, Armstrong’s Axioms can be\napplied. Consider 𝑋, 𝑌, and 𝑍 as sets of attributes over a relational schema. The three\nrules of Armstrong’s Axioms are described as follows.\nReflexivity: If 𝑌⊆𝑋 , then 𝑋→𝑌\nAugmentation: If 𝑋→𝑌, then 𝑋𝑍→𝑌𝑍 for any Z\nTransitivity: If 𝑋→𝑌 and 𝑌→𝑍, then 𝑋→𝑍\nThe additional rule of Union is defined as follows.\nUnion: If 𝑋→𝑌 and 𝑋→𝑍, then 𝑋→𝑌𝑍\nIt can be proved that the additional rule of Union is also implied by the three rules\nof Armstrong’s Axioms. Listed below are four combinations of these three rules.\nWhich one of these combinations is both necessary and sufficient for the proof ?\n(A)\nReflexivity, Augmentation, and Transitivity\n(B)\nReflexivity and Augmentation\n(C)\nTransitivity\n(D)\nAugmentation and Transitivity",
   "ans": "D",
   "concept": "Union: augment X→Y to X→XY, augment X→Z to XY→YZ, then transitivity → X→YZ.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-43",
@@ -702,8 +660,7 @@
   "q": "Consider the transmission of data bits 110001011 over a link that uses Cyclic\nRedundancy Check (CRC) code for error detection. If the generator bit pattern is\ngiven to be 1001, which one of the following options shows the remainder bit\npattern appended to the data bits before transmission?\n(A)\n011\n(B)\n101\n(C)\n000\n(D)\n100",
   "ans": "D",
   "concept": "CRC: 110001011000 mod 1001 → remainder 100.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-44",
@@ -718,8 +675,7 @@
   "q": "Consider a processor that has 16 general purpose registers and it uses 2-byte\ninstruction format for all its instructions. Variable-sized opcodes are permitted.\nThere are three different types of instructions; M-type, R-type, and C-type. Each\nM-type instruction has 2 register operands and a 6-bit immediate operand. Each R-\ntype instruction has 3 register operands. Each C-type instruction has a register\noperand and a 6-bit offset value. If there are 2 unique M-type opcodes and 7 unique\nR-type opcodes, which one of the following options gives the maximum number of\nunique opcodes possible for C-type instructions?\n(A)\n8\n(B)\n4\n(C)\n64\n(D)\n16",
   "ans": "B",
   "concept": "Expanding opcodes: 2 M-types use 2 of 4 prefixes; R gets 8 codes (uses 7); 1 left × 2² → 4 C-types.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-45",
@@ -734,8 +690,7 @@
   "q": "Consider the control flow graph given below.\nWhich one of the following options is the set of live variables at the exit point of\neach basic block?\n(A)\nB1:{a, b, c, e, f}, B2:{d, e}, B3:{b, c, e, f}, B4:∅\n(B)\nB1:∅, B2:{d, e}, B3:{a, c, f}, B4:∅\n(C)\nB1:{a, b, c, e, f}, B2:{d, e}, B3:{c, e, f}, B4:∅\n(D)\nB1:∅, B2:{d, e, f}, B3:{a, b, c, e, f}, B4:∅",
   "ans": "A",
   "concept": "Backward liveness with the B3 → B1 loop: B1 out {a,b,c,e,f}, B2 {d,e}, B3 {b,c,e,f}, B4 ∅.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-46",
@@ -750,8 +705,7 @@
   "q": "An index in a DBMS is said to be dense if an index entry appears for every\nsearch-key value in the indexed file. Otherwise it is called a sparse index. Consider\nthe following two statements.\nS1: A hash index must be a dense index\nS2: A 𝐵+ tree index can be a sparse index\nWhich one of the following options is correct?\n(A)\nBoth S1 and S2 are true\n(B)\nBoth S1 and S2 are false\n(C)\nS1 is true and S2 is false\n(D)\nS1 is false and S2 is true",
   "ans": "A",
   "concept": "A hash index has no order, so it must be dense; a clustered B+ tree index can be sparse.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-47",
@@ -766,8 +720,7 @@
   "q": "Consider the following two finite automata 𝐷1 and 𝐷2.\nWhich of the following statements is/are true?\n(A)\n𝐿(𝐷1) = 𝐿(𝐷2)\n(B)\n𝐿(𝐷1) is a proper subset of 𝐿(𝐷2)\n(C)\n𝐿(𝐷1) ∩𝐿(𝐷2) = { 𝜖}\n(D)\n(𝐿(𝐷1) ∪𝐿(𝐷2))\n∗ consists of all strings in {0,1}∗ whose length is divisible by 3",
   "ans": "CD",
   "concept": "L(D1) = {000,001,010,101}*, L(D2) = {011,100,110,111}*: disjoint blocks; the union covers all 3-bit blocks.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-48",
@@ -782,8 +735,7 @@
   "q": "Let Σ = {𝑎, 𝑏, 𝑐, 𝑑} and let 𝐿= {𝑎𝑖𝑏𝑗𝑐𝑘𝑑ℓ∣𝑖, 𝑗, 𝑘, ℓ≥0}.\nWhich of the following constraints ensure(s) that the language 𝐿 is context-free?\n(A)\n𝑖+ 𝑘 = 𝑗 + ℓ\n(B)\n𝑖= 𝑘 and 𝑗 = ℓ\n(C)\n𝑖 = ℓ and 𝑗 = 𝑘\n(D)\n𝑖+ 𝑗 = 𝑘 + ℓ",
   "ans": "ACD",
   "concept": "i+k = j+ℓ and i+j = k+ℓ (one counter) and i = ℓ, j = k (nested) are CFL; i = k, j = ℓ (crossing) is not.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-49",
@@ -798,8 +750,7 @@
   "q": "Consider a binary search tree (BST) with 𝑛 leaf nodes (𝑛> 0). Given any node 𝑉,\nthe key present in the node is denoted as 𝑉𝑎𝑙(𝑉). All the keys present in the given\nBST are distinct. The keys belong to the set of real numbers.\nFor a node 𝑉, let 𝑆𝑢𝑐(𝑉) denote the node that is its inorder successor. If a node 𝑉\ndoes not have an inorder successor, then 𝑆𝑢𝑐(𝑉) is 𝑁𝑈𝐿𝐿. As there are no\nduplicates, if 𝑆𝑢𝑐(𝑉) is not 𝑁𝑈𝐿𝐿, then 𝑉𝑎𝑙(𝑉) < 𝑉𝑎𝑙(𝑆𝑢𝑐(𝑉)).\nCorresponding to every leaf node 𝐿𝑖 that has a non-NULL 𝑆𝑢𝑐(𝐿𝑖), a new key 𝑘𝑖\nwith the following property is to be inserted into the BST.\n𝑉𝑎𝑙(𝐿𝑖) < 𝑘𝑖< 𝑉𝑎𝑙(𝑆𝑢𝑐(𝐿𝑖))\nLet 𝐾 represent the list of all such new keys to be inserted into the BST.\nWhich of the following statements is/are true?\n(A)\n𝐾 cannot have any duplicates\n(B)\n𝐾 will have at least one element\n(C)\nAfter inserting all keys from 𝐾, the height of the BST can increase at most by one\n(D)\nNumber of nodes in the BST will double after inserting all keys from 𝐾",
   "ans": "AC",
   "concept": "Each k_i becomes the right child of leaf L_i: keys are distinct and height grows by at most 1; K can be empty.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-50",
@@ -814,8 +765,7 @@
   "q": "Consider a stack 𝑆 and a queue 𝑄. Both of them are initially empty and have the\ncapacity to store ten elements each. The elements 1, 2, 3, 4, and 5 arrive one by one,\nin that order. When an element arrives, it is assigned either to 𝑆 (pushed on 𝑆 ) or\nto 𝑄 (enqueued to 𝑄). Once all the five elements are stored, the output is generated\nin two steps. First, stack S is emptied by popping all elements. Then queue 𝑄 is\nemptied by dequeueing all elements. The output obtained by following this process\nis 4 3 1 2 5 .\nGiven the output, the objective is to predict whether an element was assigned to 𝑆\nor 𝑄.\nWhich of the following options is/are possible valid assignment(s) of the\nelements?\nNote: In the options, the notation 𝑥𝑆 denotes that element 𝑥 was assigned to 𝑆 and\n𝑦𝑄 denotes that element 𝑦 was assigned to 𝑄.\n(A)\n1𝑆, 2𝑄, 3𝑆, 4𝑆, 5𝑄\n(B)\n1𝑄, 2𝑄, 3𝑆, 4𝑆, 5𝑄\n(C)\n1𝑄, 2𝑄, 3𝑄, 4𝑆, 5𝑆\n(D)\n1𝑆, 2𝑆, 3𝑆, 4𝑄, 5𝑄",
   "ans": "AB",
   "concept": "The output is reverse(stack) followed by the queue: split 4 3 1 | 2 5 or 4 3 | 1 2 5.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-51",
@@ -830,8 +780,7 @@
   "q": "Consider three processes P1, P2, and P3 running identical code, as shown in the\npseudocode below. A and B are two binary semaphores initialized to 1 and 0,\nrespectively. X is a shared variable initialized to 0. Each line in the pseudocode is\nexecuted atomically.\nPseudocode of P1, P2, and P3\nWait(A);\nPrint(*);\nX = X+1;\nIf (X == 2)\n{\nPrint($);\nSignal(B);\n}\nSignal(A);\nWait(B);\nPrint(#);\nSignal(B);\nAssume that any of the three processes can start to execute first and context\nswitching can happen between these processes at any arbitrary time and in any\narbitrary order.\nWhich of the following patterns is/are possible to be generated as an outcome of the\nexecution of these three processes?\n(A)\n**$*###\n(B)\n**$#*##\n(C)\n**$##*#\n(D)\n***$###",
   "ans": "ABC",
   "concept": "$ is printed inside the 2nd process's critical section right after its *, so *** before $ is impossible.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-52",
@@ -846,8 +795,7 @@
   "q": "Consider a system with a processor and a 4 KB direct mapped cache with block size\nof 16 bytes. The system has a 16 MB physical memory. Four words P, Q, R, and S\nare accessed by the processor in the same order 10 times. That is, there are a total\nof 40 memory references in the sequence P, Q, R, S, P, Q, R, S,…\nAssume that the cache memory is initially empty. The physical addresses of the\nwords are given below (1 word =1 byte).\nP: 0x845B32, Q: 0x845B26, R: 0x845B36, S: 0x846B32\nWhich of the following statements is/are true?\nNote: 1K=210 and 1M=220\n(A)\nEvery access to P results in a cache miss\n(B)\nEvery access to R results in a cache hit\n(C)\nEvery access to Q results in a cache miss\n(D)\nExcept the first access to S, all subsequent accesses to S result in cache hits",
   "ans": "AB",
   "concept": "256 lines × 16 B: P and R share one block, S conflicts with it → P misses every time, R always hits.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-53",
@@ -864,15 +812,8 @@
    16417.0,
    16417.0
   ],
-  "concept": "2²³ free blocks; each list block holds 511 numbers + 1 next pointer → ⌈2²³ / 511⌉ = 16417 (self-solved).",
-  "set": 2,
-  "alt": [
-   [
-    16384.0,
-    16384.0
-   ]
-  ],
-  "ks": "solved"
+  "concept": "2²³ free blocks; each list block holds 511 numbers + 1 next pointer → ⌈2²³ / 511⌉ = 16417.",
+  "set": 2
  },
  {
   "id": "2026-2-54",
@@ -890,8 +831,7 @@
    1536.0
   ],
   "concept": "256 entries × (4 + 24 + 18 + 2 = 48 bits) = 1536 bytes.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-55",
@@ -909,8 +849,7 @@
    3.0
   ],
   "concept": "Best fit: P1 → 18 KB (2 KB left), P2 → 9 KB (exact) → holes < 8 KB: 4, 7, 2 → 3.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-56",
@@ -928,8 +867,7 @@
    128.0
   ],
   "concept": "(addr / B) mod N = 176: the largest N·B that fits is 64 B × 2048 lines = 128 KB.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-57",
@@ -943,12 +881,11 @@
   "img": "pyq/img/2026-2-57.webp",
   "q": "A non-pipelined instruction execution unit that operates at 1.6 GHz clock takes an\naverage of 5 clock cycles to complete the execution of an instruction. To improve\nthe performance, the system was pipelined with a goal of achieving an average\nthroughput of one instruction per clock cycle. However, it could operate only at\n1.2 GHz due to pipeline overheads. While executing a program in the pipelined\ndesign, 30% of instructions encountered a stall of 2 cycles due to pipeline hazards.\nThe speed-up obtained by the pipelined design over the non-pipelined one for this\nprogram is ___________. (rounded off to two decimal places)\nNote: 1G=109",
   "ans": [
-   2.33,
-   2.35
+   2.3,
+   2.4
   ],
   "concept": "Non-pipelined 5/1.6 = 3.125 ns vs pipelined (1 + 0.3×2)/1.2 = 1.333 ns → speed-up 2.34.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-58",
@@ -962,18 +899,11 @@
   "img": "pyq/img/2026-2-58.webp",
   "q": "Consider a new TCP connection between a sender and a receiver. The receiver\nadvertised window is constant at 48 KB, the maximum segment size (MSS) is\n2 KB, and the slow start threshold for TCP congestion control is 16 KB. Assume\nthat there are no timeouts or duplicate acknowledgements. The number of rounds\nof transmission required for the congestion control algorithm of the TCP connection\nto reach the congestion avoidance phase is ___________. (answer in integer)\nNote: 1K=210",
   "ans": [
-   3.0,
-   3.0
+   4.0,
+   4.0
   ],
-  "concept": "Slow start 1 → 2 → 4 → 8 MSS: cwnd reaches ssthresh (8 MSS) after 3 rounds (4 accepted, self-solved).",
-  "set": 2,
-  "alt": [
-   [
-    4.0,
-    4.0
-   ]
-  ],
-  "ks": "solved"
+  "concept": "Slow start 1 → 2 → 4 → 8 MSS (= ssthresh 16 KB) → congestion avoidance starts in round 4.",
+  "set": 2
  },
  {
   "id": "2026-2-59",
@@ -991,8 +921,7 @@
    6.0
   ],
   "concept": "MUX inputs D0, 0, 1, D3: Y = 1 for 1 + 0 + 4 + 1 = 6 combinations.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-60",
@@ -1010,8 +939,7 @@
    9.0
   ],
   "concept": "a = 20 via the pointer, then a = b = 11, c = 20 − 11 = 9.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-61",
@@ -1029,8 +957,7 @@
    1.0
   ],
   "concept": "Trace the length mod 3 cases: at most one '1+' is ever added → max return value 1.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-62",
@@ -1048,8 +975,7 @@
    48.0
   ],
   "concept": "det(kA) = kⁿ det A = 2⁴ · 3 = 48.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-63",
@@ -1067,8 +993,7 @@
    0.5
   ],
   "concept": "E2 fixes toss 2 as H/T with prob 1/2 each; then P(E1|E2) = 1/2·3/4 + 1/2·1/4 = 0.5.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-64",
@@ -1086,8 +1011,7 @@
    40.0
   ],
   "concept": "f jumps at 0.d2 boundaries where digit 1↔2, 3↔4, 5↔6, 7↔8 → 4 per tenth × 10 = 40.",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  },
  {
   "id": "2026-2-65",
@@ -1105,7 +1029,6 @@
    30.0
   ],
   "concept": "No wrap in 60 s: 60 × 10⁸ / 8 = 7.5×10⁸ bytes → 30 bits (also ≥ the 375 KB window needed).",
-  "set": 2,
-  "ks": "solved"
+  "set": 2
  }
 ]

@@ -13,7 +13,7 @@ d = pymupdf.open(pdf)
 Z = 2.0
 NOISE = re.compile(r'Organi[sz]ing Institute|Page \d+ of \d+|^Computer Science & Information Technology|'
                    r'[Cc]arry (ONE|TWO) [Mm]arks?|^General Aptitude|^Q\.\s?\d+\s*[–-]\s*Q\.\s?\d+|END OF (THE )?QUESTION PAPER', re.I)
-MARK = re.compile(r'^Q\.\s?(\d{1,2})$')
+MARK = re.compile(r'^Q\.\s?(\d{1,2})(?:\s|$)(?!.*([Cc]arry|–))')  # label may share a line with the question text
 
 
 def page_items(pi):

@@ -31,7 +31,7 @@ Static website (HTML/CSS/JS, koi server nahi) jo GitHub Pages pe chalti hai. Dat
 
 Abhi bank me: **GATE CSE 2017 (Set 2), 2018, 2019, 2020, 2022, 2023, 2026 (Set 1 + Set 2) — 520 questions**. `js/pyq-bank.js` me questions + `pyq/img/` me question images (official paper se crop).
 
-> **2026 (CS1, CS2):** official answer key abhi bank me nahi hai — answers haath se solve kiye gaye hain (`pyq/data/keys/2026-*.json`, `"src": "solved"`), quiz me "* (self-solved key)" dikhta hai. Official key mile to key file update karke step 4 dobara chalao.
+> Official key na ho to answers haath se solve karke key file me `"src": "solved"` likho — quiz me "* (self-solved key)" dikhega. Official key milte hi key file badal ke step 4 dobara chalao.
 
 Naya saal jodne ke steps (`pip install pymupdf pillow`):
 1. `python3 tools/parse_key.py key.pdf /tmp/Y/key.json [--pages a,b]` (scanned key → JSON by hand, see `pyq/data/2019.json`)

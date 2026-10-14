@@ -51,12 +51,12 @@
 50	ds:1:0	The output is reverse(stack) followed by the queue: split 4 3 1 | 2 5 or 4 3 | 1 2 5.
 51	os:2:1	$ is printed inside the 2nd process's critical section right after its *, so *** before $ is impossible.
 52	coa:2:2	256 lines × 16 B: P and R share one block, S conflicts with it → P misses every time, R always hits.
-53	os:6:1	2²³ free blocks; each list block holds 511 numbers + 1 next pointer → ⌈2²³ / 511⌉ = 16417 (self-solved).
+53	os:6:1	2²³ free blocks; each list block holds 511 numbers + 1 next pointer → ⌈2²³ / 511⌉ = 16417.
 54	os:5:0	256 entries × (4 + 24 + 18 + 2 = 48 bits) = 1536 bytes.
 55	os:4:0	Best fit: P1 → 18 KB (2 KB left), P2 → 9 KB (exact) → holes < 8 KB: 4, 7, 2 → 3.
 56	coa:2:2	(addr / B) mod N = 176: the largest N·B that fits is 64 B × 2048 lines = 128 KB.
 57	coa:4:0	Non-pipelined 5/1.6 = 3.125 ns vs pipelined (1 + 0.3×2)/1.2 = 1.333 ns → speed-up 2.34.
-58	cn:3:1	Slow start 1 → 2 → 4 → 8 MSS: cwnd reaches ssthresh (8 MSS) after 3 rounds (4 accepted, self-solved).
+58	cn:3:1	Slow start 1 → 2 → 4 → 8 MSS (= ssthresh 16 KB) → congestion avoidance starts in round 4.
 59	dl:1:0	MUX inputs D0, 0, 1, D3: Y = 1 for 1 + 0 + 4 + 1 = 6 combinations.
 60	c:1:0	a = 20 via the pointer, then a = b = 11, c = 20 − 11 = 9.
 61	c:2:0	Trace the length mod 3 cases: at most one '1+' is ever added → max return value 1.
