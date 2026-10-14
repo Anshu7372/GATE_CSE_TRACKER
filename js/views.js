@@ -44,8 +44,9 @@ function mdLite(src) {
     if (l.trim() === "```") { close(); code = []; continue; }
     let m;
     if ((m = l.match(/^#{1,4}\s+(.*)/))) { close(); out += `<h4>${inline(m[1])}</h4>`; continue; }
+    if (list === "ol" && /^\s{2,}\S/.test(l) && !/^\s*\d+[.)]\s/.test(l)) { out = out.replace(/<\/li>$/, `<br>${inline(l.trim().replace(/^[-•]\s+/, "• "))}</li>`); continue; } // continuation of a numbered step
     if ((m = l.match(/^\s*[-•]\s+(.*)/))) { if (list !== "ul") { close(); out += "<ul>"; list = "ul"; } out += `<li>${inline(m[1])}</li>`; continue; }
-    if ((m = l.match(/^\s*\d+[.)]\s+(.*)/))) { if (list !== "ol") { close(); out += "<ol>"; list = "ol"; } out += `<li>${inline(m[1])}</li>`; continue; }
+    if ((m = l.match(/^\s*(\d+)[.)]\s+(.*)/))) { if (list !== "ol") { close(); out += `<ol start="${+m[1]}">`; list = "ol"; } out += `<li>${inline(m[2])}</li>`; continue; }
     close();
     if (l.trim()) out += `<p>${inline(l)}</p>`;
   }

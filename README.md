@@ -45,7 +45,7 @@ Naya saal jodne ke steps (`pip install pymupdf pillow`):
 Quiz me har question pe 🏷 subtopic tag, GATE 2027 (IIT Madras) syllabus tag (✅ / ⚠️ borderline / 🚫 nahi), aur teen buttons: **💡 Hint**, **📘 Concept dekho** (basics se + tips & tricks), **✅ Solution dekho** (step-by-step + references).
 - Likhne ki jagah: `pyq/explain/<paper>.md` (format `tools/build_explain.py` ke upar likha hai).
 - Build: `python3 tools/build_explain.py` → `js/explain/<paper>.js` (site sirf wahi paper load karti hai jo khula hai).
-- Answers hamesha official key se; abhi tak likhe papers: 2026 Set 1.
+- Answers hamesha official key se; abhi tak likhe papers: 2026 Set 1, 2026 Set 2.
 
 ## Security
 
