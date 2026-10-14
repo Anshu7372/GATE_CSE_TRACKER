@@ -54,10 +54,10 @@ function openTopic(key) {
 function startQuiz(ids) {
   ids = ids.filter((id) => QBYID[id]);
   if (!ids.length) { toast("Koi question nahi mila"); return; }
-  Object.assign(ui.quiz, { list: ids, idx: 0, t0: Date.now(), res: null, given: "", guess: false, done: [] });
+  Object.assign(ui.quiz, { list: ids, idx: 0, t0: Date.now(), res: null, given: "", guess: false, done: [], xp: {} });
   go("quiz");
 }
-function nextQ() { Object.assign(ui.quiz, { idx: ui.quiz.idx + 1, t0: Date.now(), res: null, given: "", guess: false }); render(); window.scrollTo(0, 0); }
+function nextQ() { Object.assign(ui.quiz, { idx: ui.quiz.idx + 1, t0: Date.now(), res: null, given: "", guess: false, xp: {} }); render(); window.scrollTo(0, 0); }
 const curQ = () => (ui.quiz.list ? QBYID[ui.quiz.list[ui.quiz.idx]] : null);
 function topicQuestions(key, n, wrongOnly) {
   const qs = QBYTOPIC[key] || [];
@@ -130,6 +130,7 @@ document.addEventListener("click", (ev) => {
   if (D.qsub) { const [k, j] = D.qsub.split("|"); startQuiz((QBYTOPIC[k] || []).filter((q) => q.sj === +j).map((q) => q.id)); return; }
   if (D.qretry) { startQuiz([D.qretry]); return; }
   if (D.qids) { startQuiz(D.qids.split(",").slice(0, 300)); return; }
+  if (D.xp) { if (["hint", "concept", "sol"].includes(D.xp)) { ui.quiz.xp = { ...(ui.quiz.xp || {}), [D.xp]: !(ui.quiz.xp || {})[D.xp] }; render(); } return; }
   if (D.qreason) { const q = curQ(); if (q) { setErrType(q.id, D.qreason); render(); } return; }
   if (D.pmode) { if (!P.running) { P.mode = D.pmode; P.left = null; render(); } return; }
   if (D.delerr) { if (confirm("Ye entry delete karein?")) { state.errors = state.errors.filter((e) => e.id !== D.delerr); save(); render(); } return; }

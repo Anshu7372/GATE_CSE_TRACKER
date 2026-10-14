@@ -352,3 +352,16 @@ details.card summary { cursor: pointer; }
 .qchip.ok { border-color: var(--ok); background: var(--ok-soft); }
 .qchip.bad { border-color: var(--bad); background: var(--bad-soft); }
 .kpis .kpi { padding: 4px 0; }
+
+/* PYQ hint / concept / solution */
+.xpl { border-top: 1px dashed var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.xsec { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; line-height: 1.6; }
+.xsec h3 { margin: 4px 0 8px; font-size: 1rem; }
+.xsec h4 { margin: 12px 0 4px; font-size: .95rem; }
+.xsec p { margin: 6px 0; }
+.xsec ul, .xsec ol { margin: 6px 0 6px 20px; padding: 0; }
+.xsec li { margin: 3px 0; }
+.xsec code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .9em; padding: 1px 4px; border-radius: 4px; background: rgba(127,127,127,.15); }
+.xcode { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; white-space: pre; overflow-x: auto; padding: 10px; border-radius: 8px; background: rgba(127,127,127,.12); margin: 8px 0; }
+.x-hint { border-color: #e6b800; }
+.x-sol { border-color: #2e9b5f; }

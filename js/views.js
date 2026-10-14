@@ -19,6 +19,65 @@ const freqChip = (f) => `<span class="chip f${esc(f)}">PYQ: ${esc(FREQ_LABEL[f])
 const depthChip = (d) => `<span class="depth d${+d}" title="${esc(DEPTH_HELP[d])}">${esc(DEPTH_LABEL[d])}</span>`;
 const topicName = (key) => (TOPIC[key] ? `${TOPIC[key].s.name} › ${TOPIC[key].n}` : key);
 const safeImg = (p) => (typeof p === "string" && /^pyq\/img\/[\w.-]+\.(png|webp|jpg|jpeg|svg)$/.test(p) ? p : "");
+// ---------- detailed explanations: js/explain/<paper>.js, loaded only when a question of that paper opens ----------
+const ASSET_V = (() => { try { return new URL(document.currentScript.src).searchParams.get("v") || "dev"; } catch (e) { return "dev"; } })();
+window.PYQ_EXPLAIN = window.PYQ_EXPLAIN || {};
+const XP_STATE = {}; // paper → "loading" | "ok" | "missing"
+const paperOf = (q) => String(q.y) + (q.set ? "-" + q.set : "");
+function loadExplain(q) {
+  const p = paperOf(q);
+  if (!/^\d{4}(-\d)?$/.test(p) || XP_STATE[p]) return;
+  XP_STATE[p] = "loading";
+  const el = document.createElement("script");
+  el.src = `js/explain/${p}.js?v=${encodeURIComponent(ASSET_V)}`;
+  el.onload = () => { XP_STATE[p] = "ok"; render(); };
+  el.onerror = () => { XP_STATE[p] = "missing"; render(); };
+  document.head.appendChild(el);
+}
+// Tiny, safe markdown: everything is escaped first; only **bold**, `code`, lists, ### headings and ``` blocks are allowed.
+function mdLite(src) {
+  const inline = (t) => esc(t).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+  let out = "", list = null, code = null;
+  const close = () => { if (list) { out += `</${list}>`; list = null; } };
+  for (const l of String(src || "").split("\n")) {
+    if (code !== null) { if (l.trim() === "```") { out += `<pre class="xcode">${esc(code.join("\n"))}</pre>`; code = null; } else code.push(l); continue; }
+    if (l.trim() === "```") { close(); code = []; continue; }
+    let m;
+    if ((m = l.match(/^#{1,4}\s+(.*)/))) { close(); out += `<h4>${inline(m[1])}</h4>`; continue; }
+    if ((m = l.match(/^\s*[-•]\s+(.*)/))) { if (list !== "ul") { close(); out += "<ul>"; list = "ul"; } out += `<li>${inline(m[1])}</li>`; continue; }
+    if ((m = l.match(/^\s*\d+[.)]\s+(.*)/))) { if (list !== "ol") { close(); out += "<ol>"; list = "ol"; } out += `<li>${inline(m[1])}</li>`; continue; }
+    close();
+    if (l.trim()) out += `<p>${inline(l)}</p>`;
+  }
+  close();
+  if (code !== null) out += `<pre class="xcode">${esc(code.join("\n"))}</pre>`;
+  return out;
+}
+const SYL_CHIP = {
+  in: '<span class="chip ok" title="GATE 2027 (IIT Madras) CS syllabus me hai">✅ 2027 syllabus me</span>',
+  partial: '<span class="chip warn" title="GATE 2027 syllabus me seedha naam nahi, par related topic hai">⚠️ 2027 syllabus: borderline</span>',
+  out: '<span class="chip bad" title="GATE 2027 (IIT Madras) CS syllabus me ye topic nahi hai">🚫 2027 syllabus me nahi</span>',
+};
+const xpOf = (q) => (window.PYQ_EXPLAIN || {})[q.id];
+function sylChip(q) { const x = xpOf(q); return x && x.syl && SYL_CHIP[x.syl.s] ? SYL_CHIP[x.syl.s] : ""; }
+function explainBlock(q) {
+  const x = xpOf(q), st = XP_STATE[paperOf(q)];
+  if (!x) {
+    if (!st) loadExplain(q);
+    return `<div class="xpl"><p class="tiny muted">${st === "loading" || !st ? "Hint / concept / solution load ho raha hai…" : "Is question ka detailed hint, concept aur solution abhi likha ja raha hai."}</p></div>`;
+  }
+  const o = ui.quiz.xp || {};
+  const btn = (k, label) => `<button class="btn ${o[k] ? "" : "ghost"} sm" data-xp="${k}" aria-expanded="${o[k] ? "true" : "false"}">${label}</button>`;
+  const sec = (k, title, body) => (o[k] ? `<div class="xsec x-${k}"><h3>${title}</h3>${body}</div>` : "");
+  const syl = x.syl && x.syl.s !== "in" ? `<p class="tiny"><b>Syllabus note:</b> ${esc(x.syl.why || "")}</p>` : "";
+  return `<div class="xpl">
+      <div class="pills">${btn("hint", "💡 Hint")}${btn("concept", "📘 Concept dekho")}${btn("sol", "✅ Solution dekho")}</div>
+      ${syl}
+      ${sec("hint", "💡 Hint — ye yaad ho to question ban jayega", mdLite(x.hint))}
+      ${sec("concept", "📘 Concept — basics se", mdLite(x.concept) + (x.tips ? `<h3>⚡ Tips &amp; tricks</h3>${mdLite(x.tips)}` : ""))}
+      ${sec("sol", "✅ Detailed solution", mdLite(x.sol) + (x.refs ? `<h3>📚 References (padhne ke liye)</h3>${mdLite(x.refs)}` : ""))}
+    </div>`;
+}
 const pageHead = (title, sub) => `<div class="page-head"><h1>${title}</h1>${sub ? `<p class="muted">${sub}</p>` : ""}</div>`;
 
 function hbars(rows, max, unit = "") {
@@ -441,7 +500,7 @@ function viewQuizSession() {
   return `${pageHead(`✍️ Q ${Q.idx + 1} / ${Q.list.length}`)}
     <section class="card qcard">
       <div class="q-meta"><span class="chip">GATE ${esc(q.y)}${q.set ? " · Set " + esc(q.set) : ""}</span><span class="chip">${esc(qLabel(q))}</span><span class="chip">${+q.m} mark</span><span class="chip">${esc(q.ty)}</span>
-        ${res ? `<span class="chip ok">${esc(TOPIC[key].n)}${sub ? " › " + esc(sub.n) : ""}</span>` : ""}
+        <span class="chip ok" title="${esc(TOPIC[key].s.name)}">🏷 ${esc(TOPIC[key].s.name)} › ${esc(TOPIC[key].n)}${sub ? " › " + esc(sub.n) : ""}</span>${sylChip(q)}
         ${prev && !res ? `<span class="chip ${prev.ok ? "ok" : "bad"}">pehle: ${prev.ok ? "sahi" : "galat"}</span>` : ""}
         <span class="q-timer" id="qTimer">0:00</span>
         <button class="btn ghost sm" data-act="q-bm">${state.bm[q.id] ? "★ Bookmarked" : "☆ Bookmark"}</button></div>
@@ -460,6 +519,7 @@ function viewQuizSession() {
           <div class="pills">${Object.entries(ERR_LABEL).map(([k, v]) => `<button class="pill ${(state.errors.find((e) => e.id === "q-" + q.id) || {}).type === k ? "on" : ""}" data-qreason="${k}">${esc(v)}</button>`).join("")}</div>` : ""}
         <div class="pills"><button class="btn" data-act="q-next">Next →</button><button class="btn ghost" data-act="q-claude">🤖 Claude se samjho (prompt copy)</button><button class="btn ghost" data-act="q-exit">✕ Exit</button></div>
       </div>` : ""}
+      ${explainBlock(q)}
     </section>`;
 }
 

@@ -40,6 +40,13 @@ Naya saal jodne ke steps (`pip install pymupdf pillow`):
 3. `pyq/data/YEAR-map.tsv` me har question ka `subject:topic:subtopic` + concept likho
 4. `python3 tools/build_pyq_bank.py add-year YEAR /tmp/Y/key.json /tmp/Y/meta.json && python3 tools/build_pyq_bank.py build`
 
+## Hint / Concept / Solution (har PYQ ke neeche)
+
+Quiz me har question pe 🏷 subtopic tag, GATE 2027 (IIT Madras) syllabus tag (✅ / ⚠️ borderline / 🚫 nahi), aur teen buttons: **💡 Hint**, **📘 Concept dekho** (basics se + tips & tricks), **✅ Solution dekho** (step-by-step + references).
+- Likhne ki jagah: `pyq/explain/<paper>.md` (format `tools/build_explain.py` ke upar likha hai).
+- Build: `python3 tools/build_explain.py` → `js/explain/<paper>.js` (site sirf wahi paper load karti hai jo khula hai).
+- Answers hamesha official key se; abhi tak likhe papers: 2026 Set 1.
+
 ## Security
 
 - CSP: script sirf isi site se; network sirf `api.anthropic.com` (Mocks → Auto analysis). Koi third-party script/CDN nahi (`js/vendor/anthropic-sdk.js` pinned v0.128.0, MIT).
