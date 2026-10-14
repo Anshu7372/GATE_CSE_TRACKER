@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:0	Articles: 'a' before a consonant sound (a younger, a university — 'yoo' sound), 'an' before a vowel sound (an honorable — silent h).
+2	ga:0:1	Myopic = short-sighted (focus on the short term).
+3	ga:1:0	Correction adds 18 marks and raises the average by 0.6 → n = 18 / 0.6 = 30.
+4	ga:2:1	Family tree: R is S's grandmother and P is the uncle of S and T; Q's gender is unknown and Q has two daughters.
+5	ga:3:1	Read directions (N/E/S/W) off the map: the chemistry lab lies to the south-east of the physics lab.
+6	ga:0:2	Only claim stated in the passage: the pocket-knife is 'the infant of the sword'.
+7	ga:1:4	ST ∥ QR halfway down → triangle PST ~ PQR with ratio 1/2 → areas 1 : 3 (trapezium = 3/4).
+8	ga:1:2	Exactly one 6 in three rolls: 3 · (1/6) · (5/6)² = 75/216.
+9	ga:3:1	Unfold the cuts across each fold line (mirror images) to get the final pattern.
+10	ga:1:2	Combinations with repetition: C(4+3−1, 3) = 20.
+11	coa:3:0	Finish the current instruction, save the PC, then load the ISR address into the PC.
+12	cd:0:0	The symbol table is used by later phases too (semantic analysis, code generation), so it is needed after parsing.
+13	cd:5:1	Register allocation uses liveness: only live variables need registers.
+14	os:4:1	Page-table entries = 2³² / 2¹¹ = 2²¹ (one per logical page).
+15	dbms:4:0	T2 and T3 both read Y written by the uncommitted T1 → cascading rollback of both.
+16	cn:0:0	Network = routing, transport = host-to-host (end-to-end), data link = framing and error handling.
+17	dm:2:3	f∘g onto only needs f onto; g need not be injective or surjective.
+18	algo:3:1	MST paths can be longer than true shortest paths, never shorter: d_G ≤ d_T.
+19	toc:2:0	aaB gives a²bⁿ and Abb gives aⁿb² (n ≥ 1).
+20	algo:0:1	Divide by 2ⁿ: S(n) = S(n−1) + n → T(n) = Θ(n² 2ⁿ).
+21	dbms:3:1	23 goes into the full leaf [20 21 22] → leaf splits, the root gets a 4th key → root splits → height grows.
+22	cn:3:0	Handshake: P1 SYN, P2 SYN+ACK, P3 ACK.
+23	em:0:1	det = 1 − k²: k = 1 gives inconsistent equations (no solution), k = −1 gives identical ones (infinite).
+24	dl:0:0	X = majority: X(a,b,X(a,b,c)) = X(a,b,c) and X(a, X(a,b,c), c) = X(a,b,c); check the others with a counter-example.
+25	dl:3:0	Sign extension: −6 = 1111 1010 (8-bit) = 1111 1111 1111 1010 (16-bit).
+26	ds:3:1	BST: inorder is sorted; a skewed BST has a path of length n−1, so search is O(n) worst case.
+27	coa:1:0	Each ALU input has a mux (register or immediate) → reg-reg, reg-imm and imm-imm are all possible.
+28	toc:0:0	Subset construction gives a DFA with ≤ 2ⁿ states, so 'every DFA has > 2ⁿ states' is false.
+29	os:0:0	1 scanf + 20 printf = 21 I/O requests; each return puts the process back in the ready queue → 21.
+30	dm:6:0	Complement count: 3⁵ − 3·2⁴ = 243 − 48 = 195.
+31	em:1:0	Differentiable at 1: a = 3·1² + 2·1 = 5; continuous: a + b = 3 → b = −2.
+32	em:2:0	Bayes: (0.2·1) / (0.2 + 0.8·0.25) = 0.5.
+33	algo:1:0	Bubble sort on a reverse-sorted array swaps every inversion: 30·29/2 = 435.
+34	c:1:0	foo writes b through the pointer to a → prints 25.
+35	ds:4:0	Heap height = ⌊log₂ 32⌋ = 5.
+36	coa:2:2	1024 lines × tag (20 − 10 − 4 = 6 bits) = 6 × 2¹⁰ bits.
+37	coa:0:0	6-bit opcode (50 types) + 6-bit register → 32 − 12 = 20-bit immediate.
+38	os:1:0	M1 runs P1 (0–20), M2 runs P2 (0–16), then P3 on M2 at 16 and P4 on M1 at 20 → waits 0, 0, 16, 20 → 9 ms.
+39	dbms:1:1	TRC: players p with a team t where p.tid = t.tid and t.tname = 'MI'.
+40	cn:2:0	Longest-prefix match: 109 falls in 145.36.64.0/18 (64–127) → E3.
+41	em:0:2	A² = 2I → A¹³ = 2⁶ A; eigenvalues of A are ±√2 → ±64√2.
+42	dl:0:1	K-map: b1′b0′ + b2′b0′ cover all but 11; add b3b2′b1.
+43	algo:5:0	Diameter 30 → every vertex has eccentricity ≥ 15 → any BFS tree has height ≥ 15.
+44	toc:1:1	Official key: L1 not regular, L2 = a(a+b)⁺a regular. (Note: with |α| = 1, L1 looks like 'first letter = last letter, length ≥ 3' — a known debated question.)
+45	toc:2:2	L1 = aᵐbᵐcᵐ⁺ⁿ needs a = b and #c > #a (two comparisons) → not CFL; L2 = aᵐbⁿcᵐ⁺ⁿ: push a's and b's, pop one per c → CFL.
+46	cd:1:0	ε ∈ FIRST(A) for A → ε; $ goes into FOLLOW(S); FOLLOW never contains ε.
+47	dbms:2:1	name is the key, so team is already in BCNF (and 3NF); t1, t2 are BCNF and the split on name is lossless.
+48	dm:1:0	'Exactly one': some y is the mother, and every z ≠ y is not (B and D).
+49	dm:4:0	Pointwise addition: associative, commutative, identity = zero function, but no inverses in ℕ → Abelian monoid.
+50	toc:0:0	Trace the DFA: it accepts exactly the strings ending in bab.
+51	os:6:0	Each 64 KB block holds 65532 data bytes → 17 blocks; wasted = 17·65532 − 2²⁰ = 65468.
+52	cd:5:0	Leaders 1001, 1002, 1003, 1010, 1012, 1013 → 6 basic blocks.
+53	coa:2:1	AMAT = 0.95·10 + 0.05·(0.85·20 + 0.15·200) = 11.85 ns.
+54	os:5:1	Optimal replacement with a 4-reference look-ahead → 6 page faults.
+55	dbms:1:2	Mark coaches team 10 (MI) → members 1, 3 → min age 26.
+56	em:2:2	No bit flips: 0.99⁵ ≈ 0.951.
+57	cn:2:1	MTU 5000 → 4 fragments (4980·3 + 60); MTU 3000 splits each 4980 into 2 → 2+2+2+1 = 7.
+58	em:2:1	C·∫₁⁴ x² dx = 21C = 1 → P(2 ≤ x ≤ 3) = 19/63 ≈ 0.302.
+59	dl:2:2	State minimisation by partition refinement → 5 states.
+60	dl:2:1	Twisted-ring (Johnson) counter with 4 flip-flops cycles through 8 states (key accepts 7–8).
+61	c:2:0	Counts runs of equal values: 0 | 1 | 2 2 2 | 0 0 | 1 1 → 5.
+62	ds:2:0	Delete from L1 every node (after the head) whose value is in L2: 12, 9, 11, 15 go → 5 nodes left.
+63	c:1:1	gate() keeps every second digit of 14362 → 4, 6 → 46.
+64	algo:3:1	BC is in every MST iff it is never the heaviest edge of a cycle: B-C-A-D-B needs x < 6 → max 5.
+65	ds:5:0	Double hashing: 24 → h1 = 2, h2 = 4 → probes 2, 6, 10 → slot 10 (key accepts 10–11).

@@ -54,7 +54,9 @@ markers = []
 for pi in range(len(d)):
     for k, t, bb in ITEMS[pi]:
         m = MARK.match(t) if k == 'txt' and bb[0] < 100 else None
-        if m: markers.append((pi, bb[1], int(m.group(1))))
+        if m:  # anchor at the top border of the label's row (the label may be vertically centred in a tall cell)
+            above = [h for h in HL[pi] if bb[1] - 150 <= h <= bb[1] + 1]
+            markers.append((pi, max(above) if above else bb[1], int(m.group(1))))
 markers.sort()
 print('markers', len(markers), [m[2] for m in markers])
 
@@ -69,9 +71,9 @@ def line_below(pi, y, lim=45):
     return min(c) if c else y + 8
 
 
-def render(pi, y0, y1):
+def render(pi, y0, y1, x0=60, x1=None):
     p = d[pi]
-    clip = pymupdf.Rect(60, y0 - 1, p.rect.width - 60, y1 + 1)
+    clip = pymupdf.Rect(min(60, x0), y0 - 1, max(p.rect.width - 60, x1 or 0), y1 + 1)
     pix = p.get_pixmap(matrix=pymupdf.Matrix(Z, Z), clip=clip)
     return Image.open(io.BytesIO(pix.tobytes('png'))).convert('RGB')
 
@@ -88,7 +90,7 @@ for i, (pi, y, local) in enumerate(markers):
         if not its: continue
         top = line_above(k, min(it[2][1] for it in its))
         bot = line_below(k, max(it[2][3] for it in its))
-        segs.append((k, top, bot))
+        segs.append((k, top, bot, min(it[2][0] for it in its) - 4, min(d[k].rect.width - 4, max(it[2][2] for it in its) + 4)))  # figures may stick out of the table
         texts += [t for kk, t, _ in its if kk == 'txt']
     parts = [render(*s) for s in segs]
     W = max(p.width for p in parts); H = sum(p.height for p in parts) + 6 * (len(parts) - 1)

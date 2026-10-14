@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:1	'Resolve' = firm determination, which fits 'never wavered'.
+2	ga:0:1	Analogy: a bird lives in a nest, a bee in a hive.
+3	ga:1:1	P eˣ = Q e⁻ˣ for every x forces P e²ˣ = Q constant → P = Q = 0.
+4	ga:3:1	Fold the net into a cube: opposite faces never touch; check adjacent faces in each option.
+5	ga:1:1	A product of two primes has at least 3 divisors, so it is never prime (counter-examples kill the rest).
+6	ga:2:0	'Even if I had known…' implies Ramya did not know.
+7	ga:2:1	Code = reverse the word, then shift each letter +1: BEACH → HCAEB → IDBFC.
+8	ga:2:1	X adds the input (20, 16, 26, 41) and Y multiplies (20, −80, −800, −12000).
+9	ga:1:4	Triangle PLS has half of both the square and the rectangle → area = square = 4 cm².
+10	ga:2:1	A spanning tree of the 5 zones needs 4 bridges that connect all zones (Q, R, T, V).
+11	em:0:0	A² = 5I → A⁸ = 5⁴ I = 625 I.
+12	em:1:2	∫₁ˣ t ln t dt = x²ln x/2 − x²/4 + 1/4 = 1/4 → ln x = 1/2 → x = √e.
+13	ds:3:0	A full binary tree has (n − 1)/2 internal nodes.
+14	em:0:0	L² = L⁻¹ → L³ = I, so M = L⁸ = L² = N → det(M − N) = 0.
+15	dm:1:1	Mathematical induction: P(0) ∧ ∀x (P(x) → P(x+1)) ⇒ ∀x P(x).
+16	cn:2:3	ARP maps IP → MAC; TCP piggybacks ACKs on data segments, so (ii) is false.
+17	cn:2:2	Distance vector uses Bellman-Ford; link state uses Dijkstra.
+18	cn:2:2	RIP runs over UDP (port 520), so it never appears in the IP protocol field (ICMP, IGMP, OSPF do).
+19	c:1:1	Copy shifts 'Hello World!' 2 left but the '\0' is not copied → the old tail 'd!' stays.
+20	algo:1:1	Compare any two elements: the smaller one is surely not the largest → 1 comparison.
+21	cd:4:0	Backpatching fills jump targets later → one-pass code for both Boolean and flow-of-control.
+22	cd:2:0	Rule 1 uses R.i on both sides (neither S nor L); Rule 2 has inherited D.i from C (L only); Rule 3 is synthesized only.
+23	cn:2:1	UDP 7488 + 8 = 7496 bytes; 1480-byte fragments → 5 full + 96 left → 6 fragments, last = 96 + 20 = 116.
+24	toc:2:1	DPDAs accept every regular language, but not all CFLs.
+25	toc:3:1	Emptiness of a CFG is decidable; equivalence, intersection-emptiness and = L(R) are not.
+26	os:1:0	SRTF: P1 0–2, P3 2–8, P1 8–16, P4 16–25, P2 25–38 → turnaround 16, 37, 6, 17 → average 19 ms.
+27	dbms:4:0	Lost update: the interleaving is not isolated and the database ends inconsistent.
+28	coa:0:0	The ISA defines the programmer-visible registers; cache size, levels and clock are implementation details.
+29	algo:5:0	Undirected DFS has only tree/back edges; BFS non-tree edges join levels within ±1; both find components.
+30	toc:1:0	CFL: union yes, complement no; recursive and regular are closed under union, intersection and complement.
+31	dl:0:0	Simplify the gate circuit: F = (XY)′ (equivalent forms in A, B and C).
+32	dl:3:0	Booth: one add/subtract per bit-pair transition 01/10 in Q (with Q₋₁ = 0) → 13.
+33	c:0:1	Subtraction-based Euclid → gcd(126, 105) = 21.
+34	dl:2:1	Each flip-flop halves the frequency: 64 µs / 16 = 4 µs → 250 kHz.
+35	ds:3:1	BST path 10 → 15 → 30 → 20 → 19: 4 edges.
+36	cn:1:1	Stop-and-wait: Tt = 1.5 s, 2Tp = 0.2 s → 1.5 / 1.7 = 88.23%.
+37	algo:3:1	Adding α keeps MST order (every tree has n−1 edges) but penalises paths with more edges.
+38	ds:4:0	Meld: linked list O(1) splice; heap build-heap O(n); BST via merged inorder O(n).
+39	coa:2:2	12 index bits, 1-byte blocks → cache 4 KB; 4 + 12 = 16 address bits → memory 64 KB.
+40	cd:1:2	Build the LR(1) items: no conflicts after merging (LALR(1)), but the SLR FOLLOW sets give a conflict.
+41	algo:1:1	Find the peak by binary search, then binary-search both halves → Θ(log n).
+42	dm:3:1	Pointwise ≤ on 0/1 functions is the Boolean lattice: a partial order and a lattice, not symmetric.
+43	dl:0:1	Read the K-map: corners (x′z′) + xz; option A lists the same corners as minterms.
+44	em:0:3	LU solve: forward L y = Q, back U x = y; P invertible ⇔ U has non-zero pivots.
+45	ds:1:0	Store with each record a pointer to the min below it → O(1) MIN that survives POPs.
+46	dbms:2:1	Find keys: R1 key AD with partial dependency D→E → not 3NF; R2 key C, A→D and A→B with non-prime RHS → not 3NF.
+47	os:5:1	Check each victim against the future: only Optimal (farthest next use) matches every replacement.
+48	os:3:0	Cycle P1→R2→P2→R3→P3→R1→P1: aborting P2 or (P1 and P4) breaks every cycle.
+49	dl:3:1	Decode: X = −9, Y = 6, Z = 12 → check each equation.
+50	dl:0:0	Consensus theorem (B), (A+C)(A′+B) = AB + A′C (C), and the De Morgan / K-map check (D).
+51	cd:1:1	Both grammars are dangling-else ambiguous → neither is LL(1).
+52	toc:1:1	a*b* and the mod-7/mod-9 counters are regular; B ∩ {a,b}* = {aᵐbᵐ} and #a = #b both need unbounded counting.
+53	dbms:4:0	Precedence graph: only schedule B has no cycle.
+54	dbms:1:2	EXISTS, COUNT(*) > 0 and the natural join all work; SIZEOF is not SQL.
+55	coa:2:1	AMAT = 1 + 0.1·(10 + 0.2·100) = 4.0 ns.
+56	coa:4:0	Cycle = max stage 250 + 10 latch = 260 ns; (5 + 999)·260 ns = 261.04 µs.
+57	dbms:3:1	23 into the full leaf C → split and copy 25 up into B; B overflows and splits → the new parent of [25*, 26*] starts at 33.
+58	os:4:1	Inner table page holds 4096/8 = 512 entries (9 bits) + 12-bit offset → outer index b = 32 − 21 = 11.
+59	algo:5:0	Two BFS passes from the farthest vertex find the tree's diameter = 6.
+60	toc:0:0	Track the product mod 7 (never 0 for symbols 1–4) → 6 residue states.
+61	coa:0:2	Total cycles = 4.5 + 6 + 6.6 + 3.9 = 21 × 10⁸ → 6.3 s / 21×10⁸ = 3.0 ns.
+62	c:1:0	a = 50, arr[1] becomes 51, ptr then points to 10 → 50 + 10 + 51 = 111.
+63	c:0:1	g(f(1)) = 22, g(f(2)) = 24 → 46.
+64	em:2:0	Square-invariant: {α, β} = {α², β²}; count the equal-root cases among them → probability 0.5.
+65	em:2:1	E[length of piece containing 0.4] = ∫₀^0.4 (1−u) du + ∫_0.4^1 u du = 0.74.
