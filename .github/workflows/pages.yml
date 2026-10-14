@@ -2,7 +2,7 @@ name: Deploy tracker to GitHub Pages
 
 on:
   push:
-    branches: [main, claude/gifted-fermat-8rnnn7]
+    branches: [main, claude/gifted-fermat-8rnnn7, claude/blissful-newton-6x5w6m]
   workflow_dispatch:
 
 permissions: {}
