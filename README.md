@@ -29,14 +29,14 @@ Static website (HTML/CSS/JS, koi server nahi) jo GitHub Pages pe chalti hai. Dat
 
 ## PYQ bank
 
-Abhi bank me: **GATE CSE 2017 (Set 2), 2018, 2019, 2020, 2022, 2023, 2025 (Set 1 + 2), 2026 (Set 1 + 2) — 650 questions**. `js/pyq-bank.js` me questions + `pyq/img/` me question images (official paper se crop).
+Abhi bank me: **GATE CSE 2017 (Set 2), 2018, 2019, 2020, 2022, 2023, 2024 (Set 1 + 2), 2025 (Set 1 + 2), 2026 (Set 1 + 2) — 780 questions**. `js/pyq-bank.js` me questions + `pyq/img/` me question images (official paper se crop).
 
 > Official key na ho to answers haath se solve karke key file me `"src": "solved"` likho — quiz me "* (self-solved key)" dikhega. Official key milte hi key file badal ke step 4 dobara chalao.
 
 Naya saal jodne ke steps (`pip install pymupdf pillow`):
 1. `python3 tools/parse_key.py key.pdf /tmp/Y/key.json [--pages a,b]` (scanned key → JSON by hand, see `pyq/data/2019.json`)
 2. `python3 tools/crop_paper.py paper.pdf YEAR /tmp/Y` (scanned: `--scanned 50 735 --markers pyq/data/markers/YEAR.json`) → images `pyq/img/` me copy karo
-   (GATE 2025+ table-layout papers: `python3 tools/crop_table_paper.py paper.pdf YEAR /tmp/Y` — khaali answer box / watermark crop me nahi aata)
+   (GATE 2024+ papers (label beside the question / table layout): `python3 tools/crop_table_paper.py paper.pdf YEAR /tmp/Y` — khaali answer box / watermark crop me nahi aata)
 3. `pyq/data/YEAR-map.tsv` me har question ka `subject:topic:subtopic` + concept likho
 4. `python3 tools/build_pyq_bank.py add-year YEAR /tmp/Y/key.json /tmp/Y/meta.json && python3 tools/build_pyq_bank.py build`
 

@@ -11,7 +11,7 @@ pdf, tag, outdir = sys.argv[1:4]
 os.makedirs(outdir + '/img', exist_ok=True)
 d = pymupdf.open(pdf)
 Z = 2.0
-NOISE = re.compile(r'Organi[sz]ing Institute|Page \d+ of \d+|^Computer Science & Information Technology|'
+NOISE = re.compile(r'Organi[sz]ing Institute|Page \d+ of \d+|^Computer Science (&|and) Information Technology|'
                    r'[Cc]arry (ONE|TWO) [Mm]arks?|^General Aptitude|^Q\.\s?\d+\s*[–-]\s*Q\.\s?\d+|END OF (THE )?QUESTION PAPER', re.I)
 MARK = re.compile(r'^Q\.\s?(\d{1,2})(?:\s|$)(?!.*([Cc]arry|–))')  # label may share a line with the question text
 
@@ -34,7 +34,8 @@ def page_items(pi):
     for dr in p.get_drawings():
         r = dr['rect']
         if r.width > 2 and r.height > 2 and r.y0 > 85 and r.y1 < H - 45 and not (r.width > 400 and r.height > 300):
-            if dr.get('fill') is not None and r.width < 400:
+            pale = min(dr['fill'] or (0,)) >= 0.7 or (dr.get('fill_opacity') or 1) < 0.9  # watermark letters
+            if dr.get('fill') is not None and r.width < 400 and not pale:
                 out.append(('fig', '', tuple(r)))
     return out
 
@@ -48,6 +49,19 @@ def hlines(pi):
     return sorted(ys)
 
 
+def para_top(pi, lb):
+    """No table borders (e.g. GATE 2024): the label is centred beside the question's first lines,
+    so walk up from the text line next to the label while the lines are packed together."""
+    body = sorted((it[2] for it in ITEMS[pi] if it[0] == 'txt' and it[2][0] >= 110), key=lambda b: b[1])
+    cur = [b for b in body if b[1] <= lb[3] and b[3] >= lb[1]]
+    if not cur: return lb[1]
+    top = min(b[1] for b in cur)
+    while True:
+        prev = [b for b in body if top - 6 <= b[3] <= top + 1 and b[1] < top - 1]
+        if not prev: return min(top, lb[1])
+        top = min(b[1] for b in prev)
+
+
 ITEMS = {pi: page_items(pi) for pi in range(len(d))}
 HL = {pi: hlines(pi) for pi in range(len(d))}
 markers = []
@@ -56,7 +70,7 @@ for pi in range(len(d)):
         m = MARK.match(t) if k == 'txt' and bb[0] < 100 else None
         if m:  # anchor at the top border of the label's row (the label may be vertically centred in a tall cell)
             above = [h for h in HL[pi] if bb[1] - 150 <= h <= bb[1] + 1]
-            markers.append((pi, max(above) if above else bb[1], int(m.group(1))))
+            markers.append((pi, max(above) if above else para_top(pi, bb), int(m.group(1))))
 markers.sort()
 print('markers', len(markers), [m[2] for m in markers])
 

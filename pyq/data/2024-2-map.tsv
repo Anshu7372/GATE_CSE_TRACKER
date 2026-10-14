@@ -1,0 +1,66 @@
+# n	subject:topic:subtopic	concept (what the question tests)
+1	ga:0:1	Increasing intensity: bothered → fazed → daunted.
+2	ga:1:2	All orders of 4 distinct elements: 4! = 24 attempts each.
+3	ga:1:0	Venn: 8500 like at least one; core = x, other = 4x, both 500 → 5x − 500 = 8500 → core = 1800.
+4	ga:1:1	ln((x+y)/2) = ln√(xy) → x = y → x/y + y/x = 2.
+5	ga:2:1	Differences 3, 5, 7, 9, 11 → x = 14 + 7 = 21.
+6	ga:0:2	Order the sentences: introduction (collision), consequence, effect on climate, conclusion.
+7	ga:1:0	Same selling price with ±10% → overall loss of (10)²/100 = 1%.
+8	ga:1:3	Renewables rise from 40% to 65% of the total → (65 − 40)/40 = 62.5% increase.
+9	ga:3:1	Three perpendicular straight cuts divide a cube into 8 equal pieces.
+10	ga:2:1	Count non-cross neighbours for each cell of the filled last row → total 11.
+11	coa:3:1	1% of 4 MHz = 40,000 stolen cycles/s × 8 bytes × 8 bits = 25,60,000 bps.
+12	dm:0:0	'Fail cannot be given when marks > 50%' → q → ¬p.
+13	c:1:1	Right-to-left argument evaluation prints 20 then 10, then f prints x and y → 20101020.
+14	dl:3:1	Exponent 1111 1111 is Inf/NaN; the largest finite value is exponent 1111 1110 with all-ones mantissa.
+15	dm:6:1	Characteristic roots 2 and 3; T(0) = 1, T(1) = 2 give T(n) = 2ⁿ → Θ(2ⁿ).
+16	em:1:2	f(x) + f(2 − x) = 1 → ∫₀² f = ∫₀² f(2 − x) dx → 2I = 2 → I = 1.
+17	dm:5:2	A² = I for a 0/1 adjacency matrix forces every vertex to have degree 1 → perfect matching.
+18	em:2:0	6! / 6⁶ = 720/46656 = 5/324.
+19	dbms:4:0	Committed effects surviving a crash = durability.
+20	dbms:0:0	A weak entity must participate totally in its identifying relationship.
+21	cd:0:0	Lexer → tokens, parser → parse tree, ICG → AST/IR, optimiser → constant folding.
+22	toc:0:1	Convert the DFA to a regular expression: 0*1(0 + 10*1)*.
+23	cn:2:3	Leaving X: destination IP is Y (end host); destination MAC is the next IP hop R, not the switch.
+24	os:4:1	The MMU translates addresses and traps on invalid or read-only violations; the OS allocates page tables.
+25	os:0:0	A blocking read and a page fault from swap always block P; interrupts may return to P.
+26	dbms:3:0	A full scan reads pages sequentially: sorted and heap files are efficient, unclustered indexes are not.
+27	dbms:4:1	2PL guarantees serializability, has growing/shrinking phases and can deadlock.
+28	cn:2:1	IPv4 routers fragment when needed; only the destination reassembles.
+29	cd:2:0	L-attributed definitions can always be evaluated depth-first; not all can be done bottom-up.
+30	dl:0:0	x + 1 = 1 (not x) and x·x = x (not 0).
+31	coa:4:1	I1 writes R3 and I2 reads it (RAW); check each other pair for WAR/WAW.
+32	cn:2:1	Every router decrements TTL and therefore recomputes the header checksum.
+33	c:1:1	fX is strlen via pointer subtraction; it compiles and returns for string literals and arrays.
+34	dm:3:0	Linear extensions of {1<2, 3<2, 3<4} on {1,2,3,4} → 5.
+35	algo:1:0	Keep a longest non-decreasing subsequence (2,3,4,6 → length 4) → replace 7 − 4 = 3.
+36	c:1:0	q − p = 1 element (not bytes); *q − *p = 5 → prints 1,5.
+37	os:1:0	Gantt charts: SRTF average waiting 6, non-preemptive SJF 7.5.
+38	cn:2:0	10.12.2.0–10.12.3.255 is 512 addresses aligned on 2.0 → /23.
+39	ds:3:1	Only the inorder traversal (sorted V) is fixed; the shape depends on insertion order.
+40	cd:1:1	Fill the LL(1) table from FIRST/FOLLOW: a → S→AaAb, b → S→BbBa, and the ε-entries.
+41	toc:0:0	Follow the ε-NFA paths: 0* + (1 + 0(00)*)(11)*.
+42	algo:1:1	Track the two most recent values and the run of the last one: P = 1, Q = len1 + 1.
+43	cd:4:0	Triples: (1) =[] s i, (3) * (0) (2), (6) []= x i.
+44	em:2:1	x, y ∈ [0,1] → xy ≤ x → E[z] ≤ E[x].
+45	dbms:1:0	≥ 3 persons per city needs three copies of Person → 2 cross products.
+46	os:2:1	Trace the semaphores: T2 → T1 works; T1 first deadlocks on wait(s2) after printing 1.
+47	em:0:0	A row swap negates the determinant and keeps invertibility; symmetry and trace can change.
+48	ds:1:0	Simulate S1 (4 items) with a 2-slot buffer S2 to see which output orders are reachable.
+49	dl:3:0	224₅ = 64₁₀ = 100₈ = 121₇ (and 0x50 = 80).
+50	dl:1:0	Combine f1…f4 through the given circuit → Y = minterms 0–7.
+51	algo:3:1	Swapping edges on a cycle must keep parity: each cycle is all-even or all-odd.
+52	toc:2:0	Each aSbS adds one b and one extra c → n_c = n_b + 1 and n_a > n_c − 2.
+53	coa:2:4	Per sector: 5 ms seek + 5 ms latency + 0.02 ms transfer → 3000 × 10.02 ms ≈ 30.06 s.
+54	cn:3:1	Timeout: ssthresh = 6, cwnd = 1 → 2 → 4 in the third RTT.
+55	cn:1:2	Min frame = 2 × prop delay × rate = 2 × 2.5 µs × 10⁸ = 500 bits.
+56	dbms:2:0	Choose disjoint non-empty X, Y from 4 attributes: 3⁴ − 2·2⁴ + 1 = 50.
+57	coa:0:0	32 − 16 − 2·4 − 3 = 5 opcode bits → 32 opcodes per addressing mode.
+58	coa:4:0	Pipelined CPI = 1 + 0.2·2 + 0.2·3 = 2 vs 6 → speed-up 3.
+59	algo:3:1	Count the choices among equal-weight edges that keep a minimum spanning tree → 9.
+60	dm:5:3	The graph is bipartite (no odd cycle) → chromatic number 2.
+61	coa:0:0	8-bit opcode (1 type bit + 7 for 75 ops), 6-bit registers → X = 32 − 8 − 18 = 6, Z = 32 − 8 − 12 = 12 → 6 + 16 + 12 = 34.
+62	toc:0:1	L1 = strings with an odd number of a's: count those of length ≤ 4 → 15.
+63	dm:4:1	Self-inverse elements: 2 × 1 × 2 = 4 (elements of order ≤ 2 in each factor).
+64	os:4:1	Outer directory + inner tables of 1024 PTEs: min 1 + 2 = 3 pages, max 1 + 1024 (every page in a different inner table) = 1025 → 1028.
+65	cd:1:2	GOTO(I0, S) contains S′→S•, S→S•S plus the closure items for S → 9.
