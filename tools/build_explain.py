@@ -62,7 +62,10 @@ def parse(path):
 
 def build(paper):
     path = SRC / f"{paper}.md"
-    bank = {q["n"]: q for q in json.loads((ROOT / "pyq" / "data" / f"{paper}.json").read_text())}
+    src = ROOT / "pyq" / "data" / f"{paper}.json"
+    if paper.startswith("ugc-"):          # UGC NET papers live in pyq/ugc/data/<paper without "ugc-">.json
+        src = ROOT / "pyq" / "ugc" / "data" / f"{paper[4:]}.json"
+    bank = {q["n"]: q for q in json.loads(src.read_text())}
     qs = parse(path)
     out, problems = {}, []
     for n in sorted(bank):

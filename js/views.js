@@ -7,7 +7,7 @@ const ui = {
 };
 
 const NAV = [
-  ["dashboard", "📊", "Dashboard"], ["today", "📅", "Aaj"], ["syllabus", "📚", "Syllabus"], ["quiz", "✍️", "PYQ Quiz"],
+  ["dashboard", "📊", "Dashboard"], ["today", "📅", "Aaj"], ["syllabus", "📚", "Syllabus"], ["quiz", "✍️", "PYQ Quiz"], ["ugc", "🎓", "UGC NET PYQ"],
   ["pyqmap", "🗺", "PYQ Map"], ["schedule", "🗓", "Schedule"], ["pomodoro", "🍅", "Pomodoro"], ["revision", "🔁", "Revision"],
   ["mocks", "📝", "Mocks"], ["notes", "🗒", "Short Notes"], ["errors", "❌", "Error Log"], ["claude", "🤖", "Claude"], ["settings", "⚙️", "Settings"],
 ];
@@ -18,15 +18,15 @@ const statusChip = (s) => ({ revise: '<span class="chip ok">Revise</span>', part
 const freqChip = (f) => `<span class="chip f${esc(f)}">PYQ: ${esc(FREQ_LABEL[f])}</span>`;
 const depthChip = (d) => `<span class="depth d${+d}" title="${esc(DEPTH_HELP[d])}">${esc(DEPTH_LABEL[d])}</span>`;
 const topicName = (key) => (TOPIC[key] ? `${TOPIC[key].s.name} › ${TOPIC[key].n}` : key);
-const safeImg = (p) => (typeof p === "string" && /^pyq\/img\/[\w.-]+\.(png|webp|jpg|jpeg|svg)$/.test(p) ? p : "");
+const safeImg = (p) => (typeof p === "string" && /^pyq\/(ugc\/)?img\/[\w.-]+\.(png|webp|jpg|jpeg|svg)$/.test(p) ? p : "");
 // ---------- detailed explanations: js/explain/<paper>.js, loaded only when a question of that paper opens ----------
 const ASSET_V = (() => { try { return new URL(document.currentScript.src).searchParams.get("v") || "dev"; } catch (e) { return "dev"; } })();
 window.PYQ_EXPLAIN = window.PYQ_EXPLAIN || {};
 const XP_STATE = {}; // paper → "loading" | "ok" | "missing"
-const paperOf = (q) => String(q.y) + (q.set ? "-" + q.set : "");
+const paperOf = (q) => (typeof q.xp === "string" ? q.xp : String(q.y) + (q.set ? "-" + q.set : ""));
 function loadExplain(q) {
   const p = paperOf(q);
-  if (!/^\d{4}(-\d)?$/.test(p) || XP_STATE[p]) return;
+  if (!/^(\d{4}(-\d)?|ugc-[\w-]{1,30})$/.test(p) || XP_STATE[p]) return;
   XP_STATE[p] = "loading";
   const el = document.createElement("script");
   el.src = `js/explain/${p}.js?v=${encodeURIComponent(ASSET_V)}`;
@@ -741,5 +741,5 @@ function viewSettings() {
       ${saveFailed ? '<p class="warn-text">⚠️ Browser storage me save nahi ho raha — turant Export karo.</p>' : ""}</section>`;
 }
 
-const VIEWS = { dashboard: viewDashboard, today: viewToday, syllabus: viewSyllabus, quiz: viewQuiz, pyqmap: viewPyqMap, schedule: viewSchedule, pomodoro: viewPomodoro,
+const VIEWS = { dashboard: viewDashboard, today: viewToday, syllabus: viewSyllabus, quiz: viewQuiz, ugc: viewUgc, pyqmap: viewPyqMap, schedule: viewSchedule, pomodoro: viewPomodoro,
   revision: viewRevision, mocks: () => pageHead("📝 Mocks & Analysis") + viewMocks(), notes: viewNotes, errors: viewErrors, claude: viewClaude, settings: viewSettings };

@@ -50,7 +50,7 @@ const TOPIC_KEY_RE = /^([a-z]+):(\d+)$/;
 const validTopicKey = (k) => typeof k === "string" && !!TOPIC[k];
 
 function blankState() {
-  return { settings: { ...DEFAULT_SETTINGS }, topics: {}, subs: {}, tstatus: {}, pyq: {}, days: {}, mocks: [], errors: [], analyses: [], rev: {}, quiz: {}, bm: {}, pomo: {}, notes: {}, frozen: null };
+  return { settings: { ...DEFAULT_SETTINGS }, topics: {}, subs: {}, tstatus: {}, pyq: {}, days: {}, mocks: [], errors: [], analyses: [], rev: {}, quiz: {}, bm: {}, pomo: {}, notes: {}, frozen: null, ugc: { quiz: {}, bm: {} } };
 }
 
 function cleanTopicState(v) {
@@ -140,6 +140,15 @@ function sanitizeState(raw) {
     if (!/^[\w-]{1,40}$/.test(k) || !isObj(a)) return;
     b.quiz[k] = { g: str(a.g, 40), ok: bool(a.ok), at: dateOr(a.at, today()), n: clampInt(a.n, 1, 999, 1), t: clampInt(a.t, 0, 36000, 0), guess: bool(a.guess) };
   });
+  if (isObj(raw.ugc)) { // UGC NET section progress (separate from GATE)
+    const u = raw.ugc;
+    if (isObj(u.quiz)) Object.keys(u.quiz).slice(0, 10000).forEach((k) => {
+      const a = u.quiz[k];
+      if (!/^ugc-[\w-]{1,40}$/.test(k) || !isObj(a)) return;
+      b.ugc.quiz[k] = { g: /^[A-D]$/.test(a.g) ? a.g : "", ok: bool(a.ok), at: dateOr(a.at, today()), n: clampInt(a.n, 1, 999, 1) };
+    });
+    if (isObj(u.bm)) Object.keys(u.bm).slice(0, 5000).forEach((k) => { if (/^ugc-[\w-]{1,40}$/.test(k) && u.bm[k] === true) b.ugc.bm[k] = true; });
+  }
   if (isObj(raw.bm)) Object.keys(raw.bm).slice(0, 5000).forEach((k) => { if (/^[\w-]{1,40}$/.test(k) && raw.bm[k] === true) b.bm[k] = true; });
   if (isObj(raw.pomo)) Object.keys(raw.pomo).slice(0, 2000).forEach((k) => {
     const p = raw.pomo[k];
