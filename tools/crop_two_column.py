@@ -37,10 +37,19 @@ def divider(p):
     return p.rect.width / 2
 
 
+XREF_PAGES = {}  # image xref -> number of question pages it appears on
+for _pi in PAGES:
+    for _img in d[_pi].get_images(full=True):
+        XREF_PAGES[_img[0]] = XREF_PAGES.get(_img[0], 0) + 1
+
+
 def strip_watermark(p):
+    """Remove the big centred logo: a large image repeated on most pages (a question's own figure is not)."""
     for img in p.get_images(full=True):
+        if XREF_PAGES.get(img[0], 0) < max(3, len(PAGES) // 2):
+            continue
         for r in p.get_image_rects(img[0]):
-            if r.width > 200 and r.height > 200:      # the big centred logo
+            if r.width > 200 and r.height > 200:
                 p.delete_image(img[0])
                 break
 
