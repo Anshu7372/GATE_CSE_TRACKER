@@ -34,7 +34,7 @@ SECTIONS = ("hint", "concept", "tips", "sol", "refs")
 def parse(path):
     qs, cur, sec = {}, None, None
     for ln, line in enumerate(path.read_text().split("\n"), 1):
-        m = re.match(r"^@@\s*(\d{1,2})\s*$", line)
+        m = re.match(r"^@@\s*(\d{1,3})\s*$", line)
         if m:
             cur = {"n": int(m.group(1))}
             if cur["n"] in qs:
