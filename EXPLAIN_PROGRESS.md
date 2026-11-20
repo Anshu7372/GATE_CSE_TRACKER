@@ -39,3 +39,11 @@ Goal: every PYQ in the quiz gets 🏷 subtopic tag, GATE 2027 syllabus tag, 💡
 - Fixed: Dec 2024 Q93 key changed PW (D) → (B), marked self-solved (option B is the 4-state min DFA)
 - Fixed: June 2024 Re-Exam Q41 key PW (A) → (C), self-solved (C and D both can't be BCNF + dependency preserving; A can)
 - Fixed: June 2024 Re-Exam Q86 key PW (C) → (A), self-solved (B = Θ(log n) can't match "Θ(n) exact")
+
+## UGC NET Expected Papers — Dec 2026 (Paper 2)
+- 3 full sets × 100 MCQ, source: pyq/ugc/expected/2026-12-s{1,2,3}.md → `python3 tools/build_ugc_expected.py`
+  (writes js/ugc-expected.js + js/explain/ugc-exp-*.js; validates units, options, answer letter vs solution).
+- Blueprint: unit counts = 10-paper average (U1 11, U2 9, U3 10, U4 10, U5 11, U6 10, U7 9, U8 11, U9 11, U10 8);
+  two 5-question passages per set (always one OS passage, as in recent papers); answers balanced A–D.
+- All questions newly written (no PYQ copied); textbook-classic data replaced with fresh numbers; every numeric
+  answer computed/verified with a script. Shown on the UGC NET page as "🔮 Expected Papers".
