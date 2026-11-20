@@ -34,6 +34,6 @@ Goal: every PYQ in the quiz gets 🏷 subtopic tag, GATE 2027 syllabus tag, 💡
 - The renderer (`mdLite` in `js/views.js`) supports **bold**, `code`, `-` lists, `1.` lists (indented lines continue a step), `###` headings and fenced code blocks. Single `*italics*` are not supported — don't use them.
 
 ## UGC NET Paper 2 explanations (deep format: full topic + "Is topic se aur kya puchha ja sakta hai")
-- Done: June 2025 (100/100) → pyq/explain/ugc-2025-06-p2.md
-- Next order: Dec 2024, June 2024 Re-Exam, Dec 2023, June 2023, Dec 2022 (Shift II), Dec 2022, Sep 2022, Nov 2021, Nov 2020
-- Known PW key doubt to check: Dec 2024 Q93 (PW says "All are NFA"; option B looks like a correct min DFA)
+- Done: June 2025 (100/100), Dec 2024 (100/100)
+- Next order: June 2024 Re-Exam, Dec 2023, June 2023, Dec 2022 (Shift II), Dec 2022, Sep 2022, Nov 2021, Nov 2020
+- Fixed: Dec 2024 Q93 key changed PW (D) → (B), marked self-solved (option B is the 4-state min DFA)

@@ -1205,8 +1205,8 @@
   "t": 1,
   "img": "pyq/ugc/img/ugc-2024-12-p2-93.webp",
   "q": "Directions (91-95) Read the following passage\nand answer the given questions.\nA machine is represented by states\n, input\nalphabet\n, transition function . Initial state\nand final state F. The machine accepts all the\nstrings over\n, which start and ended\nwith any combination of all alphabet and\nworks/lies as substring in all the strings to be\naccepted.\nQ\n∑\no^\nq0\n∑= {a, b}\nabb\nQ93\nWhich of the following represented the\nminimum\nstate\nDFA\nfor\nthe\nabove\nspecified passage?\n(A)\n(B)\n(C)\n(D) All are NFA",
-  "ans": "D",
-  "ks": "pw"
+  "ans": "B",
+  "ks": "solved"
  },
  {
   "id": "ugc-2024-12-p2-94",
