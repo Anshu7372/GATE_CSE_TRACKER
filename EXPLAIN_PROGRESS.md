@@ -47,3 +47,8 @@ Goal: every PYQ in the quiz gets 🏷 subtopic tag, GATE 2027 syllabus tag, 💡
   two 5-question passages per set (always one OS passage, as in recent papers); answers balanced A–D.
 - All questions newly written (no PYQ copied); textbook-classic data replaced with fresh numbers; every numeric
   answer computed/verified with a script. Shown on the UGC NET page as "🔮 Expected Papers".
+- Rework (pattern match): per set ~25 statement-type, ~10 arrange, 10–17 match, 2 passages (like 2024–25 papers);
+  GATE-style new questions (overflow, routing table LPM, division, BCNF statements, TCP ACK, fragmentation, fork,
+  2-level cache, pipeline stalls, static recursion); extra questions on topics that repeat in 10/10 sessions
+  (data link, normalization, coupling, recurrences, disk scheduling, ANN, logic). All C/C++ outputs compiled & checked.
+  UGC page analysis now shows a repeat-topic table and the confirmed GATE→UGC reuse list.

@@ -175,7 +175,7 @@ function ugcExpectedCard() {
       <div class="pills"><button class="btn sm" data-ugc="expset" data-set="${esc(st.id)}">▶ ${a.length ? "Dobara do" : "Paper do"}</button>${w ? `<button class="btn ghost sm" data-ugc="expset" data-set="${esc(st.id)}" data-only="wrong">❌ Galat (${w})</button>` : ""}</div></div>`;
   }).join("");
   return `<section class="card"><h2>🔮 Expected Papers — UGC NET Dec 2026 (Paper 2)</h2>
-    <p class="muted">${UGC_EXP_SETS.length} full-length practice papers (100 MCQ × 2 marks, koi negative nahi), pichhle ${new Set(UGC_Q.filter((q) => q.p === 2).map((q) => q.s)).size} Paper-2 sessions ke analysis se: unit weightage, baar-baar aane wale topics aur naya question format (statements, match, arrange, passage). Har question ka answer aur poora solution diya hai.</p>
+    <p class="muted">${UGC_EXP_SETS.length} full-length practice papers (100 MCQ × 2 marks, koi negative nahi), pichhle ${new Set(UGC_Q.filter((q) => q.p === 2).map((q) => q.s)).size} Paper-2 sessions ke pattern pe: har unit se utne hi sawaal jitne average aate hain, har session me repeat hone wale topics, setter ki books (Galvin, Forouzan, Pressman, Mano, Korth, Rosen, Linz, Dragon Book), GATE se uthaaye sawaalon jaise GATE-style sawaal, aur haal ke papers jaisa format (lagbhag 25 statement, 10 arrange, 10–17 match, 2 passages). Har question ka answer aur poora solution diya hai.</p>
     <p class="tiny"><b>Note:</b> ye official ya leaked paper nahi hai — ye exam ke pattern pe based prediction aur practice hai. Inhe syllabus ki taiyari ke saath use karo.</p>
     <div class="grid kpis">${sets}</div>
     <details><summary><b>📊 Analysis dekho — kis unit se kitne sawaal aate hain</b></summary>${ugcTrendTable()}</details>
@@ -195,5 +195,25 @@ function ugcTrendTable() {
     .sort((a, b) => b[1] - a[1]).slice(0, 15).map(([k, n]) => { const [u, t] = k.split(":"); return `<li>${esc(UGC_UNIT[u].topics[+t] || "")} <span class="muted">(${esc(UGC_UNIT[u].name)})</span> — <b>${n}</b> PYQs</li>`; }).join("");
   return `<div class="table-wrap"><table class="tbl"><thead><tr><th>Unit</th>${sess.map((s) => `<th title="${esc(s)}">${esc(short(s))}</th>`).join("")}<th>Avg</th><th>Expected sets 1/2/3</th></tr></thead><tbody>${rows}</tbody></table></div>
     <p class="tiny muted">* = Re-Exam / Shift II. Expected papers me har unit ke sawaal isi average ke aas-paas rakhe gaye hain.</p>
-    <h3>Sabse zyada puchhe gaye topics (10 papers)</h3><ol>${top}</ol>`;
+    <h3>Sabse zyada puchhe gaye topics (10 papers)</h3><ol>${top}</ol>
+    ${ugcRepeatTable(p2, sess)}`;
+}
+
+// Topics that keep coming back, session by session, and how many expected-paper questions cover each.
+function ugcRepeatTable(p2, sess) {
+  const key = (q) => q.u + ":" + q.t, rows = {};
+  p2.forEach((q) => { const r = (rows[key(q)] = rows[key(q)] || { s: new Set(), n: 0, e: 0 }); r.s.add(q.s); r.n++; });
+  UGC_EXP.forEach((q) => { if (rows[key(q)]) rows[key(q)].e++; });
+  const list = Object.entries(rows).sort((a, b) => b[1].s.size - a[1].s.size || b[1].n - a[1].n).slice(0, 30).map(([k, r]) => {
+    const [u, t] = k.split(":");
+    return `<tr><td>${esc(UGC_UNIT[u].topics[+t] || "")} <span class="muted tiny">${esc(UGC_UNIT[u].name)}</span></td><td><b>${r.s.size}/${sess.length}</b></td><td>${r.n}</td><td>${r.e}</td></tr>`;
+  }).join("");
+  const gate = [["Dec 2022 Q8", "GATE 2022: 4-bit 2's complement overflow"], ["Dec 2022 Q62", "GATE 2022: routing table (longest prefix match)"],
+    ["June 2025 Q17", "GATE 2022: relational division (\"own all brands\")"], ["June 2025 Q70", "GATE 2022: BCNF / 3NF statements"],
+    ["June 2024 (Re-Exam) Q36", "GATE 2014: conflict serializability of S1, S2"], ["June 2024 (Re-Exam) Q41", "GATE 2023: BCNF + dependency preserving (MSQ)"]]
+    .map(([a, b]) => `<li><b>${esc(a)}</b> ← ${esc(b)}</li>`).join("");
+  return `<h3>Har session me repeat hone wale topics</h3>
+    <div class="table-wrap"><table class="tbl"><thead><tr><th>Topic</th><th>Kitne sessions me aaya</th><th>Kul PYQs</th><th>Expected papers me sawaal</th></tr></thead><tbody>${list}</tbody></table></div>
+    <h3>GATE se seedhe uthaaye gaye sawaal (pattern)</h3><ul>${gate}</ul>
+    <p class="tiny muted">Isi pattern ki wajah se expected papers me GATE-style naye sawaal (naye numbers ke saath) rakhe gaye hain: overflow, routing table, division, BCNF statements, TCP ACK, IP fragmentation, fork(), two-level cache, pipeline stalls, static recursion.</p>`;
 }
