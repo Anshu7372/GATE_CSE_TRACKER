@@ -529,8 +529,8 @@
   "t": 3,
   "img": "pyq/ugc/img/ugc-2024-06r-p2-41.webp",
   "q": "Which of the following relations can not be\ndecomposed in to BCNF with a lossless join and\ndependency-preserving decomposition?\n(A) R (V,W,X,Y,Z) {VW→X, WX→V, VX→W, W→Y,\nY→Z}\n(B) R (V,W,X,Y,Z) {VW→W, X→Y}\n(C) R (V,W,X,Y,Z) {VW→X,X→VY}\n(D) R (V,W,X,Y,Z) {VW→X, X→Y, Y→Z, Z→V}",
-  "ans": "A",
-  "ks": "pw"
+  "ans": "C",
+  "ks": "solved"
  },
  {
   "id": "ugc-2024-06r-p2-42",
@@ -1114,8 +1114,8 @@
   "t": 1,
   "img": "pyq/ugc/img/ugc-2024-06r-p2-86.webp",
   "q": "Match List - I with List - II\nList - I\n(Recurrence\nRelation)\nList - II\n(Complexity)\n(A) T(n) = 2T(n/2)\n+ n\n(I) T(n) =\n(B) T(n) = T(n/2)\n+ 1\n(II)\n(C) T(n) = 2T(n/2)\n+ 1\n(III) T(n) =\n(D) T(n) = T(n-1) +\nn\n(IV) O(n)\nChoose the correct answer from the options\ngiven below:\n(A) (A)-(I), (B)-(IV), (C)-(III), (D)-(II)\n(B) (A)-(IV), (B)-(II), (C)-(I), (D)-(III)\n(C) (A)-(I), (B)-(III), (C)-(IV), (D)-(II)\n(D) (А)-(III), (B)-(I), (C)-(IV), (D)-(II)\nθ(n  log n)\n{exact solution}\nO(\n)\nn2\nθ(n) {exact solution}",
-  "ans": "C",
-  "ks": "pw"
+  "ans": "A",
+  "ks": "solved"
  },
  {
   "id": "ugc-2024-06r-p2-87",
